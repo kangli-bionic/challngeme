@@ -6,7 +6,7 @@ module.exports = {
         bundle: __dirname +'/app/index.js',
         jquery: 'jquery',
         bootstrap: 'bootstrap',
-        vendor: ['react', 'react-dom'],
+        vendor: ['react', 'react-dom']
     },
     output: {
         filename: '[name].js',
