@@ -5,8 +5,7 @@ module.exports = {
     entry: {
         bundle: __dirname +'/app/index.js',
         jquery: __dirname + '/node_modules/jquery/src/jquery.js',
-        bootstrap: ['bootstrap',
-            __dirname+'/app/js/jquery.easing.js'],
+        bootstrap: ['bootstrap'],
         vendor: ['react', 'react-dom']
     },
     output: {
