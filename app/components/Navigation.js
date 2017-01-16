@@ -10,7 +10,7 @@ export function Navigation(props){
                     <button type="button" className="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                         <span className="sr-only">Toggle navigation</span> Menu <i className="fa fa-bars"></i>
                     </button>
-                    <a className="navbar-brand page-scroll" href="#page-top">Challnge me!</a>
+                    <a className="navbar-brand page-scroll" href="#page-top">{props.title}</a>
                 </div>
                 <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul className="nav navbar-nav navbar-right">
@@ -18,19 +18,13 @@ export function Navigation(props){
                             <a href="#page-top"></a>
                         </li>
                         <li>
-                            <a className="page-scroll" href="#services">Services</a>
+                            <a className="page-scroll" href="#home">Home</a>
                         </li>
                         <li>
-                            <a className="page-scroll" href="#portfolio">Portfolio</a>
+                            <a className="page-scroll" href="#how-to-play">How to play</a>
                         </li>
                         <li>
-                            <a className="page-scroll" href="#about">About</a>
-                        </li>
-                        <li>
-                            <a className="page-scroll" href="#team">Team</a>
-                        </li>
-                        <li>
-                            <a className="page-scroll" href="#contact">Contact</a>
+                            <a className="page-scroll" href="#contact">Contact Us</a>
                         </li>
                     </ul>
                 </div>
@@ -41,7 +35,7 @@ export function Navigation(props){
 
 export function Header(props){
     return (
-        <header>
+        <header id="home">
             <div className="container">
                 <div className="intro-text col-md-7">
                     <div className="intro-heading">{props.title}</div>

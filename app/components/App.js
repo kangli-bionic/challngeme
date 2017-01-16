@@ -4,12 +4,12 @@ import ReactDOM from 'react-dom';
 import {Navigation, Header} from './Navigation.js';
 import {Feature, FeatureContainer} from './Feature.js';
 import {Footer} from './Footer.js';
-
+import {ContactForm} from './ContactForm.js';
 
 function App(props){
     return (
         <div>
-            <Navigation/>
+            <Navigation title={props.title} />
             <Header title={props.title} subtitle={props.subtitle}/>
             <FeatureContainer>
                 <Feature
@@ -38,7 +38,7 @@ function App(props){
                 />
 
             </FeatureContainer>
-            <hr/>
+            <ContactForm/>
             <Footer copyright="Copyright &copy; Challnge me! 2017"/>
         </div>
     );

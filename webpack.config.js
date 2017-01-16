@@ -4,8 +4,9 @@ var Webpack = require('webpack');
 module.exports = {
     entry: {
         bundle: __dirname +'/app/index.js',
-        jquery: 'jquery',
-        bootstrap: 'bootstrap',
+        jquery: __dirname + '/node_modules/jquery/src/jquery.js',
+        bootstrap: ['bootstrap',
+            __dirname+'/app/js/jquery.easing.js'],
         vendor: ['react', 'react-dom']
     },
     output: {
@@ -16,7 +17,11 @@ module.exports = {
     plugins:[
         new ExtractTextPlugin({ filename: 'css/[name].css' , disable: false, allChunks: true}),
         new Webpack.optimize.CommonsChunkPlugin({
-            name: ['vendor']
+            name: ['vendor', 'jquery', 'bootstrap', 'manifest']
+        }),
+        new Webpack.ProvidePlugin({
+            $: "jquery",
+            jQuery: "jquery"
         })
     ],
     module: {
@@ -33,7 +38,7 @@ module.exports = {
                 })
             },
             {
-                test: /\.(png|woff|woff2|eot|ttf|svg)$/,
+                test: /\.(png|jpg|woff|woff2|eot|ttf|svg)$/,
                 loader: 'url-loader'
             }
         ]
