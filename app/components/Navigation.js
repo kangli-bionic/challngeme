@@ -26,8 +26,8 @@ export function Header(props){
                     <div className="col-md-5">
                         <UserForm/>
                     </div>
+                    <div style={{clear: 'both'}}></div>
                 </div>
-
             </div>
         </header>
     );
