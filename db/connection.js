@@ -1,6 +1,7 @@
 'use strict';
 
 var orm = require("orm");
+var promise = require('promise');
 
 var db = orm.connect("mysql://root@localhost/challngeme");
 
@@ -27,7 +28,7 @@ var models = {
             fullName: () => this.name + ' ' + this.lastName
         },
         validations: {
-            email: orm.enforce.unique("Already exists an acoount with this email.")
+            email: orm.enforce.unique("Already exists an account with this email.")
         }
     })
 }
