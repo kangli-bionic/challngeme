@@ -10,8 +10,8 @@ module.exports = {
     },
     output: {
         filename: '[name].js',
-        path: __dirname+'/app/',
-        publicPath: '/app/'
+        path: __dirname+'/app/dist/',
+        publicPath: '/app/dist/'
     },
     plugins:[
         new ExtractTextPlugin({ filename: 'css/[name].css' , disable: false, allChunks: true}),
