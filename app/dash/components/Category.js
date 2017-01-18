@@ -4,9 +4,9 @@ export function Category(props){
 
     return (
         <div className="col-lg-3 col-xs-6 col-md-4 category"
-             data-anijs="if: click, do: $toggleClass selected pulse, to: .category">
+             data-anijs="if: click, do: flipInY animated">
             <div className="small-box bg-aqua">
-                <div className="inner">
+                <div className="inner" >
                     <h3>{props.name}</h3>
                     <p>{props.description}</p>
                 </div>
@@ -34,6 +34,7 @@ export class CategoryForm extends React.Component{
         const that = this;
         $.get('/dash/category')
             .done((data) => {
+                console.log(data);
                 that.setState({
                      categories: data
                 });
@@ -45,9 +46,10 @@ export class CategoryForm extends React.Component{
 
     render(){
         const categories = this.state.categories.map((category) =>{
-            <Category key={category.id} name={category.name}
+           return <Category key={category.id} name={category.name}
                 description={category.description}/>
-        })
+        });
+
         return (
           <div className="row">
               <form>

@@ -7,9 +7,11 @@ import {Navigation, Header} from './Navigation';
 function Dashboard(props){
     return (
         <div className="wrapper">
-            <Header/>
+            <Header title={props.title}/>
             <Navigation/>
-            <CategoryForm/>
+            <div className="content-wrapper">
+                <CategoryForm/>
+            </div>
         </div>
     );
 }

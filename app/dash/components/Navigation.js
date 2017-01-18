@@ -5,7 +5,7 @@ export function Header(props){
         <header className="main-header">
             <a href="index2.html" className="logo">
                 <span className="logo-mini"><b>A</b>LT</span>
-                <span className="logo-lg"><b>Admin</b>LTE</span>
+                <span className="logo-lg">{props.title}</span>
             </a>
             <nav className="navbar navbar-static-top">
                 <a href="#" className="sidebar-toggle" data-toggle="offcanvas" role="button">
@@ -13,12 +13,7 @@ export function Header(props){
                 </a>
                 <div className="navbar-custom-menu">
                     <ul className="nav navbar-nav">
-                        <li className="dropdown messages-menu">
-                            <a href="#" className="dropdown-toggle" data-toggle="dropdown">
-                                <i className="fa fa-envelope-o"></i>
-                                <span className="label label-success">4</span>
-                            </a>
-                        </li>
+
                         <li className="dropdown user user-menu">
                             <a href="#" className="dropdown-toggle" data-toggle="dropdown">
                                 <img src="dist/img/user2-160x160.jpg" className="user-image" alt="User Image"/>
@@ -55,12 +50,8 @@ export function Header(props){
                                 </li>
                             </ul>
                         </li>
-                        <li>
-                            <a href="#" data-toggle="control-sidebar"><i className="fa fa-gears"></i></a>
-                        </li>
                     </ul>
                 </div>
-
             </nav>
         </header>
     );

@@ -4940,3 +4940,8 @@ table.text-center th {
     white-space: normal !important;
   }
 }
+
+.logo-lg{
+  foncolor: #fed136;
+  font-family: "Kaushan Script", "Helvetica Neue", Helvetica, Arial, cursive;
+}

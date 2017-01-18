@@ -5,12 +5,12 @@ module.exports = {
     entry: {
         bundle: __dirname +'/app/index.js',
         jquery: __dirname + '/node_modules/jquery/src/jquery.js',
-        bootstrap: ['bootstrap'],
+        bootstrap: 'script-loader!'+__dirname +'/node_modules/bootstrap/dist/js/bootstrap.js',
         commonCss:[
             __dirname+'/node_modules/bootstrap/dist/css/bootstrap.css',
             __dirname + '/node_modules/animate.css/animate.css'
         ],
-        anijs: __dirname +'/app/js/anijs.js',
+        anijs: 'script-loader!'+__dirname +'/app/js/anijs.js',
         vendor: ['react', 'react-dom'],
         dash: __dirname + '/app/dash/index.js'
     },

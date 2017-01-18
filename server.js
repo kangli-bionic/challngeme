@@ -23,7 +23,7 @@ app.post('/signUp', (req, res) => {
     });
 });
 
-dashboard.get('/dash/category', (req, res) => {
+dashboard.get('/category', (req, res) => {
     models.Category.find({}, (err, categories) => {
         if(err){
             console.log(err);
