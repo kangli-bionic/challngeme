@@ -6,7 +6,13 @@ module.exports = {
         bundle: __dirname +'/app/index.js',
         jquery: __dirname + '/node_modules/jquery/src/jquery.js',
         bootstrap: ['bootstrap'],
-        vendor: ['react', 'react-dom']
+        commonCss:[
+            __dirname+'/node_modules/bootstrap/dist/css/bootstrap.css',
+            __dirname + '/node_modules/animate.css/animate.css'
+        ],
+        anijs: __dirname +'/app/js/anijs.js',
+        vendor: ['react', 'react-dom'],
+        dash: __dirname + '/app/dash/index.js'
     },
     output: {
         filename: '[name].js',

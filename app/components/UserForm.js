@@ -13,7 +13,10 @@ export class UserForm extends React.Component{
     }
 
     onStart(){
-        $.post('/signUp', {email: this.state.email});
+        $.post('/signUp', {email: this.state.email})
+            .fail((err)=>{
+                alert(err);
+            });
     }
 
     onInputChange(event){

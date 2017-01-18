@@ -6,13 +6,12 @@ var promise = require('promise');
 var db = orm.connect("mysql://root@localhost/challngeme");
 
 
-db.on('connect',
-    (err) => {
-        if (err) {
-            return console.error('Connection error: ' + err);
-        }
+db.on('connect', (err) => {
+    if (err) {
+        return console.error('Connection error: ' + err);
+    }
 
-        console.log('Connected to database');
+    console.log('Connected to database');
 });
 
 var models = {
@@ -30,6 +29,12 @@ var models = {
         validations: {
             email: orm.enforce.unique("Already exists an account with this email.")
         }
+    }),
+    Category: db.define('categories',{
+        id: {type: 'serial', key: true},
+        name: {type: 'text'},
+        description: {type: 'text'},
+        color: {type: 'text'}
     })
 }
 

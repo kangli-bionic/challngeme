@@ -1,27 +1,39 @@
-var express = require('express');
-var bodyParser = require('body-parser');
+const express = require('express');
+const bodyParser = require('body-parser');
 var app = express();
 var models = require('./db/connection');
 
-var dashboard = express.Router;
+var dashboard = express.Router();
 
-var port = process.env.PORT || 3000;
+const port = process.env.PORT || 3000;
 
 app.use(express.static('app'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-
+app.use('/dash', dashboard);
 
 app.post('/signUp', (req, res) => {
     models.User.create({ email: req.body.email}, (err) => {
         if (err){
             console.log(err);
-            res.status(500).send(err.message);
+            res.status(500).send(err.msg);
         }
+        res.redirect('/dash');
+
     });
 });
 
-app.use('/dash', dashboard);
+dashboard.get('/dash/category', (req, res) => {
+    models.Category.find({}, (err, categories) => {
+        if(err){
+            console.log(err);
+            res.status(500).send(err.message);
+        }
+
+        res.json(categories);
+    })
+});
+
 
 app.listen(port);
 
