@@ -10,7 +10,7 @@ module.exports = {
             __dirname+'/node_modules/bootstrap/dist/css/bootstrap.css',
             __dirname + '/node_modules/animate.css/animate.css'
         ],
-        anijs: 'script-loader!'+__dirname +'/app/js/anijs.js',
+        dashUtils: __dirname + '/app/dash/js/dashboard.js',
         vendor: ['react', 'react-dom'],
         dash: __dirname + '/app/dash/index.js'
     },
