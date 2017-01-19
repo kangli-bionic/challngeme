@@ -14,8 +14,11 @@ export class UserForm extends React.Component{
 
     onStart(){
         $.post('/signUp', {email: this.state.email})
+            .done((data) => {
+                window.location = data;
+            })
             .fail((err)=>{
-                alert(err);
+                console.log(err);
             });
     }
 

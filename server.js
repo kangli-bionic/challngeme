@@ -17,9 +17,9 @@ app.post('/signUp', (req, res) => {
         if (err){
             console.log(err);
             res.status(500).send(err.msg);
+        }else{
+            res.send('/dash');
         }
-        res.redirect('/dash');
-
     });
 });
 

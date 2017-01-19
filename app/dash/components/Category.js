@@ -7,10 +7,9 @@ export function Category(props){
         let category = {
             id: props.category.id
         };
-        $category.animateCss('swing');
+        $category.animateCss('rubberBand');
         $category.toggleClass('selected', (selected) => {
-            category.selected = selected;
-            props.toggleCategory(category);
+            props.toggleCategory(category, selected);
         });
 
     }
@@ -58,20 +57,23 @@ export class CategoryForm extends React.Component{
             });
     }
 
-    toggleCategory(category){
-        let selected = [];
-        selected.push(category);
+    toggleCategory(category, selected){
+        let selectedArray = [];
+        selectedArray.push(category);
 
         this.setState((prevState, props) => ({
-            selected: prevState.selected.concat(selected).filter((cat) => {
-                return cat.selected;
+            selected: prevState.selected.concat(selectedArray).filter((cat) => {
+                if(cat.id == category.id && !selected){
+                    return false;
+                }else{
+                    return true;
+                }
             })
         }));
     }
 
     onSave(event){
-        console.log('send selected categories to the server');
-        console.log(this.state.selected);
+
     }
 
     render(){
