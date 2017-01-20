@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const path = require('path');
 var app = express();
 var models = require('./db/connection');
 
@@ -7,7 +8,7 @@ var dashboard = express.Router();
 
 const port = process.env.PORT || 3000;
 
-app.use(express.static('app/home'));
+app.use(express.static('app'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use('/dash', dashboard);

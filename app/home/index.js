@@ -1,2 +1,2 @@
-require('./css/template.css');
-require('./components/App.js');
+require(__dirname +'/css/template.css');
+require(__dirname +'/components/App.js');
