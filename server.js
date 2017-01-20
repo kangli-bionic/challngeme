@@ -1,6 +1,5 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const path = require('path');
 var app = express();
 var models = require('./db/connection');
 
@@ -14,11 +13,15 @@ app.use(bodyParser.json());
 app.use('/dash', dashboard);
 
 app.post('/signUp', (req, res) => {
-    models.User.create({ email: req.body.email}, (err) => {
+    models.User.create({ email: req.body.email}, (err, results) => {
         if (err){
             res.status(500).send(err.msg);
         }else{
-            res.send('/dash');
+            res.json({
+                redirect: '/dash',
+                newUser: true,
+                email: results.email
+            });
         }
     });
 });

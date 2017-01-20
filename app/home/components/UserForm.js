@@ -1,4 +1,5 @@
 import React from 'react';
+import cookie from 'react-cookie';
 
 export class UserForm extends React.Component{
 
@@ -15,7 +16,9 @@ export class UserForm extends React.Component{
     onStart(){
         $.post('/signUp', {email: this.state.email})
             .done((data) => {
-                window.location = data;
+                cookie.save('user', data.email, { path: '/' });
+                cookie.save('newUser', data.newUser, { path: '/' });
+                window.location = data.redirect;
             })
             .fail((err)=>{
                 console.log(err);
