@@ -3,14 +3,14 @@ var Webpack = require('webpack');
 
 module.exports = {
     entry: {
-        bundle: __dirname +'/app/index.js',
+        home: __dirname +'/app/home/index.js',
         jquery: __dirname + '/node_modules/jquery/src/jquery.js',
-        bootstrap: 'script-loader!'+__dirname +'/node_modules/bootstrap/dist/js/bootstrap.js',
-        commonCss:[
+        common:[
             __dirname+'/node_modules/bootstrap/dist/css/bootstrap.css',
-            __dirname + '/node_modules/animate.css/animate.css'
+            __dirname + '/node_modules/animate.css/animate.css',
+            'script-loader!'+__dirname +'/node_modules/bootstrap/dist/js/bootstrap.js'
         ],
-        dashUtils: __dirname + '/app/dash/js/dashboard.js',
+        dashUtils: __dirname + '/app/dash/js/utils.js',
         vendor: ['react', 'react-dom'],
         dash: __dirname + '/app/dash/index.js'
     },
@@ -22,7 +22,7 @@ module.exports = {
     plugins:[
         new ExtractTextPlugin({ filename: 'css/[name].css' , disable: false, allChunks: true}),
         new Webpack.optimize.CommonsChunkPlugin({
-            name: ['vendor', 'jquery', 'bootstrap', 'manifest']
+            name: ['vendor', 'jquery', 'common', 'manifest']
         }),
         new Webpack.ProvidePlugin({
             $: "jquery",

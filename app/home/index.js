@@ -1,2 +1,2 @@
-require('./css/agency.css');
+require('./css/template.css');
 require('./components/App.js');
