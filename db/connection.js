@@ -33,10 +33,11 @@ var models = {
     Category: db.define('categories',{
         id: {type: 'serial', key: true},
         name: {type: 'text'},
-        description: {type: 'text'},
-        color: {type: 'text'}
+        description: {type: 'text'}
     })
 }
+
+models.User.hasMany('categories', models.Category, null, { reverse: 'users', key: true })
 
 module.exports = models;
 

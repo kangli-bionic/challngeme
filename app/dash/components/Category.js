@@ -1,4 +1,5 @@
 import React from 'react';
+import {constants} from 'js/constants';
 
 export function Category(props){
 
@@ -15,13 +16,10 @@ export function Category(props){
     }
     return (
         <div className="col-lg-3 col-xs-6 col-md-4 category">
-            <div className="small-box bg-aqua" onClick={onClick}>
+            <div className={Math.floor(Math.random() * (constants.backgrounds.length - 1)) + ' small-box'} onClick={onClick}>
                 <div className="inner" >
                     <h3>{props.category.name}</h3>
                     <p>{props.category.description}</p>
-                </div>
-                <div className="icon">
-                    <i className="fa fa-shopping-cart"></i>
                 </div>
                 <a href="#" className="small-box-footer">
                     Details <i className="fa fa-arrow-circle-right"></i>
@@ -73,7 +71,16 @@ export class CategoryForm extends React.Component{
     }
 
     onSave(event){
+        /*
+            {
+                userEmaill : email,
+                userNew: true
+            },
+            [{
+                id: category_id
+            }]
 
+         */
     }
 
     render(){
