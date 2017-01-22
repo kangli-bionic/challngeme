@@ -35,6 +35,12 @@ export const constants = {
         USER: 'USER',
         NEW_USER: 'NEW_USER',
         USER_ID: 'USER_ID'
+    },
+    notifications: {
+        DANGER: 'danger',
+        INFO: 'info',
+        SUCCESS: 'success',
+        WARNING: 'warning'
     }
 }
 

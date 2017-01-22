@@ -24,6 +24,7 @@ export class UserForm extends React.Component{
             })
             .fail((err)=>{
                 console.log(err);
+
             });
     }
 
@@ -34,6 +35,7 @@ export class UserForm extends React.Component{
     }
 
     render(){
+
         return (
             <form id="sign-up" >
                 <div className="row">

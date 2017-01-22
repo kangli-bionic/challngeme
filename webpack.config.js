@@ -12,7 +12,7 @@ module.exports = {
             __dirname + '/app/dash/js/constants.js'
         ],
         dashUtils: __dirname + '/app/dash/js/utils.js',
-        vendor: ['react', 'react-dom', 'react-cookie'],
+        vendor: ['react', 'react-dom', 'react-cookie', 'react-router'],
         dash: __dirname + '/app/dash/index.js'
     },
     output: {

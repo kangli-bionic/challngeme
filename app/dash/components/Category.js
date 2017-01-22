@@ -1,6 +1,7 @@
 import React from 'react';
 import {constants} from '../js/constants';
 import cookie from 'react-cookie';
+import {Challenge} from './Challenge';
 
 export function Category(props){
 
@@ -41,7 +42,6 @@ export class CategoryForm extends React.Component{
             userId: cookie.load(constants.cookies.USER_ID)
         }
         this.selected =[];
-
         this.toggleCategory = this.toggleCategory.bind(this);
         this.onSave = this.onSave.bind(this);
     }
@@ -76,10 +76,10 @@ export class CategoryForm extends React.Component{
                 userId: this.state.userId
         })
             .done((data) => {
+                cookie.save(constants.cookies.NEW_USER, false)
                 this.setState({
                     newUser: data.newUser
                 });
-                console.log(data);
             })
             .fail((err) => {
                 console.log(err);
@@ -107,7 +107,7 @@ export class CategoryForm extends React.Component{
         }else{
             return (
                 <div className="row">
-                    <h3>Hello World!</h3>
+                    <Challenge userId={this.state.userId}/>
                 </div>
             )
         }

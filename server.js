@@ -38,15 +38,11 @@ dashboard.get('/category', (req, res) => {
 });
 
 dashboard.post('/category', (req, res) => {
-    console.log(req.body);
-    let selectedCategories = req.body.selected;
-
     models.User.get(req.body.userId, (error, user) => {
         if(error) {
             res.status(400).send(error.msg);
         }
-        //TODO: pass array of category models
-        user.categories = selectedCategories;
+        user.categories = req.body.selected;
         user.save((err) => {
            if(err){
                res.status(500).send(error.msg);
@@ -59,8 +55,44 @@ dashboard.post('/category', (req, res) => {
     });
 });
 
-dashboard.get('/challenge', (req, res) => {
+dashboard.get('/getNextChallenge', (req, res) => {
+    let userId = req.params.userId;
+    models.getNextChallenge(userId)
+        .then((data) => {
+            res.json(data[Math.floor(Math.random() * data.length - 1)]);
+        }, (err) => {
+            res.status(500).send(err);
+        });
+});
 
+dashboard.get('/challenge', (req, res) => {
+    let challengeId = req.params.challengeId;
+    models.Challenge.get(challengeId, (err, data) => {
+        if(err){
+            res.status(500).send(err.msg);
+        }else{
+            res.json(data);
+        }
+    })
+});
+
+dashboard.post('/completeChallenge', (req, res) => {
+    models.User.get(req.body.userId, (error, user) => {
+        if(error) {
+            res.status(400).send(error.msg);
+        }
+        user.challenges = req.body.challenge;
+        user.save((err, results) => {
+            console.log(results);
+            if(err){
+                res.status(500).send(error.msg);
+            }else{
+                res.json({
+                    points: 0
+                })
+            }
+        });
+    });
 });
 
 app.listen(port);
