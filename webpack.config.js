@@ -8,10 +8,11 @@ module.exports = {
         common:[
             __dirname+'/node_modules/bootstrap/dist/css/bootstrap.css',
             __dirname + '/node_modules/animate.css/animate.css',
-            'script-loader!'+__dirname +'/node_modules/bootstrap/dist/js/bootstrap.js'
+            'script-loader!'+__dirname +'/node_modules/bootstrap/dist/js/bootstrap.js',
+            __dirname + '/app/dash/js/constants.js'
         ],
         dashUtils: __dirname + '/app/dash/js/utils.js',
-        vendor: ['react', 'react-dom'],
+        vendor: ['react', 'react-dom', 'react-cookie'],
         dash: __dirname + '/app/dash/index.js'
     },
     output: {

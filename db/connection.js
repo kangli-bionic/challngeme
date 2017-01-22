@@ -15,7 +15,7 @@ db.on('connect', (err) => {
 });
 
 var models = {
-    User: db.define('users',{
+    User: db.define('user',{
         id: {type: 'serial', key: true},
         email: {type: 'text', unique: true},
         password: {type: 'text'},
@@ -30,14 +30,14 @@ var models = {
             email: orm.enforce.unique("Already exists an account with this email.")
         }
     }),
-    Category: db.define('categories',{
+    Category: db.define('category',{
         id: {type: 'serial', key: true},
         name: {type: 'text'},
         description: {type: 'text'}
     })
 }
 
-models.User.hasMany('categories', models.Category, null, { reverse: 'users', key: true })
+models.User.hasMany('categories', models.Category, {}, { reverse: 'users', key: true })
 
 module.exports = models;
 

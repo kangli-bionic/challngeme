@@ -20,7 +20,8 @@ app.post('/signUp', (req, res) => {
             res.json({
                 redirect: '/dash',
                 newUser: true,
-                email: results.email
+                email: results.email,
+                id: results.id
             });
         }
     });
@@ -33,9 +34,34 @@ dashboard.get('/category', (req, res) => {
         }else{
             res.json(categories);
         }
-    })
+    });
 });
 
+dashboard.post('/category', (req, res) => {
+    console.log(req.body);
+    let selectedCategories = req.body.selected;
+
+    models.User.get(req.body.userId, (error, user) => {
+        if(error) {
+            res.status(400).send(error.msg);
+        }
+        //TODO: pass array of category models
+        user.categories = selectedCategories;
+        user.save((err) => {
+           if(err){
+               res.status(500).send(error.msg);
+           }else{
+               res.json({
+                   newUser: false
+               })
+           }
+        });
+    });
+});
+
+dashboard.get('/challenge', (req, res) => {
+
+});
 
 app.listen(port);
 

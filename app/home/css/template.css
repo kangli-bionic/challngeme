@@ -102,8 +102,8 @@ fieldset[disabled] .btn-primary.active {
 .btn-xl {
   color: white;
   /*background-color: #fed136;*/
-  background-color: #332d15;
-  border-color: #fed136;
+  background-color: #367fa9;
+  /*border-color: #fed136;*/
   font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
   text-transform: uppercase;
   font-weight: 700;
@@ -117,8 +117,8 @@ fieldset[disabled] .btn-primary.active {
 .btn-xl.active,
 .open .dropdown-toggle.btn-xl {
   color: white;
-  background-color: #fec503;
-  border-color: #f6bf01;
+  background-color: #f39c12;
+  border-color: #367fa9;
 }
 .btn-xl:active,
 .btn-xl.active,
@@ -148,19 +148,24 @@ fieldset[disabled] .btn-xl.active {
   background-color: white;
 }
 .navbar-custom {
-  background-color: #222222;
+  background-color: #f39c12;
   border-color: transparent;
 }
 .navbar-custom .navbar-brand {
-  color: #fed136;
+  color: white;
   font-family: "Kaushan Script", "Helvetica Neue", Helvetica, Arial, cursive;
 }
-.navbar-custom .navbar-brand:hover,
-.navbar-custom .navbar-brand:focus,
-.navbar-custom .navbar-brand:active,
-.navbar-custom .navbar-brand.active {
-  color: #fec503;
+
+.navbar-default .btn-link:hover, .navbar-default .btn-link:focus{
+  color: white;
 }
+
+/*.navbar-custom .navbar-brand:hover,*/
+/*.navbar-custom .navbar-brand:focus,*/
+/*.navbar-custom .navbar-brand:active,*/
+/*.navbar-custom .navbar-brand.active {*/
+  /*color: #f39c12;*/
+/*}*/
 .navbar-custom .navbar-collapse {
   border-color: rgba(255, 255, 255, 0.02);
 }
@@ -200,7 +205,7 @@ fieldset[disabled] .btn-xl.active {
 }
 @media (min-width: 768px) {
   .navbar-custom {
-    background-color: transparent;
+    background-color: #f39c12;
     padding: 25px 0;
     -webkit-transition: padding 0.3s;
     -moz-transition: padding 0.3s;
@@ -233,6 +238,7 @@ header {
 header .intro-text {
   padding-top: 100px;
   padding-bottom: 50px;
+  color:#323844;
 }
 header .intro-text .intro-lead-in {
   font-family: "Droid Serif", "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -670,10 +676,7 @@ ul.social-buttons li a:active {
   text-shadow: none;
   background: #fed136;
 }
-::selection {
-  text-shadow: none;
-  background: #fed136;
-}
+
 img::selection {
   background: transparent;
 }
@@ -681,8 +684,8 @@ img::-moz-selection {
   background: transparent;
 }
 body {
-  webkit-tap-highlight-color: #fed136;
-  background-image: url("../img/background.jpg");
+  /*webkit-tap-highlight-color: #e08e0b;*/
+  background-color: #d2d6de;
   background-attachment: scroll;
   background-position: center center;
   -webkit-background-size: cover;
@@ -690,7 +693,7 @@ body {
   background-size: cover;
   -o-background-size: cover;
   text-align: center;
-  color: white;
+  /*color: white;*/
 }
 
 #sign-up span{
@@ -724,7 +727,7 @@ body {
 }
 #sign-up .form-control:focus,
 #contact .form-control:focus{
-  border-color: #fed136;
+  border-color:#e08e0b;
   box-shadow: none;
 }
 #sign-up ::-webkit-input-placeholder,
@@ -732,7 +735,7 @@ body {
   font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
   text-transform: uppercase;
   font-weight: 700;
-  color: #eeeeee;
+  /*color: #eeeeee;*/
 }
 #sign-up :-moz-placeholder,
 #contact :-moz-placeholder{
@@ -740,22 +743,15 @@ body {
   font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
   text-transform: uppercase;
   font-weight: 700;
-  color: #eeeeee;
+  /*color: #eeeeee;*/
 }
-#sign-up ::-moz-placeholder,
-#contact ::-moz-placeholder{
-  /* Firefox 19+ */
-  font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  text-transform: uppercase;
-  font-weight: 700;
-  color: #eeeeee;
-}
+
 #sign-up :-ms-input-placeholder,
 #contact :-ms-input-placeholder{
   font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
   text-transform: uppercase;
   font-weight: 700;
-  color: #eeeeee;
+  /*color: #eeeeee;*/
 }
 #sign-up .text-danger,
 #contact .text-danger{

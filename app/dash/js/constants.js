@@ -30,7 +30,12 @@ export const constants = {
         'bg-purple-active',
         'bg-maroon-active',
         'bg-black-active',
-    ]
+    ],
+    cookies: {
+        USER: 'USER',
+        NEW_USER: 'NEW_USER',
+        USER_ID: 'USER_ID'
+    }
 }
 
 

@@ -1,5 +1,6 @@
 import React from 'react';
-import {constants} from 'js/constants';
+import {constants} from '../js/constants';
+import cookie from 'react-cookie';
 
 export function Category(props){
 
@@ -16,7 +17,8 @@ export function Category(props){
     }
     return (
         <div className="col-lg-3 col-xs-6 col-md-4 category">
-            <div className={Math.floor(Math.random() * (constants.backgrounds.length - 1)) + ' small-box'} onClick={onClick}>
+            <div className={constants.backgrounds[Math.floor(Math.random() * (constants.backgrounds.length - 1))] + ' small-box'}
+                 onClick={onClick}>
                 <div className="inner" >
                     <h3>{props.category.name}</h3>
                     <p>{props.category.description}</p>
@@ -35,8 +37,10 @@ export class CategoryForm extends React.Component{
         super(props);
         this.state = {
             categories: [],
-            selected: []
+            newUser: cookie.load(constants.cookies.NEW_USER),
+            userId: cookie.load(constants.cookies.USER_ID)
         }
+        this.selected =[];
 
         this.toggleCategory = this.toggleCategory.bind(this);
         this.onSave = this.onSave.bind(this);
@@ -56,31 +60,30 @@ export class CategoryForm extends React.Component{
     }
 
     toggleCategory(category, selected){
-        let selectedArray = [];
-        selectedArray.push(category);
-
-        this.setState((prevState, props) => ({
-            selected: prevState.selected.concat(selectedArray).filter((cat) => {
-                if(cat.id == category.id && !selected){
-                    return false;
-                }else{
-                    return true;
-                }
-            })
-        }));
+        this.selected.push(category);
+        this.selected = this.selected.filter((cat) => {
+            if(cat.id == category.id && !selected){
+                return false;
+            }else{
+                return true;
+            }
+        });
     }
 
-    onSave(event){
-        /*
-            {
-                userEmaill : email,
-                userNew: true
-            },
-            [{
-                id: category_id
-            }]
-
-         */
+    onSave(){
+        $.post('/dash/category', {
+                selected: this.selected,
+                userId: this.state.userId
+        })
+            .done((data) => {
+                this.setState({
+                    newUser: data.newUser
+                });
+                console.log(data);
+            })
+            .fail((err) => {
+                console.log(err);
+            });
     }
 
     render(){
@@ -88,16 +91,26 @@ export class CategoryForm extends React.Component{
            return <Category toggleCategory={this.toggleCategory} key={category.id} category={category}/>
         });
 
-        return (
-          <div className="row">
-              <form>
-                  {categories}
-                  <div className="col-md-12 pull-right">
-                      <button type="button" className="btn btn-lg btn-flat" onClick={this.onSave}>Next</button>
-                  </div>
-              </form>
-          </div>
-        );
+        if (this.state.newUser == "true") {
+            return (
+                <div className="row">
+                    <form>
+                        {categories}
+                        <div className="col-md-12 pull-right">
+                            <button type="button" className="btn btn-lg btn-flat" onClick={this.onSave}>{
+                                (this.state.newUser == "true") ? 'Next' : 'Save'
+                            }</button>
+                        </div>
+                    </form>
+                </div>
+            )
+        }else{
+            return (
+                <div className="row">
+                    <h3>Hello World!</h3>
+                </div>
+            )
+        }
     }
 
 }
