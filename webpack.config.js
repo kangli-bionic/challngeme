@@ -6,13 +6,15 @@ module.exports = {
         home: __dirname +'/app/home/index.js',
         jquery: __dirname + '/node_modules/jquery/src/jquery.js',
         common:[
+            // __dirname + '/app/common/components/Notification.js',
             __dirname+'/node_modules/bootstrap/dist/css/bootstrap.css',
             __dirname + '/node_modules/animate.css/animate.css',
             'script-loader!'+__dirname +'/node_modules/bootstrap/dist/js/bootstrap.js',
-            __dirname + '/app/dash/js/constants.js'
+            __dirname + '/app/common/constants.js',
+            __dirname + '/app/common/utils.js'
         ],
-        dashUtils: __dirname + '/app/dash/js/utils.js',
-        vendor: ['react', 'react-dom', 'react-cookie', 'react-router'],
+        template: __dirname +'/app/common/css/template.css',
+        vendor: ['react', 'react-dom', 'react-cookie'],
         dash: __dirname + '/app/dash/index.js'
     },
     output: {

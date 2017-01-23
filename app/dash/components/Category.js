@@ -1,5 +1,5 @@
 import React from 'react';
-import {constants} from '../js/constants';
+import {constants} from '../../common/constants';
 import cookie from 'react-cookie';
 import {Challenge} from './Challenge';
 

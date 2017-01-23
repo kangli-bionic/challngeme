@@ -1,7 +1,5 @@
 import React from 'react';
 
-import {UserForm} from './UserForm.js';
-
 export function Navigation(props){
     return (
         <nav id="mainNav" className="navbar navbar-default navbar-custom navbar-fixed-top">
@@ -24,7 +22,7 @@ export function Header(props){
                         <div className="intro-lead-in">{props.subtitle}</div>
                     </div>
                     <div className="col-md-5">
-                        <UserForm/>
+                        {props.children}
                     </div>
                     <div style={{clear: 'both'}}></div>
                 </div>

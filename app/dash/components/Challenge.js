@@ -1,5 +1,5 @@
 import React from 'react';
-import {constants} from '../js/constants';
+import {constants} from '../../common/constants';
 
 export class Challenge extends React.Component{
 
@@ -27,6 +27,9 @@ export class Challenge extends React.Component{
         return (
             <div className="col-md-12">
                 <div className="box box-widget widget-user">
+                    <div class="widget-user-image">
+                        <img class="img-circle" src="../dist/img/user7-128x128.jpg" alt="Challenge Accepted"/>
+                    </div>
                     <div className={'widget-user-header ' + constants.backgrounds[Math.floor(Math.random() * (constants.backgrounds.length - 1))]}>
                         <h3 className="widget-user-username">{this.state.challenge.categoryName}</h3>
                     </div>

@@ -71,6 +71,7 @@ var models = {
         description: {type: 'text'},
         points: {type: 'number'},
         bonus: {type: 'number'},
+        current: {type: 'number'},
         categoryId: {type: 'number', mapsTo: 'category_id'}
     }),
     getNextChallenge: getChallenge

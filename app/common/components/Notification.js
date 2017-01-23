@@ -4,12 +4,13 @@ export class Notification extends React.Component{
 
     constructor(props){
         super(props);
+        this.remove = this.remove.bind(this);
     }
 
     componentDidMount(){
         this.timerID = setTimeout(
             () => this.remove(),
-            5000
+            2000
         );
     }
 
@@ -19,13 +20,12 @@ export class Notification extends React.Component{
 
     remove(){
        let $notification = $(this.refs.notification);
-        $notification.animateCss('bounceOutUp', () => this.remove());
+        $notification.animateCss('bounceOutUp', () => {this.props.removeNotification()});
     }
 
     render(){
         return(
-            <div ref="notification" className={'callout notification callout-'+this.props.type} >
-                <h4>{this.props.title}</h4>
+            <div onClick={this.remove} ref="notification" className={'callout notification callout-'+this.props.type} >
                 <p>{this.props.message}</p>
             </div>
         )

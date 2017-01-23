@@ -59,6 +59,7 @@ dashboard.get('/getNextChallenge', (req, res) => {
     let userId = req.params.userId;
     models.getNextChallenge(userId)
         .then((data) => {
+            console.log(data[Math.floor(Math.random() * data.length - 1)]);
             res.json(data[Math.floor(Math.random() * data.length - 1)]);
         }, (err) => {
             res.status(500).send(err);

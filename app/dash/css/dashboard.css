@@ -13,18 +13,6 @@
     padding: 15px 15px 0 15px;
 }
 
-.notification{
-    z-index: 2000;
-    position: fixed;
-    top: 0;
-}
-
-.callout{
-    margin: 0px;
-    padding: 10px;
-    border-left: 5px solid #eee;
-}
-
 .widget-user .widget-user-header{
     height: 80px;
 }

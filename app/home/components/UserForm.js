@@ -1,6 +1,6 @@
 import React from 'react';
 import cookie from 'react-cookie';
-import {constants} from '../../dash/js/constants';
+import {constants} from '../../common/constants';
 
 export class UserForm extends React.Component{
 
@@ -14,7 +14,8 @@ export class UserForm extends React.Component{
         this.onStart = this.onStart.bind(this);
     }
 
-    onStart(){
+    onStart(event){
+        event.preventDefault();
         $.post('/signUp', {email: this.state.email})
             .done((data) => {
                 cookie.save(constants.cookies.USER, data.email, { path: '/' });
@@ -23,8 +24,7 @@ export class UserForm extends React.Component{
                 window.location = data.redirect;
             })
             .fail((err)=>{
-                console.log(err);
-
+                this.props.onError(err.responseText);
             });
     }
 
@@ -37,7 +37,7 @@ export class UserForm extends React.Component{
     render(){
 
         return (
-            <form id="sign-up" >
+            <form id="sign-up" onSubmit={this.onStart} method="POST">
                 <div className="row">
                     <div className="col-md-12">
                         <div className="form-group">
@@ -45,7 +45,7 @@ export class UserForm extends React.Component{
                                    type="email" className="form-control" placeholder="example@example.com" id="email"  />
                         </div>
                     </div>
-                    <button type="button" onClick={this.onStart} className="btn btn-xl">Start</button>
+                    <button type="submit" className="btn btn-xl">Start</button>
                 </div>
             </form>
         );
