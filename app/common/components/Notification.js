@@ -10,7 +10,7 @@ export class Notification extends React.Component{
     componentDidMount(){
         this.timerID = setTimeout(
             () => this.remove(),
-            2000
+            1000
         );
     }
 
