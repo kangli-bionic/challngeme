@@ -7,9 +7,10 @@ export class UserForm extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            email: ''
+            email: '',
+            password:''
         }
-
+        this.showPasswordField = false;
         this.onInputChange = this.onInputChange.bind(this);
         this.onStart = this.onStart.bind(this);
     }
@@ -21,7 +22,7 @@ export class UserForm extends React.Component{
                 cookie.save(constants.cookies.USER, data.email, { path: '/' });
                 cookie.save(constants.cookies.NEW_USER, data.newUser, { path: '/' });
                 cookie.save(constants.cookies.USER_ID, data.id, { path: '/' });
-                window.location = data.redirect;
+                this.props.router.push(data.redirect);
             })
             .fail((err)=>{
                 this.props.onError(err.responseText);
@@ -29,8 +30,24 @@ export class UserForm extends React.Component{
     }
 
     onInputChange(event){
+        let email = event.target;
+        let password = this.refs.password;
+        this.setState(() => {
+            let validity = email.checkValidity() && password && !this.showPasswordField;
+            if(validity){
+                $(password).animateCss('fadeInDown');
+                this.showPasswordField = true;
+            }
+            console.log(validity);
+            return {
+                email: email.value.trim()
+            }
+        });
+    }
+
+    onPasswordChange(event){
         this.setState({
-            email: event.target.value.trim()
+            password: event.target.value
         });
     }
 
@@ -43,6 +60,9 @@ export class UserForm extends React.Component{
                         <div className="form-group">
                             <input onChange={this.onInputChange} value={this.state.email}
                                    type="email" className="form-control" placeholder="example@example.com" id="email"  />
+                            <input ref="password" type="password" onChange={this.onPasswordChange} value={this.state.password}
+                                   className="form-control" placeholder="example"
+                            style={ {display: !this.showPasswordField ? 'none' : 'initial'} }/>
                         </div>
                     </div>
                     <button type="submit" className="btn btn-xl">Start</button>

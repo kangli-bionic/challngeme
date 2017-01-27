@@ -18,7 +18,7 @@ app.post('/signUp', (req, res) => {
             res.status(500).send(err.msg);
         }else{
             res.json({
-                redirect: '/dash',
+                redirect: '/dash/category',
                 newUser: true,
                 email: results.email,
                 id: results.id
@@ -28,7 +28,8 @@ app.post('/signUp', (req, res) => {
 });
 
 dashboard.get('/category', (req, res) => {
-    models.Category.find({}, (err, categories) => {
+    let userId = req.query.userId;
+    models.getUserCategories(userId, (err, categories) => {
         if(err){
             res.status(500).send(err.msg);
         }else{
@@ -48,7 +49,8 @@ dashboard.post('/category', (req, res) => {
                res.status(500).send(error.msg);
            }else{
                res.json({
-                   newUser: false
+                   newUser: false,
+                   redirect: 'dash/challenge'
                })
            }
         });
@@ -56,14 +58,28 @@ dashboard.post('/category', (req, res) => {
 });
 
 dashboard.get('/getNextChallenge', (req, res) => {
-    let userId = req.params.userId;
-    models.getNextChallenge(userId)
-        .then((data) => {
-            console.log(data[Math.floor(Math.random() * data.length - 1)]);
-            res.json(data[Math.floor(Math.random() * data.length - 1)]);
-        }, (err) => {
+    let userId = req.query.userId;
+    console.log(userId);
+
+    models.getNextChallenge(userId, (err, data) => {
+        if(err){
             res.status(500).send(err);
+        }
+        let challengeId = data[Math.floor(Math.random() * (data.length - 1))].id;
+        console.log(challengeId);
+        models.User.get(userId, (err, user) => {
+            models.Challenge.get(challengeId, (error, challenge) => {
+                user.addChallenges([challenge], {current: 1}, (err) => {
+                    if(err){
+                        res.status(500).send(err);
+                    }else{
+                        res.json(challenge);
+                    }
+                });
+            });
         });
+    });
+
 });
 
 dashboard.get('/challenge', (req, res) => {

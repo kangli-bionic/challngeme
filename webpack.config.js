@@ -6,7 +6,6 @@ module.exports = {
         home: __dirname +'/app/home/index.js',
         jquery: __dirname + '/node_modules/jquery/src/jquery.js',
         common:[
-            // __dirname + '/app/common/components/Notification.js',
             __dirname+'/node_modules/bootstrap/dist/css/bootstrap.css',
             __dirname + '/node_modules/animate.css/animate.css',
             'script-loader!'+__dirname +'/node_modules/bootstrap/dist/js/bootstrap.js',

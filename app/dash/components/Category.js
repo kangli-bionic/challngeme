@@ -1,7 +1,6 @@
 import React from 'react';
 import {constants} from '../../common/constants';
 import cookie from 'react-cookie';
-import {Challenge} from './Challenge';
 
 export function Category(props){
 
@@ -18,7 +17,8 @@ export function Category(props){
     }
     return (
         <div className="col-lg-3 col-xs-6 col-md-4 category">
-            <div className={constants.backgrounds[Math.floor(Math.random() * (constants.backgrounds.length - 1))] + ' small-box'}
+            <div className={constants.backgrounds[Math.floor(Math.random() * (constants.backgrounds.length - 1))] + ' small-box '
+            + (props.selected ? 'selected' : '')}
                  onClick={onClick}>
                 <div className="inner" >
                     <h3>{props.category.name}</h3>
@@ -48,7 +48,7 @@ export class CategoryForm extends React.Component{
 
     componentDidMount(){
         const that = this;
-        $.get('/dash/category')
+        $.get('/dash/category', {userId: this.state.userId})
             .done((data) => {
                 that.setState({
                      categories: data
@@ -70,16 +70,20 @@ export class CategoryForm extends React.Component{
         });
     }
 
-    onSave(){
+    onSave(event){
+        event.preventDefault();
         $.post('/dash/category', {
                 selected: this.selected,
-                userId: this.state.userId
+                userId: this.state.userId,
+                newUser: this.state.newUser
         })
             .done((data) => {
-                cookie.save(constants.cookies.NEW_USER, false)
+                cookie.remove(constants.cookies.NEW_USER, {path: '/'});
+                cookie.save(constants.cookies.NEW_USER, false, {path: '/'});
                 this.setState({
                     newUser: data.newUser
                 });
+                this.props.router.push(data.redirect);
             })
             .fail((err) => {
                 console.log(err);
@@ -91,26 +95,19 @@ export class CategoryForm extends React.Component{
            return <Category toggleCategory={this.toggleCategory} key={category.id} category={category}/>
         });
 
-        if (this.state.newUser == "true") {
-            return (
-                <div className="row">
-                    <form>
-                        {categories}
-                        <div className="col-md-12 pull-right">
-                            <button type="button" className="btn btn-lg btn-flat" onClick={this.onSave}>{
-                                (this.state.newUser == "true") ? 'Next' : 'Save'
-                            }</button>
-                        </div>
-                    </form>
-                </div>
-            )
-        }else{
-            return (
-                <div className="row">
-                    <Challenge userId={this.state.userId}/>
-                </div>
-            )
-        }
+        return (
+            <div className="row">
+                <form onSubmit={this.onSave}>
+                    {categories}
+                    <div className="col-md-12 pull-right">
+                        <button type="submit" className="btn btn-lg btn-flat">{
+                            (this.state.newUser == "true") ? 'Next' : 'Save'
+                        }</button>
+                    </div>
+                </form>
+            </div>
+        )
+
     }
 
 }

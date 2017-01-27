@@ -16,32 +16,40 @@ db.on('connect', (err) => {
 
 
 
-let getChallenge = (userId) => {
-    return new Promise( (fulfill, reject) => {
-        db.driver.execQuery(
-            `select 
-            c.id,
-            c.description,
-            c.points,
-            c.bonus,
-            cat.name categoryName
-        from user_categories uc
-        inner join challenge c on c.category_id = uc.categories_id
-        inner join category cat on cat.id = c.category_id
-        where c.id not in
-            ( select uch.id from user_challenges uch
-            where uch.challenges_id = c.id
-            AND uch.users_id = ?) and uc.user_id = ?`,
-            [userId, userId],
-            (err, data) => {
-                if(err) {
-                    reject(err);
-                }else{
-                    fulfill(data);
-                }
-            }
-        );
-    });
+const getChallenge = (userId, callback) => {
+    let query = `select 
+        c.id
+    from user_categories uc
+    inner join challenge c on c.category_id = uc.categories_id
+    where c.id not in
+        ( select uch.id from user_challenges uch
+        where uch.challenges_id = c.id
+        AND uch.user_id = ?) and uc.user_id = ?`;
+
+    db.driver.execQuery(
+        query,
+        [userId, userId],
+        (err, data) => {
+            callback(err, data);
+        }
+    );
+}
+
+const getUserCategories = (userId, callback) => {
+    let query = `select 
+            c.id, c.name, c.description, 
+            IFNULL(uc.id, 0) selected 
+        from category c
+        left join user_categories uc on c.id = uc.categories_id 
+            and uc.user_id = ?`;
+
+    db.driver.execQuery(
+        query,
+        [userId],
+        (err, data) => {
+            callback(err, data);
+        }
+    );
 }
 
 var models = {
@@ -71,14 +79,14 @@ var models = {
         description: {type: 'text'},
         points: {type: 'number'},
         bonus: {type: 'number'},
-        current: {type: 'number'},
         categoryId: {type: 'number', mapsTo: 'category_id'}
     }),
-    getNextChallenge: getChallenge
+    getNextChallenge: getChallenge,
+    getUserCategories: getUserCategories
 }
 
-models.User.hasMany('categories', models.Category, {}, { reverse: 'users', key: true });
-models.User.hasMany('challenges', models.Challenge, {completed: Number, image: String}, { reverse: 'users', key: true, autoFetch: true } );
+models.User.hasMany('categories', models.Category, {}, { key: true });
+models.User.hasMany('challenges', models.Challenge, {completed: Number, image: String, current: Number}, { key: true} );
 models.Challenge.hasOne('category', models.Category, {}, { reverse: 'challenges', autoFetch: true});
 
 module.exports = models;

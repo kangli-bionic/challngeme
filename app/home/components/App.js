@@ -1,10 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Router, Route, hashHistory, withRouter} from 'react-router'
 
 import {constants} from '../../common/constants';
 import {Navigation, Header} from './Navigation';
 import {UserForm} from './UserForm';
 import {Notification} from '../../common/components/Notification';
+import {NotFound} from '../../common/components/NotFound';
+import {Dashboard} from '../../dash/components/Dashboard';
+import {Challenge} from '../../dash/components/Challenge';
+import {CategoryForm} from '../../dash/components/Category';
 
 class App extends React.Component{
 
@@ -13,6 +18,8 @@ class App extends React.Component{
         this.state = {
             error: ''
         }
+        this.title = "Challnge me!";
+        this.subtitle = "You better be up for the challenge!";
         this.onError = this.onError.bind(this);
         this.removeNotification = this.removeNotification.bind(this);
     }
@@ -34,13 +41,13 @@ class App extends React.Component{
     render(){
         let notification = <Notification type={constants.notifications.DANGER} removeNotification={this.removeNotification}
                                          message={this.state.error}/>;
-
+        const UserFormRouter = withRouter(UserForm);
         return (
-            <div>
+            <div className="home">
                 {this.error ? notification : ''}
-                <Navigation title={this.props.title} />
-                <Header title={this.props.title} subtitle={this.props.subtitle}>
-                    <UserForm onError={this.onError} />
+                <Navigation title={this.title} />
+                <Header title={this.title} subtitle={this.subtitle}>
+                    <UserFormRouter onError={this.onError} />
                 </Header>
             </div>
         );
@@ -48,9 +55,20 @@ class App extends React.Component{
 
 }
 
+function isLoggedIn(nextState, replaceState){
+    console.log(nextState);
+    console.log(replaceState);
+}
 
 
 ReactDOM.render(
-    <App title="Challnge me!" subtitle="You better be up for the challenge!"/>,
+    <Router history={hashHistory}>
+        <Route path="/" component={App} />
+        <Route path="dash" component={Dashboard} onEnter={isLoggedIn}>
+            <Route path="category" component={CategoryForm}/>
+            <Route path="challenge" component={Challenge}/>
+            <Route path="*" component={NotFound}/>
+        </Route>
+    </Router>,
     document.getElementById('root')
 );

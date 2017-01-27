@@ -3,9 +3,10 @@
  * Copyright 2013-2016 Start Bootstrap
  * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap/blob/gh-pages/LICENSE)
  */
-body {
+.home {
   overflow-x: hidden;
   font-family: "Roboto Slab", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  height: 100vh !important;
 }
 .text-muted {
   color: #777777;
@@ -13,35 +14,35 @@ body {
 .text-primary {
   color: #fed136;
 }
-p {
+.home p {
   font-size: 14px;
   line-height: 1.75;
 }
-p.large {
+.home p.large {
   font-size: 16px;
 }
-a,
-a:hover,
-a:focus,
-a:active,
-a.active {
+.home a,
+.home a:hover,
+.home a:focus,
+.home a:active,
+.home a.active {
   outline: none;
 }
-a {
+.home a {
   color: #fed136;
 }
-a:hover,
-a:focus,
-a:active,
-a.active {
+.home a:hover,
+.home a:focus,
+.home a:active,
+.home a.active {
   color: #fec503;
 }
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+.home h1,
+.home h2,
+.home h3,
+.home h4,
+.home h5,
+.home h6 {
   font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
   text-transform: uppercase;
   font-weight: 700;
@@ -147,23 +148,23 @@ fieldset[disabled] .btn-xl.active {
   color: #fed136;
   background-color: white;
 }
-.navbar-custom {
+.home .navbar-custom {
   background-color: #f39c12;
   border-color: transparent;
 }
-.navbar-custom .navbar-brand {
+.home .navbar-custom .navbar-brand {
   color: white;
   font-family: "Kaushan Script", "Helvetica Neue", Helvetica, Arial, cursive;
 }
 
-.navbar-default .btn-link:hover, .navbar-default .btn-link:focus{
+.home .navbar-default .btn-link:hover, .navbar-default .btn-link:focus{
   color: white;
 }
 
-.navbar-custom .navbar-collapse {
+.home .navbar-custom .navbar-collapse {
   border-color: rgba(255, 255, 255, 0.02);
 }
-.navbar-custom .navbar-toggle {
+.home .navbar-custom .navbar-toggle {
   background-color: #fed136;
   border-color: #fed136;
   font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -171,34 +172,34 @@ fieldset[disabled] .btn-xl.active {
   color: white;
   font-size: 12px;
 }
-.navbar-custom .navbar-toggle:hover,
-.navbar-custom .navbar-toggle:focus {
+.home .navbar-custom .navbar-toggle:hover,
+.home .navbar-custom .navbar-toggle:focus {
   background-color: #fed136;
 }
-.navbar-custom .nav li a {
+.home .navbar-custom .nav li a {
   font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
   text-transform: uppercase;
   font-weight: 400;
   letter-spacing: 1px;
   color: white;
 }
-.navbar-custom .nav li a:hover,
+.home .navbar-custom .nav li a:hover,
 .navbar-custom .nav li a:focus {
   color: #fed136;
   outline: none;
 }
-.navbar-custom .navbar-nav > .active > a {
+.home .navbar-custom .navbar-nav > .active > a {
   border-radius: 0;
   color: white;
   background-color: #fed136;
 }
-.navbar-custom .navbar-nav > .active > a:hover,
-.navbar-custom .navbar-nav > .active > a:focus {
+.home .navbar-custom .navbar-nav > .active > a:hover,
+.home .navbar-custom .navbar-nav > .active > a:focus {
   color: white;
   background-color: #fec503;
 }
 @media (min-width: 768px) {
-  .navbar-custom {
+  .home .navbar-custom {
     background-color: #f39c12;
     padding: 25px 0;
     -webkit-transition: padding 0.3s;
@@ -206,39 +207,39 @@ fieldset[disabled] .btn-xl.active {
     transition: padding 0.3s;
     border: none;
   }
-  .navbar-custom .navbar-brand {
+  .home .navbar-custom .navbar-brand {
     font-size: 2em;
     -webkit-transition: all 0.3s;
     -moz-transition: all 0.3s;
     transition: all 0.3s;
   }
-  .navbar-custom .navbar-nav > .active > a {
+  .home .navbar-custom .navbar-nav > .active > a {
     border-radius: 3px;
   }
 }
 @media (min-width: 768px) {
-  .navbar-custom.affix {
+  .home .navbar-custom.affix {
     background-color: #222222;
     padding: 10px 0;
   }
-  .navbar-custom.affix .navbar-brand {
+  .home .navbar-custom.affix .navbar-brand {
     font-size: 1.5em;
   }
 }
 
-header .intro-text {
+.home header .intro-text {
   padding-top: 100px;
   padding-bottom: 50px;
   color:#323844;
 }
-header .intro-text .intro-lead-in {
+.home header .intro-text .intro-lead-in {
   font-family: "Droid Serif", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-style: italic;
   font-size: 22px;
   line-height: 22px;
   margin-bottom: 25px;
 }
-header .intro-text .intro-heading {
+.home header .intro-text .intro-heading {
   font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
   text-transform: uppercase;
   font-weight: 700;
@@ -247,18 +248,18 @@ header .intro-text .intro-heading {
   margin-bottom: 25px;
 }
 @media (min-width: 768px) {
-  header .intro-text {
+  .home header .intro-text {
     padding-top: 300px;
     padding-bottom: 200px;
   }
-  header .intro-text .intro-lead-in {
+  .home header .intro-text .intro-lead-in {
     font-family: "Droid Serif", "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-style: italic;
     font-size: 40px;
     line-height: 40px;
     margin-bottom: 25px;
   }
-  header .intro-text .intro-heading {
+  .home header .intro-text .intro-heading {
     font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
     text-transform: uppercase;
     font-weight: 700;
@@ -267,15 +268,15 @@ header .intro-text .intro-heading {
     margin-bottom: 50px;
   }
 }
-section {
+.home section {
   padding: 100px 0;
 }
-section h2.section-heading {
+.home section h2.section-heading {
   font-size: 40px;
   margin-top: 0;
   margin-bottom: 15px;
 }
-section h3.section-subheading {
+.home section h3.section-subheading {
   font-size: 16px;
   font-family: "Droid Serif", "Helvetica Neue", Helvetica, Arial, sans-serif;
   text-transform: none;
@@ -284,12 +285,12 @@ section h3.section-subheading {
   margin-bottom: 75px;
 }
 @media (min-width: 768px) {
-  section {
+  .home section {
     padding: 150px 0;
   }
 }
 
-body {
+.home {
   /*webkit-tap-highlight-color: #e08e0b;*/
   background-color: #d2d6de;
   background-attachment: scroll;
@@ -299,40 +300,39 @@ body {
   background-size: cover;
   -o-background-size: cover;
   text-align: center;
-  /*color: white;*/
 }
 
-#sign-up .section-heading{
+.home #sign-up .section-heading{
   color: white;
 }
-#sign-up .form-group{
+.home #sign-up .form-group{
   margin-bottom: 25px;
 }
-#sign-up .form-group input{
+.home #sign-up .form-group input{
   padding: 20px;
 }
 
-#sign-up .form-group input.form-control{
+.home #sign-up .form-group input.form-control{
   height: auto;
 }
 
-#contact .form-group textarea.form-control{
+.home #contact .form-group textarea.form-control{
   height: 236px;
 }
-#sign-up .form-control:focus,
-#contact .form-control:focus{
+.home #sign-up .form-control:focus,
+.home #contact .form-control:focus{
   border-color:#e08e0b;
   box-shadow: none;
 }
-#sign-up ::-webkit-input-placeholder,
-#contact ::-webkit-input-placeholder{
+.home #sign-up ::-webkit-input-placeholder,
+.home #contact ::-webkit-input-placeholder{
   font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
   text-transform: uppercase;
   font-weight: 700;
   /*color: #eeeeee;*/
 }
-#sign-up :-moz-placeholder,
-#contact :-moz-placeholder{
+.home #sign-up :-moz-placeholder,
+.home #contact :-moz-placeholder{
   /* Firefox 18- */
   font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
   text-transform: uppercase;
@@ -340,14 +340,14 @@ body {
   /*color: #eeeeee;*/
 }
 
-#sign-up :-ms-input-placeholder,
-#contact :-ms-input-placeholder{
+.home #sign-up :-ms-input-placeholder,
+.home #contact :-ms-input-placeholder{
   font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
   text-transform: uppercase;
   font-weight: 700;
   /*color: #eeeeee;*/
 }
-#sign-up .text-danger,
-#contact .text-danger{
+.home #sign-up .text-danger,
+.home #contact .text-danger{
   color: #e74c3c;
 }

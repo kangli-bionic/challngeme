@@ -11,6 +11,7 @@
 .content-wrapper{
     position: relative;
     padding: 15px 15px 0 15px;
+    height: 100vh;
 }
 
 .widget-user .widget-user-header{

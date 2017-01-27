@@ -41,6 +41,9 @@ export const constants = {
         INFO: 'info',
         SUCCESS: 'success',
         WARNING: 'warning'
+    },
+    api: {
+        ROOT_ENDPOINT: '/dash'
     }
 }
 
