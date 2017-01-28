@@ -44,9 +44,10 @@ export class Challenge extends React.Component{
                 <div className="box box-widget widget-user-2 ">
                     <div className={'widget-user-header ' + constants.backgrounds[Math.floor(Math.random() * (constants.backgrounds.length - 1))]}>
                         <div className="widget-user-image">
-                            <img className="img-circle" src="./img/challenge-accepted.jpg" alt="Challenge Accepted"/>
+                            <img className="img-circle" src="img/challenge-accepted.jpg" alt="Challenge Accepted"/>
                         </div>
-                        <h3 className="widget-user-username">{'Category Name'}</h3>
+                        <h3 className="widget-user-username">{this.state.challenge.category.name}</h3>
+                        <h4 className="widget-user-desc">{this.state.challenge.category.description}</h4>
                     </div>
                     <div className="box-footer">
                         <div className="row">

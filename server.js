@@ -13,16 +13,48 @@ app.use(bodyParser.json());
 app.use('/dash', dashboard);
 
 app.post('/signUp', (req, res) => {
-    models.User.create({ email: req.body.email}, (err, results) => {
-        if (err){
-            res.status(500).send(err.msg);
+    let email = req.body.email;
+    let password = req.body.pass;
+    models.claimAccount(email, password, (err, data, hashedPassword) => {
+        if(err){
+            res.status(500).send(err);
         }else{
-            res.json({
-                redirect: '/dash/category',
-                newUser: true,
-                email: results.email,
-                id: results.id
-            });
+            console.log(data);
+            if(data){
+                models.User.get(data.id, (err, user) => {
+                    if (!data.verified || err){
+                        let message = !data.verified ? 'Wrong email/password' : err.msg;
+                        res.status(500).send(message);
+                    }else{
+                        res.json({
+                            user: {
+                                id: user.id,
+                                name: user.fullName(),
+                                photo: user.photo,
+                                newUser: false
+                            },
+                            redirect: '/dash/challenge'
+                        });
+                    }
+                });
+            }else{
+                models.User.create({ email: email, password: hashedPassword},
+                (err, user) => {
+                    if (err){
+                        res.status(500).send(err.msg);
+                    }else{
+                        res.json({
+                            redirect: '/dash/category',
+                            user: {
+                                id: user.id,
+                                name: user.fullName(),
+                                photo: user.photo,
+                                newUser: true
+                            }
+                        });
+                    }
+                });
+            }
         }
     });
 });
@@ -59,14 +91,12 @@ dashboard.post('/category', (req, res) => {
 
 dashboard.get('/getNextChallenge', (req, res) => {
     let userId = req.query.userId;
-    console.log(userId);
 
     models.getNextChallenge(userId, (err, data) => {
         if(err){
             res.status(500).send(err);
         }
         let challengeId = data[Math.floor(Math.random() * (data.length - 1))].id;
-        console.log(challengeId);
         models.User.get(userId, (err, user) => {
             models.Challenge.get(challengeId, (error, challenge) => {
                 user.addChallenges([challenge], {current: 1}, (err) => {

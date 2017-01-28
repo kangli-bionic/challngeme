@@ -2,6 +2,7 @@
 
 var orm = require("orm");
 var promise = require('promise');
+var password = require('password-hash-and-salt');
 
 var db = orm.connect("mysql://root@localhost/challngeme");
 
@@ -52,6 +53,35 @@ const getUserCategories = (userId, callback) => {
     );
 }
 
+const claimAccount = (email, pass, callback) => {
+    let query = `select 
+            id, password from user
+        where email = ?`;
+        console.log(email);
+    db.driver.execQuery(
+        query,
+        [email],
+        (err, data) => {
+            console.log(data[0]);
+
+            password(pass).hash((error, hash) => {
+                let hashedPassword = hash;
+                if(data[0]){
+                    password(pass).verifyAgainst(data[0].password, (err, verified) => {
+                        callback(err, {verified, id: data[0].id}, null);
+                    });
+                }else{
+                    callback(err, null, hashedPassword);
+                }
+            });
+        }
+    );
+
+    //TODO: find a way to generate a hash for new passwords and verify already registered passwords
+
+
+}
+
 var models = {
     User: db.define('user',{
         id: {type: 'serial', key: true},
@@ -63,7 +93,7 @@ var models = {
         photo: {type: 'text'}
     },{
         methods : {
-            fullName: () => this.name + ' ' + this.lastName
+            fullName: () => (this.name + ' ' + this.lastName) || this.email
         },
         validations: {
             email: orm.enforce.unique("Already exists an account with this email.")
@@ -79,10 +109,10 @@ var models = {
         description: {type: 'text'},
         points: {type: 'number'},
         bonus: {type: 'number'},
-        categoryId: {type: 'number', mapsTo: 'category_id'}
     }),
     getNextChallenge: getChallenge,
-    getUserCategories: getUserCategories
+    getUserCategories: getUserCategories,
+    claimAccount: claimAccount
 }
 
 models.User.hasMany('categories', models.Category, {}, { key: true });

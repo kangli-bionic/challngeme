@@ -12,16 +12,17 @@ export class UserForm extends React.Component{
         }
         this.showPasswordField = false;
         this.onInputChange = this.onInputChange.bind(this);
+        this.onPasswordChange = this.onPasswordChange.bind(this);
         this.onStart = this.onStart.bind(this);
     }
 
     onStart(event){
         event.preventDefault();
-        $.post('/signUp', {email: this.state.email})
+        $.post('/signUp', {email: this.state.email, pass: this.state.password})
             .done((data) => {
-                cookie.save(constants.cookies.USER, data.email, { path: '/' });
+                cookie.save(constants.cookies.USER, data.name, { path: '/' });
                 cookie.save(constants.cookies.NEW_USER, data.newUser, { path: '/' });
-                cookie.save(constants.cookies.USER_ID, data.id, { path: '/' });
+                cookie.save(constants.cookies.USER_ID, data.user.id, { path: '/' });
                 this.props.router.push(data.redirect);
             })
             .fail((err)=>{
@@ -38,7 +39,6 @@ export class UserForm extends React.Component{
                 $(password).animateCss('fadeInDown');
                 this.showPasswordField = true;
             }
-            console.log(validity);
             return {
                 email: email.value.trim()
             }
@@ -46,6 +46,7 @@ export class UserForm extends React.Component{
     }
 
     onPasswordChange(event){
+        console.log(event.target.value);
         this.setState({
             password: event.target.value
         });

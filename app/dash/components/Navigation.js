@@ -1,10 +1,12 @@
 import React from 'react';
+import cookie from 'react-cookie';
+import {constants} from '../../common/constants';
 
 export function Header(props){
     return(
         <header className="main-header">
             <a href="index2.html" className="logo">
-                <span className="logo-mini"><b>A</b>LT</span>
+                <span className="logo-mini"><b>C</b>ME</span>
                 <span className="logo-lg">{props.title}</span>
             </a>
             <nav className="navbar navbar-static-top">
@@ -36,7 +38,7 @@ export function Navigation(props){
                         <img src="img/user2-160x160.jpg" className="img-circle" alt="User Image"/>
                     </div>
                     <div className="pull-left info">
-                        <p>Alexander Pierce</p>
+                        <p>{cookie.load(constants.cookies.USER_ID)}</p>
                     </div>
                 </div>
                 <ul className="sidebar-menu">
