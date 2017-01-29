@@ -4,7 +4,7 @@ var orm = require("orm");
 var promise = require('promise');
 var password = require('password-hash-and-salt');
 
-var db = orm.connect("mysql://root@localhost/challngeme");
+var db = orm.connect(process.env.DBCONNECTION || "mysql://root@localhost/challngeme");
 
 
 db.on('connect', (err) => {
@@ -17,7 +17,7 @@ db.on('connect', (err) => {
 
 
 
-const getChallenge = (userId, callback) => {
+const getNextChallenge = (userId, callback) => {
     let query = `select 
         c.id
     from user_categories uc
@@ -34,6 +34,15 @@ const getChallenge = (userId, callback) => {
             callback(err, data);
         }
     );
+}
+
+const getUserCurrentChallenge = (user, callback) => {
+    user.getChallenges((err, challenges) => {
+        let currentChallenge = challenges.filter((challenge) => {
+           return challenge.current == 1;
+       });
+        callback(currentChallenge);
+    });
 }
 
 const getUserCategories = (userId, callback) => {
@@ -54,32 +63,19 @@ const getUserCategories = (userId, callback) => {
 }
 
 const claimAccount = (email, pass, callback) => {
-    let query = `select 
-            id, password from user
-        where email = ?`;
-        console.log(email);
-    db.driver.execQuery(
-        query,
-        [email],
-        (err, data) => {
-            console.log(data[0]);
-
-            password(pass).hash((error, hash) => {
-                let hashedPassword = hash;
-                if(data[0]){
-                    password(pass).verifyAgainst(data[0].password, (err, verified) => {
-                        callback(err, {verified, id: data[0].id}, null);
-                    });
-                }else{
-                    callback(err, null, hashedPassword);
-                }
-            });
-        }
-    );
-
-    //TODO: find a way to generate a hash for new passwords and verify already registered passwords
-
-
+    models.User.find({email: email}, (err, users) => {
+        password(pass).hash((error, hash) => {
+            let hashedPassword = hash;
+            let user = users[0];
+            if(user){
+                password(pass).verifyAgainst(user.password, (err, verified) => {
+                    callback(err, {verified, id: user.id}, null);
+                });
+            }else{
+                callback(err, null, hashedPassword);
+            }
+        });
+    });
 }
 
 var models = {
@@ -110,9 +106,10 @@ var models = {
         points: {type: 'number'},
         bonus: {type: 'number'},
     }),
-    getNextChallenge: getChallenge,
+    getNextChallenge: getNextChallenge,
     getUserCategories: getUserCategories,
-    claimAccount: claimAccount
+    claimAccount: claimAccount,
+    getUserCurrentChallenge: getUserCurrentChallenge
 }
 
 models.User.hasMany('categories', models.Category, {}, { key: true });

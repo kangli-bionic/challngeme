@@ -1,7 +1,9 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-var app = express();
-var models = require('./db/connection');
+const multer  = require('multer');
+let upload = multer({ dest: 'uploads/' });
+let app = express();
+let models = require('./db/connection');
 
 var dashboard = express.Router();
 
@@ -19,7 +21,6 @@ app.post('/signUp', (req, res) => {
         if(err){
             res.status(500).send(err);
         }else{
-            console.log(data);
             if(data){
                 models.User.get(data.id, (err, user) => {
                     if (!data.verified || err){
@@ -94,19 +95,28 @@ dashboard.get('/getNextChallenge', (req, res) => {
 
     models.getNextChallenge(userId, (err, data) => {
         if(err){
-            res.status(500).send(err);
+            res.status(500).send(err.msg);
         }
-        let challengeId = data[Math.floor(Math.random() * (data.length - 1))].id;
         models.User.get(userId, (err, user) => {
-            models.Challenge.get(challengeId, (error, challenge) => {
-                user.addChallenges([challenge], {current: 1}, (err) => {
-                    if(err){
-                        res.status(500).send(err);
-                    }else{
-                        res.json(challenge);
+            models.getUserCurrentChallenge(user, (currentChallenge) => {
+                if(currentChallenge.length > 0){
+                    res.json(currentChallenge[0]);
+                }else{
+                    if(data){
+                        let challengeId = data[Math.floor(Math.random() * (data.length - 1))].id;
+                        models.Challenge.get(challengeId, (error, challenge) => {
+                            user.addChallenges([challenge], {current: 1}, (err) => {
+                                if(err){
+                                    res.status(500).send(err.msg);
+                                }else{
+                                    res.json(challenge);
+                                }
+                            });
+                        });
                     }
-                });
+                }
             });
+
         });
     });
 
@@ -123,22 +133,15 @@ dashboard.get('/challenge', (req, res) => {
     })
 });
 
-dashboard.post('/completeChallenge', (req, res) => {
+dashboard.post('/completeChallenge', upload.single('file'), (req, res) => {
+    console.log(req.file);
     models.User.get(req.body.userId, (error, user) => {
         if(error) {
-            res.status(400).send(error.msg);
+            res.status(500).send(error.msg);
         }
-        user.challenges = req.body.challenge;
-        user.save((err, results) => {
-            console.log(results);
-            if(err){
-                res.status(500).send(error.msg);
-            }else{
-                res.json({
-                    points: 0
-                })
-            }
-        });
+
+        res.end();
+
     });
 });
 

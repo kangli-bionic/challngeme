@@ -8,7 +8,12 @@ export class Challenge extends React.Component{
         super(props);
         this.state = {
             userId: cookie.load(constants.cookies.USER_ID),
-            challenge: {},
+            challenge: {
+                category: {
+                    name: '',
+                    description: ''
+                }
+            },
             file: ''
         }
 
@@ -34,8 +39,10 @@ export class Challenge extends React.Component{
         });
     }
 
-    onChallengeCompleted(){
-
+    onChallengeCompleted(event){
+        event.preventDefault();
+        console.log(event.target);
+        $.post('/dash/completeChallenge');
     }
 
     render(){
@@ -49,18 +56,22 @@ export class Challenge extends React.Component{
                         <h3 className="widget-user-username">{this.state.challenge.category.name}</h3>
                         <h4 className="widget-user-desc">{this.state.challenge.category.description}</h4>
                     </div>
-                    <div className="box-footer">
-                        <div className="row">
-                            <div className="col-md-12 border-right">
-                                <div className="description-block">
-                                    <h4 className="description-header">{this.state.challenge.description}</h4>
-                                    <h4 className="description-text">Points: {this.state.challenge.points}</h4>
-                                    <input type="file" className="center-block" value={this.state.file} onChange={this.onInputChange}/>
-                                    <button type="button" className="btn btn-lg btn-success" onClick={this.onChallengeCompleted}>Challnge Completed</button>
+                    <form onSubmit={this.onChallengeCompleted} action="POST" encType="multipart/form-data">
+                        <div className="box-footer">
+                            <div className="row">
+                                <div className="col-md-12 border-right">
+                                    <div className="description-block">
+                                        <h4 className="description-header">{this.state.challenge.description}</h4>
+                                        <h4 className="description-text">Points: {this.state.challenge.points}</h4>
+                                        <hr/>
+                                        <input type="file" name="file" className="center-block" value={this.state.file} onChange={this.onInputChange}/>
+                                        <hr/>
+                                        <button type="submit" className="btn btn-lg btn-success" >Challnge Completed</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         );
