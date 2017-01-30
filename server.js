@@ -1,7 +1,30 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const multer  = require('multer');
-let upload = multer({ dest: 'uploads/' });
+
+let storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'uploads/')
+    },
+    filename: (req, file, cb) => {
+        let originalname = file.originalname;
+        let extension = originalname.substring(originalname.lastIndexOf('.'), originalname.length);
+        cb(null, originalname + '-' + Date.now() + extension);
+    }
+});
+
+const fileFilter =(req, file, cb) => {
+    let originalname = file.originalname;
+    let extension = originalname.substring(originalname.lastIndexOf('.'), originalname.length);
+    if(extension == ".jpg" || extension == ".jpeg" || extension == ".png"){
+        cb(null, true);
+    }else{
+        cb(new Error('Please upload a jpg, jpeg or png image file'));
+    }
+};
+
+let upload = multer({ storage: storage, limits:{fileSize: 700000 }, fileFilter: fileFilter });
+
 let app = express();
 let models = require('./db/connection');
 
@@ -13,6 +36,10 @@ app.use(express.static('app'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use('/dash', dashboard);
+
+app.get('*', (req, res) => {
+  res.sendFile('app/index.html');
+});
 
 app.post('/signUp', (req, res) => {
     let email = req.body.email;
@@ -60,7 +87,7 @@ app.post('/signUp', (req, res) => {
     });
 });
 
-dashboard.get('/category', (req, res) => {
+dashboard.get('/getCategory', (req, res) => {
     let userId = req.query.userId;
     models.getUserCategories(userId, (err, categories) => {
         if(err){
@@ -71,7 +98,7 @@ dashboard.get('/category', (req, res) => {
     });
 });
 
-dashboard.post('/category', (req, res) => {
+dashboard.post('/saveCategory', (req, res) => {
     models.User.get(req.body.userId, (error, user) => {
         if(error) {
             res.status(400).send(error.msg);
@@ -122,7 +149,7 @@ dashboard.get('/getNextChallenge', (req, res) => {
 
 });
 
-dashboard.get('/challenge', (req, res) => {
+dashboard.get('/getChallenge', (req, res) => {
     let challengeId = req.params.challengeId;
     models.Challenge.get(challengeId, (err, data) => {
         if(err){
@@ -134,16 +161,38 @@ dashboard.get('/challenge', (req, res) => {
 });
 
 dashboard.post('/completeChallenge', upload.single('file'), (req, res) => {
-    console.log(req.file);
-    models.User.get(req.body.userId, (error, user) => {
+    let userId = req.body.userId;
+    models.User.get(userId, (error, user) => {
         if(error) {
             res.status(500).send(error.msg);
+        }else{
+            models.getUserCurrentChallenge(user, (challenge) => {
+                models.completeChallenge(challenge[0].id, userId, req.file.filename);
+                models.getNextChallenge(userId, (err, data) => {
+                    if (err) {
+                        res.status(500).send(err.msg);
+                    }
+                    if(data){
+                        let challengeId = data[Math.floor(Math.random() * (data.length - 1))].id;
+                        models.Challenge.get(challengeId, (error, challenge) => {
+                            user.addChallenges([challenge], {current: 1}, (err) => {
+                                if(err){
+                                    res.status(500).send(err.msg);
+                                }else{
+                                    res.json(challenge);
+                                }
+                            });
+                        });
+                    }else{
+                        res.status(500).send('No more challenges for you');
+                    }
+                });
+            });
         }
-
-        res.end();
 
     });
 });
+
 
 app.listen(port);
 

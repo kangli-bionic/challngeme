@@ -62,6 +62,17 @@ const getUserCategories = (userId, callback) => {
     );
 }
 
+const completeChallenge = (challengeId, userId, file) => {
+    models.UserChallenges.find({challenges_id: challengeId, user_id: userId}, (err, current) => {
+        let currentChallenge = current[0];
+
+        currentChallenge.current = 0;
+        currentChallenge.completed = 1;
+        currentChallenge.image = file;
+        currentChallenge.save();
+    });
+}
+
 const claimAccount = (email, pass, callback) => {
     models.User.find({email: email}, (err, users) => {
         password(pass).hash((error, hash) => {
@@ -106,10 +117,19 @@ var models = {
         points: {type: 'number'},
         bonus: {type: 'number'},
     }),
+    UserChallenges: db.define('user_challenges', {
+        id: {type: 'serial', key: true},
+        completed: {type: 'number'},
+        current: {type: 'number'},
+        challenges_id: {type: 'number'},
+        user_id: {type: 'number'},
+        image: {type: 'text'}
+    }),
     getNextChallenge: getNextChallenge,
     getUserCategories: getUserCategories,
     claimAccount: claimAccount,
-    getUserCurrentChallenge: getUserCurrentChallenge
+    getUserCurrentChallenge: getUserCurrentChallenge,
+    completeChallenge: completeChallenge
 }
 
 models.User.hasMany('categories', models.Category, {}, { key: true });

@@ -48,7 +48,7 @@ export class CategoryForm extends React.Component{
 
     componentDidMount(){
         const that = this;
-        $.get('/dash/category', {userId: this.state.userId})
+        $.get('/dash/saveCategory', {userId: this.state.userId})
             .done((data) => {
                 that.setState({
                      categories: data
@@ -72,7 +72,7 @@ export class CategoryForm extends React.Component{
 
     onSave(event){
         event.preventDefault();
-        $.post('/dash/category', {
+        $.post('/dash/saveCategory', {
                 selected: this.selected,
                 userId: this.state.userId,
                 newUser: this.state.newUser
