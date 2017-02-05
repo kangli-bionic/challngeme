@@ -38,7 +38,7 @@ export function Navigation(props){
                         <img src="img/user2-160x160.jpg" className="img-circle" alt="User Image"/>
                     </div>
                     <div className="pull-left info">
-                        <p>{cookie.load(constants.cookies.USER_ID)}</p>
+                        <p>{cookie.load(constants.cookies.USER)}</p>
                     </div>
                 </div>
                 <ul className="sidebar-menu">

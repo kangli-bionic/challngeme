@@ -44,8 +44,6 @@ module.exports = (db) => {
     User.hasMany('challenges', Challenge, {completed: Number, image: String, current: Number}, { key: true} );
     Challenge.hasOne('category', Category, {}, { reverse: 'challenges', autoFetch: true});
 
-    console.log('models loaded');
-
     return {
         User: User,
         Category: Category,

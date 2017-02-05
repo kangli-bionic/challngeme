@@ -31,7 +31,7 @@ const saveCategory = (req, res) => {
 
 const getNextChallenge = (req, res) => {
     let userId = req.query.userId;
-    model.getNextChallenge().then((data) => {
+    model.getNextChallenge(userId).then((data) => {
         fulfill(data, res);
     }, (err) => {
         reject(err, res);
@@ -49,10 +49,13 @@ const completeChallenge = (req, res) => {
 }
 
 const fulfill = (data, res) => {
+    console.log('fulfill');
     res.json(data);
 }
 
 const reject = (err, res) => {
+    console.log('reject');
+
     res.status(500).send(err.message);
 }
 

@@ -4,7 +4,7 @@ const db = require('../config/db');
 const entities = require('./entities');
 
 let entity = entities(db);
-const execQuery =  Promise.denodeify(db.driver.execQuery);
+
 const getUser = Promise.denodeify(entity.User.get);
 
 const completeChallenge = (userId, file) => {
@@ -44,8 +44,8 @@ const claimAccount = (email, pass) => {
                     signup(fulfill, reject, {email: email, password: hashedPassword});
                 }
             });
-        });
-    }, reject);
+        }, reject);
+    });
 
 };
 
@@ -164,7 +164,12 @@ const getCategories = (userId) => {
         from category c
         left join user_categories uc on c.id = uc.categories_id 
             and uc.user_id = ?`;
-    return execQuery(query, [userId]);
+    return new Promise((fulfill, reject) => {
+        db.driver.execQuery(query, [userId], (err, data) => {
+            if(err) reject(err);
+            fulfill(data);
+        });
+    });
 }
 
 const getPossibleChallenges = (userId) => {
@@ -176,7 +181,12 @@ const getPossibleChallenges = (userId) => {
         ( select uch.id from user_challenges uch
         where uch.challenges_id = c.id
         AND uch.user_id = ?) and uc.user_id = ?`;
-    return execQuery(query, [userId, userId]);
+    return new Promise((fulfill, reject) => {
+        db.driver.execQuery(query, [userId, userId], (err, data) => {
+            if(err) reject(err);
+            fulfill(data);
+        });
+    });
 }
 
 module.exports = {

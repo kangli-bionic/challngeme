@@ -20,8 +20,8 @@ export class UserForm extends React.Component{
         event.preventDefault();
         $.post('/claimAccount', {email: this.state.email, pass: this.state.password})
             .done((data) => {
-                cookie.save(constants.cookies.USER, data.name, { path: '/' });
-                cookie.save(constants.cookies.NEW_USER, data.newUser, { path: '/' });
+                cookie.save(constants.cookies.USER, data.user.name, { path: '/' });
+                cookie.save(constants.cookies.NEW_USER, data.user.newUser, { path: '/' });
                 cookie.save(constants.cookies.USER_ID, data.user.id, { path: '/' });
                 this.props.router.push(data.redirect);
             })
