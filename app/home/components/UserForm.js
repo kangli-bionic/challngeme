@@ -18,7 +18,7 @@ export class UserForm extends React.Component{
 
     onStart(event){
         event.preventDefault();
-        $.post('/signUp', {email: this.state.email, pass: this.state.password})
+        $.post('/claimAccount', {email: this.state.email, pass: this.state.password})
             .done((data) => {
                 cookie.save(constants.cookies.USER, data.name, { path: '/' });
                 cookie.save(constants.cookies.NEW_USER, data.newUser, { path: '/' });
@@ -35,7 +35,7 @@ export class UserForm extends React.Component{
         let password = this.refs.password;
         this.setState(() => {
             let validity = email.checkValidity() && password && !this.showPasswordField;
-            if(validity){
+            if(validity && email.value.trim()){
                 $(password).animateCss('fadeInDown');
                 this.showPasswordField = true;
             }
@@ -46,7 +46,6 @@ export class UserForm extends React.Component{
     }
 
     onPasswordChange(event){
-        console.log(event.target.value);
         this.setState({
             password: event.target.value
         });

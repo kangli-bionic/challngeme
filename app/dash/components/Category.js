@@ -48,7 +48,7 @@ export class CategoryForm extends React.Component{
 
     componentDidMount(){
         const that = this;
-        $.get('/dash/saveCategory', {userId: this.state.userId})
+        $.get('/dash/getCategories', {userId: this.state.userId})
             .done((data) => {
                 that.setState({
                      categories: data

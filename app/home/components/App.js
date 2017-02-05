@@ -56,8 +56,7 @@ class App extends React.Component{
 }
 
 function isLoggedIn(nextState, replaceState){
-    console.log(nextState);
-    console.log(replaceState);
+    console.log('asf');
 }
 
 
