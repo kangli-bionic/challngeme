@@ -64,7 +64,13 @@ export class Challenge extends React.Component{
             contentType: false
         })
             .done((data) => {
-                console.log(data);
+                this.setState((prevState, props) =>{
+                    let $challengeAccepted = this.refs.challengeAccepted;
+                    $challengeAccepted.animateCss('flip', () => {
+                        $challengeAccepted.attr('src', 'http://i3.kym-cdn.com/entries/icons/original/000/001/987/fyeah.jpg');
+                    });
+                    return { challenge: data };
+                });
             })
             .fail((err) => {
                 console.log(err);
@@ -77,7 +83,7 @@ export class Challenge extends React.Component{
                 <div className="box box-widget widget-user-2 ">
                     <div className="widget-user-header bg-aqua">
                         <div className="widget-user-image">
-                            <img className="img-circle" src="img/challenge-accepted.jpg" alt="Challenge Accepted"/>
+                            <img ref="challengeAccepted" className="img-circle" src="../img/challenge-accepted.jpg" alt="Challenge Accepted"/>
                         </div>
                         <h3 className="widget-user-username">{this.state.challenge.category.name}</h3>
                         <h4 className="widget-user-desc">{this.state.challenge.category.description}</h4>
