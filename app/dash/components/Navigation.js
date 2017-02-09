@@ -2,6 +2,7 @@ import React from 'react';
 import cookie from 'react-cookie';
 import {constants} from '../../common/constants';
 
+//TODO: code app logout
 export function Header(props){
     return(
         <header className="main-header">

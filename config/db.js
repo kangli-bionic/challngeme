@@ -1,6 +1,6 @@
 const orm = require("orm");
 
-let db = orm.connect(process.env.DBCONNECTION || "mysql://root@localhost/challngeme");
+let db = orm.connect(process.env.DB_URL || "mysql://root@localhost/challngeme");
 
 db.on('connect', (err) => {
     if (err) {

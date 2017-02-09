@@ -55,17 +55,23 @@ class App extends React.Component{
 
 }
 
+//TODO: allow access to login users only
 function isLoggedIn(nextState, replaceState){
     console.log('asf');
 }
 
-
+//TODO: array of challenges with link to challenge/challengeId
+//TODO: create challenge container
+//TODO: look how to get the param on url with react-router
+//TODO: work with browserHistory
 ReactDOM.render(
     <Router history={hashHistory}>
         <Route path="/" component={App} />
         <Route path="dash" component={Dashboard} onEnter={isLoggedIn}>
             <Route path="category" component={CategoryForm}/>
-            <Route path="challenge" component={Challenge}/>
+            <Route path="challenge" component={Challenge}>
+                <Route path="challenge/:challengeId" component={Challenge} />
+            </Route>
             <Route path="*" component={NotFound}/>
         </Route>
     </Router>,

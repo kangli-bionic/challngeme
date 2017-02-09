@@ -7,19 +7,16 @@ let entity = entities(db);
 
 const getUser = Promise.denodeify(entity.User.get);
 
-const completeChallenge = (userId, file) => {
+const completeChallenge = (currentChallengeId, userId, file) => {
     return new Promise((fulfill, reject) => {
-        getUserCurrentChallenge(userId).then((currentChallenge, user) => {
-            const currentChallengeId = currentChallenge[0].id;
-            markChallengeAsCompleted(currentChallengeId, userId, file).then(() => {
-                getPossibleChallenges(userId).then((challenges) => {
-                    const challengeId = challenges[Math.floor(Math.random() * (data.length - 1))].id;
-                    assignChallenge(challengeId, user).then((challenge) => {
-                        fulfill(challenge);
-                    }, reject);
-                }, reject);
+        markChallengeAsCompleted(currentChallengeId, userId, file).then((completedChallengeId) => {
+            getChallengesByUser(userId).then((challenges) => {
+                let completedChallenge = challenges.filter((challenge) => {
+                  return challenge.id == completedChallengeId;
+                });
+                fulfill(completedChallenge[0]);
             }, reject);
-        });
+        }, reject);
     });
 
 }
@@ -66,14 +63,12 @@ const getNextChallenge = (userId) => {
     return new Promise((fulfill, reject) => {
         getPossibleChallenges(userId).then((challenges) => {
             try{
-                getUserCurrentChallenge(userId).then((currentChallenge, user) => {
+                getUserCurrentChallenge(userId).then((currentChallenge) => {
                     if(currentChallenge.length > 0){
                         fulfill(currentChallenge[0]);
                     }else{
-                        let challengeId = challenges[Math.floor(Math.random() * (data.length - 1))].id;
-                        assignChallenge(challengeId, user).then((challenge) => {
-                            fulfill(challenge);
-                        }, reject);
+                        let challengeId = challenges[Math.floor(Math.random() * (challenges.length - 1))].id;
+                        assignChallenge(challengeId, userId).then(fulfill, reject);
                     }
                 }, reject);
             }catch(ex){
@@ -83,15 +78,17 @@ const getNextChallenge = (userId) => {
     });
 }
 
-const assignChallenge = (challengeId, user) => {
+const assignChallenge = (challengeId, userId) => {
     return new Promise((fulfill, reject) => {
-        const getChallenge = Promise.denodeify(entity.Challenge.get);
-        getChallenge(challengeId).then((challenge) => {
-            user.addChallenges([challenge], {current: 1}, (err) => {
-                if(err) reject(err);
-                fulfill(challenge);
-            });
-        }, reject);
+        entity.UserChallenges.create({challenges_id: challengeId, user_id: userId, current: 1}, (err, result) => {
+           if(err) reject(err);
+            getChallengesByUser(result.user_id).then((challenges) => {
+               let challenge = challenges.filter((challenge) =>{
+                   return challenge.id == result.challenges_id;
+               });
+                fulfill(challenge[0]);
+            }, reject);
+        });
     });
 }
 
@@ -101,11 +98,13 @@ const markChallengeAsCompleted = (challengeId, userId, file) => {
             if(err) reject(err);
             try{
                 let currentChallenge = current[0];
-
                 currentChallenge.current = 0;
                 currentChallenge.completed = 1;
                 currentChallenge.image = file;
-                currentChallenge.save();
+                currentChallenge.save((err, result) => {
+                    if(err) reject(err);
+                    fulfill(result.challenges_id);
+                });
             }catch(ex){
                 reject(ex);
             }
@@ -129,12 +128,12 @@ const login = (fulfill, reject, userId) => {
 
 const signup = (fulfill, reject, user) => {
     const createUser = Promise.denodeify(entity.User.create);
-    createUser({ email: user.email, password: user.password}).then(() => {
+    createUser({ email: user.email, password: user.password}).then((userDb) => {
         fulfill({
             user: {
-                id: user.id,
-                name: user.fullName(),
-                photo: user.photo,
+                id: userDb.id,
+                name: userDb.fullName(),
+                photo: userDb.photo,
                 newUser: true
             },
             redirect: '/dash/category'
@@ -144,15 +143,11 @@ const signup = (fulfill, reject, user) => {
 
 const getUserCurrentChallenge = (userId) => {
     return new Promise((fulfill, reject) => {
-        getUser(userId).then((user) => {
-            user.getChallenges((err, challenges) => {
-                if(err) reject(err);
-
-                let currentChallenge = challenges.filter((challenge) => {
-                    return challenge.current == 1;
-                });
-                fulfill(currentChallenge, user);
+        getChallengesByUser(userId).then((challenges) => {
+            let currentChallenge = challenges.filter((challenge) => {
+                return challenge.current == 1;
             });
+            fulfill(currentChallenge);
         }, reject);
     });
 }
@@ -178,7 +173,7 @@ const getPossibleChallenges = (userId) => {
     from user_categories uc
     inner join challenge c on c.category_id = uc.categories_id
     where c.id not in
-        ( select uch.id from user_challenges uch
+        ( select uch.challenges_id from user_challenges uch
         where uch.challenges_id = c.id
         AND uch.user_id = ?) and uc.user_id = ?`;
     return new Promise((fulfill, reject) => {
@@ -189,6 +184,16 @@ const getPossibleChallenges = (userId) => {
     });
 }
 
+const getChallengesByUser = (userId) => {
+    return new Promise((fulfill, reject) => {
+        getUser(userId).then((user) => {
+            user.getChallenges((err, challenges) => {
+                if(err) reject(err);
+                fulfill(challenges);
+            });
+        }, reject);
+    })
+}
 module.exports = {
     claimAccount: claimAccount,
     saveCategory: saveCategory,

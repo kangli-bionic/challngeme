@@ -20,11 +20,14 @@ export class Challenge extends React.Component{
 
         this.onInputChange = this.onInputChange.bind(this);
         this.onChallengeCompleted = this.onChallengeCompleted.bind(this);
+
     }
 
     componentDidMount(){
+        //TODO: get challenge by id on query param
         $.get('/dash/getNextChallenge', {userId: this.state.userId})
             .done((data) => {
+                console.log(data);
                 this.setState({
                     challenge: data
                 });
@@ -38,6 +41,8 @@ export class Challenge extends React.Component{
         let selectedFile = event.target.files[0];
         let reader = new FileReader();
         let challengeImage = this.refs.challengeImage;
+        let $completeChallenge = $(this.refs.completeChallenge);
+
         this.setState({
             input: event.target.value,
             file: selectedFile
@@ -45,9 +50,13 @@ export class Challenge extends React.Component{
 
         reader.onload = function(event) {
             challengeImage.src = event.target.result;
+            $completeChallenge.removeAttr('disabled');
         };
-
-        reader.readAsDataURL(selectedFile);
+        try{
+            reader.readAsDataURL(selectedFile);
+        }catch(ex){
+            $completeChallenge.attr('disabled','disabled');
+        }
     }
 
     onChallengeCompleted(event){
@@ -55,6 +64,11 @@ export class Challenge extends React.Component{
         let formData = new FormData();
         formData.append('file', this.state.file);
         formData.append('userId', this.state.userId);
+        formData.append('currentChallengeId', this.state.challenge.id);
+
+        let $completeChallenge = $(this.refs.completeChallenge);
+        $completeChallenge.attr('disabled','disabled');
+
         $.ajax({
             url: '/dash/completeChallenge',
             type: 'POST',
@@ -64,20 +78,25 @@ export class Challenge extends React.Component{
             contentType: false
         })
             .done((data) => {
-                this.setState((prevState, props) =>{
-                    let $challengeAccepted = this.refs.challengeAccepted;
-                    $challengeAccepted.animateCss('flip', () => {
-                        $challengeAccepted.attr('src', 'http://i3.kym-cdn.com/entries/icons/original/000/001/987/fyeah.jpg');
-                    });
-                    return { challenge: data };
+                let $challengeAccepted = $(this.refs.challengeAccepted);
+                $challengeAccepted.attr('src', 'http://i3.kym-cdn.com/entries/icons/original/000/001/987/fyeah.jpg');
+                $challengeAccepted.animateCss('flip');
+                console.log(data);
+                this.setState({
+                    challenge: data
                 });
             })
             .fail((err) => {
+                $completeChallenge.removeAttr('disabled','disabled');
                 console.log(err);
             });
     }
 
     render(){
+        let showChallengeImage = this.state.input ? 'show' : 'hide';
+        let showCompleteChallengeForm = this.state.challenge.completed ? 'hide' : 'show';
+        let bonus = this.state.challenge.bonus ? <span className="glyphicon glyphicon-ok" aria-hidden="true"></span> :
+            <span className="glyphicon glyphicon-remove" aria-hidden="true"></span>;
         return (
             <div className="col-md-12">
                 <div className="box box-widget widget-user-2 ">
@@ -88,25 +107,28 @@ export class Challenge extends React.Component{
                         <h3 className="widget-user-username">{this.state.challenge.category.name}</h3>
                         <h4 className="widget-user-desc">{this.state.challenge.category.description}</h4>
                     </div>
-                    <form onSubmit={this.onChallengeCompleted} action="POST" encType="multipart/form-data">
                         <div className="box-footer">
                             <div className="row">
                                 <div className="col-md-12 border-right">
                                     <div className="description-block">
                                         <h4 className="description-header">{this.state.challenge.description}</h4>
-                                        <h4 className="description-text">Points: {this.state.challenge.points}</h4>
-                                        <hr/>
-                                        <input type="file" name="file" className="center-block" value={this.state.input} onChange={this.onInputChange}/>
-                                        <hr/>
-                                        <button type="submit" className="btn btn-lg btn-success" >Challnge Completed</button>
+                                        <h4 className="description-text">Points: {this.state.challenge.points} {this.state.challenge.bonus ? '(x2)' : ''}</h4>
+                                        <h4 className="description-text">Bonus: {bonus}</h4>
+                                        <div className={showCompleteChallengeForm}>
+                                            <form onSubmit={this.onChallengeCompleted} action="POST" encType="multipart/form-data">
+                                                <hr/>
+                                                <input type="file" name="file" className="center-block" value={this.state.input} onChange={this.onInputChange}/>
+                                                <hr/>
+                                                <button type="submit" disabled="disabled" ref="completeChallenge" className="btn btn-lg btn-success" >Challnge Completed</button>
+                                            </form>
+                                        </div>
                                     </div>
-                                    <div className="col-md-6 col-md-offset-3">
+                                    <div className={'col-md-6 col-md-offset-3 ' + showChallengeImage} >
                                         <img ref="challengeImage" className="img-rounded center-block challenge-image"/>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </form>
                 </div>
             </div>
         );

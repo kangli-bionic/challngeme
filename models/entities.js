@@ -41,8 +41,8 @@ module.exports = (db) => {
     });
 
     User.hasMany('categories', Category, {}, { key: true });
-    User.hasMany('challenges', Challenge, {completed: Number, image: String, current: Number}, { key: true} );
-    Challenge.hasOne('category', Category, {}, { reverse: 'challenges', autoFetch: true});
+    User.hasMany('challenges', Challenge, {completed: Number, image: String, current: Number}, { key: true, autoFetch:true} );
+    Challenge.hasOne('category', Category, {}, { autoFetch: true});
 
     return {
         User: User,

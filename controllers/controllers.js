@@ -40,8 +40,9 @@ const getNextChallenge = (req, res) => {
 
 const completeChallenge = (req, res) => {
     let userId = req.body.userId;
+    let currentChallengeId = req.body.currentChallengeId;
     let file = req.file.filename;
-    model.completeChallenge(userId, file).then((data) => {
+    model.completeChallenge(currentChallengeId, userId, file).then((data) => {
         fulfill(data, res);
     }, (err) => {
         reject(err, res);

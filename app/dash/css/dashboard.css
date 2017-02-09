@@ -21,3 +21,10 @@
 .challenge-image{
     width: 200px;
 }
+
+.hide{
+    display: none;
+}
+.show{
+    display: initial;
+}

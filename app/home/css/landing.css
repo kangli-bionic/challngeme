@@ -230,7 +230,7 @@ fieldset[disabled] .btn-xl.active {
 .home header .intro-text {
   padding-top: 100px;
   padding-bottom: 50px;
-  color:#323844;
+  color:#ffffff;
 }
 .home header .intro-text .intro-lead-in {
   font-family: "Droid Serif", "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -292,7 +292,7 @@ fieldset[disabled] .btn-xl.active {
 
 .home {
   /*webkit-tap-highlight-color: #e08e0b;*/
-  background-color: #d2d6de;
+  background-color: #2c3e50;
   background-attachment: scroll;
   background-position: center center;
   -webkit-background-size: cover;

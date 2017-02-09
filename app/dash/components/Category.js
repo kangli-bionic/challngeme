@@ -15,6 +15,7 @@ export function Category(props){
         });
 
     }
+    //TODO: put notable mark on selected categories
     return (
         <div className="col-lg-3 col-xs-6 col-md-4 category">
             <div className={constants.backgrounds[Math.floor(Math.random() * (constants.backgrounds.length - 1))] + ' small-box '
