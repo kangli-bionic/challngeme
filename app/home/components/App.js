@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Router, Route, hashHistory, withRouter} from 'react-router'
+import { IndexRoute, Router, Route, hashHistory, withRouter} from 'react-router'
 
 import {constants} from '../../common/constants';
 import {Navigation, Header} from './Navigation';
@@ -8,7 +8,8 @@ import {UserForm} from './UserForm';
 import {Notification} from '../../common/components/Notification';
 import {NotFound} from '../../common/components/NotFound';
 import {Dashboard} from '../../dash/components/Dashboard';
-import {Challenge} from '../../dash/components/Challenge';
+import {ChallengesContainer} from '../../dash/components/ChallengesContainer';
+import {SingleChallengeContainer, CurrentChallenge} from '../../dash/components/SingleChallengeContainer';
 import {CategoryForm} from '../../dash/components/Category';
 
 class App extends React.Component{
@@ -60,18 +61,15 @@ function isLoggedIn(nextState, replaceState){
     console.log('asf');
 }
 
-//TODO: array of challenges with link to challenge/challengeId
-//TODO: create challenge container
-//TODO: look how to get the param on url with react-router
 //TODO: work with browserHistory
 ReactDOM.render(
     <Router history={hashHistory}>
         <Route path="/" component={App} />
         <Route path="dash" component={Dashboard} onEnter={isLoggedIn}>
+            <IndexRoute component={CurrentChallenge}/>
             <Route path="category" component={CategoryForm}/>
-            <Route path="challenge" component={Challenge}>
-                <Route path="challenge/:challengeId" component={Challenge} />
-            </Route>
+            <Route path="challenge" component={ChallengesContainer}/>
+            <Route path="challenge/:challengeId" component={SingleChallengeContainer} />
             <Route path="*" component={NotFound}/>
         </Route>
     </Router>,

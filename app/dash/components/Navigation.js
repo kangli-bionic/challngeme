@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router';
 import cookie from 'react-cookie';
 import {constants} from '../../common/constants';
 
@@ -20,7 +21,7 @@ export function Header(props){
                         <li className="dropdown user user-menu">
                             <a href="#" className="dropdown-toggle" data-toggle="dropdown">
                                 <img src="img/user2-160x160.jpg" className="user-image" alt="User Image"/>
-                                    <span className="hidden-xs">Alexander Pierce</span>
+                                    <span className="hidden-xs">{cookie.load(constants.cookies.USER)}</span>
                             </a>
                         </li>
                     </ul>
@@ -29,7 +30,9 @@ export function Header(props){
         </header>
     );
 }
-
+//TODO: add category and challenges list link
+//TODO: also link to profile
+//TODO: create profile component
 export function Navigation(props){
     return (
         <aside className="main-sidebar">
@@ -43,7 +46,15 @@ export function Navigation(props){
                     </div>
                 </div>
                 <ul className="sidebar-menu">
-                    <li className="header"></li>
+                    <li className="header">
+                        <Link to="/dash/challenge">Challenges</Link>
+                    </li>
+                    <li className="header">
+                        <Link to="/dash/category">Categories</Link>
+                    </li>
+                    <li className="header">
+                        <Link to="/dash/profile">Profile</Link>
+                    </li>
                 </ul>
             </section>
         </aside>  

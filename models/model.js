@@ -53,7 +53,7 @@ const saveCategory = (userId, categories) => {
             user.save();
             fulfill({
                 newUser: false,
-                redirect: 'dash/challenge'
+                redirect: 'dash/'
             });
         }, reject);
     });
@@ -77,6 +77,7 @@ const getNextChallenge = (userId) => {
         });
     });
 }
+
 
 const assignChallenge = (challengeId, userId) => {
     return new Promise((fulfill, reject) => {
@@ -121,7 +122,7 @@ const login = (fulfill, reject, userId) => {
                 photo: user.photo,
                 newUser: false
             },
-            redirect: '/dash/challenge'
+            redirect: '/dash'
         });
     }, reject);
 }
@@ -192,13 +193,38 @@ const getChallengesByUser = (userId) => {
                 fulfill(challenges);
             });
         }, reject);
-    })
+    });
+}
+
+const getUserChallengeByChallengeId = (userId, challengeId) => {
+    return new Promise((fulfill, reject) => {
+        getChallengesByUser(userId).then((challenges) => {
+            let challenge = challenges.filter((challenge) => {
+                return challenge.id == challengeId;
+            });
+
+            fulfill(challenge[0]);
+        }, reject);
+    });
+}
+
+const getUserCompletedChallenges = (userId) => {
+    return new Promise((fulfill, reject) => {
+       getChallengesByUser(userId).then((challenges) => {
+           let completedChallenges = challenges.filter((challenge) => {
+               return challenge.completed == 1;
+           });
+           fulfill(completedChallenges);
+       }, reject);
+    });
 }
 module.exports = {
     claimAccount: claimAccount,
     saveCategory: saveCategory,
     completeChallenge: completeChallenge,
     getNextChallenge: getNextChallenge,
-    getCategories: getCategories
+    getCategories: getCategories,
+    getUserCompletedChallenges: getUserCompletedChallenges,
+    getUserChallengeByChallengeId: getUserChallengeByChallengeId
 };
 

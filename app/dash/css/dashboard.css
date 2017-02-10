@@ -28,3 +28,11 @@
 .show{
     display: initial;
 }
+
+.challenge{
+    padding:5px !important;
+}
+
+.category .selected .glyphicon{
+    margin-bottom: 5px;
+}

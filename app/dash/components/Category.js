@@ -4,30 +4,31 @@ import cookie from 'react-cookie';
 
 export function Category(props){
 
-    function onClick(event){
+    const onClick = (event) => {
         const $category = $(event.target).closest('.small-box');
         let category = {
             id: props.category.id
         };
         $category.animateCss('rubberBand');
         $category.toggleClass('selected', (selected) => {
+            $category.find('.glyphicon').toggleClass('hide');
             props.toggleCategory(category, selected);
         });
 
     }
-    //TODO: put notable mark on selected categories
+
     return (
         <div className="col-lg-3 col-xs-6 col-md-4 category">
             <div className={constants.backgrounds[Math.floor(Math.random() * (constants.backgrounds.length - 1))] + ' small-box '
-            + (props.selected ? 'selected' : '')}
+            + (props.category.selected ? 'selected' : '')}
                  onClick={onClick}>
                 <div className="inner" >
                     <h3>{props.category.name}</h3>
                     <p>{props.category.description}</p>
                 </div>
-                <a href="#" className="small-box-footer">
-                    Details <i className="fa fa-arrow-circle-right"></i>
-                </a>
+                {(props.category.selected ?
+                    <span className="center-block glyphicon glyphicon-ok" aria-hidden="true"></span>
+                    : '')}
             </div>
         </div>
     );
@@ -100,8 +101,9 @@ export class CategoryForm extends React.Component{
             <div className="row">
                 <form onSubmit={this.onSave}>
                     {categories}
-                    <div className="col-md-12 pull-right">
-                        <button type="submit" className="btn btn-lg btn-flat">{
+                    <div style={{clear: 'both'}}></div>
+                    <div className="col-md-12">
+                        <button type="submit" className="btn btn-lg btn-flat col-md-12 btn-default">{
                             (this.state.newUser == "true") ? 'Next' : 'Save'
                         }</button>
                     </div>

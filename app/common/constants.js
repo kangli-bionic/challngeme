@@ -44,6 +44,10 @@ export const constants = {
     },
     api: {
         ROOT_ENDPOINT: '/dash'
+    },
+    images:{
+        CHALLENGE_ACCEPTED: 'dash/img/challenge-accepted.jpg',
+        CHALLENGE_COMPLETED: 'dash/img/challenge-completed.jpg'
     }
 }
 

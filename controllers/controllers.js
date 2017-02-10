@@ -49,6 +49,27 @@ const completeChallenge = (req, res) => {
     });
 }
 
+const getUserCompletedChallenges = (req, res) => {
+    let userId = req.query.userId;
+    model.getUserCompletedChallenges(userId).then((data) => {
+        fulfill(data, res);
+    },(err) => {
+        reject(err, res);
+    })
+}
+
+const getUserChallengeByChallengeId = (req, res) => {
+    let userId = req.query.userId;
+    let challengeId = req.query.challengeId;
+    model.getUserChallengeByChallengeId(userId, challengeId).then((data) => {
+        fulfill(data, res);
+    }, (err) => {
+        reject(err, res);
+    });
+
+}
+
+
 const fulfill = (data, res) => {
     console.log('fulfill');
     res.json(data);
@@ -56,7 +77,6 @@ const fulfill = (data, res) => {
 
 const reject = (err, res) => {
     console.log('reject');
-
     res.status(500).send(err.message);
 }
 
@@ -65,5 +85,7 @@ module.exports = {
     saveCategory: saveCategory,
     completeChallenge: completeChallenge,
     getNextChallenge: getNextChallenge,
-    getCategories: getCategories
+    getCategories: getCategories,
+    getUserCompletedChallenges: getUserCompletedChallenges,
+    getUserChallengeByChallengeId: getUserChallengeByChallengeId
 }
