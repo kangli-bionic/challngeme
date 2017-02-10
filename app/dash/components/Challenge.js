@@ -1,6 +1,7 @@
 import React from 'react';
 import {CompleteChallengeForm} from './CompleteChallengeForm';
 import {constants} from '../../common/constants';
+import {Glyphicon} from '../../common/components/Glyphicon';
 
 export const Challenge = (props) => {
 
@@ -8,9 +9,7 @@ export const Challenge = (props) => {
     let challengeAccepted = null;
     let image = props.challenge.completed ? constants.images.CHALLENGE_COMPLETED : constants.images.CHALLENGE_ACCEPTED;
     let showCompleteChallengeForm = props.challenge.completed ? 'hide' : 'show';
-    let bonus = props.challenge.bonus ?
-        <span className="glyphicon glyphicon-ok" aria-hidden="true"></span> :
-        <span className="glyphicon glyphicon-remove" aria-hidden="true"></span>;
+    let bonus = props.challenge.bonus ? <Glyphicon icon="ok"/> : <Glyphicon icon="remove"/>;
 
     const showChallengeImage = (image) => {
         let $challengeImage = $(challengeImage);

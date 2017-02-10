@@ -1,5 +1,6 @@
 import React from 'react';
 import {constants} from '../../common/constants';
+import {Glyphicon} from '../../common/components/Glyphicon';
 import cookie from 'react-cookie';
 
 export function Category(props){
@@ -11,7 +12,7 @@ export function Category(props){
         };
         $category.animateCss('rubberBand');
         $category.toggleClass('selected', (selected) => {
-            $category.find('.glyphicon').toggleClass('hide');
+            $category.find('.glyphicon').toggleClass('hide', () => {});
             props.toggleCategory(category, selected);
         });
 
@@ -26,9 +27,7 @@ export function Category(props){
                     <h3>{props.category.name}</h3>
                     <p>{props.category.description}</p>
                 </div>
-                {(props.category.selected ?
-                    <span className="center-block glyphicon glyphicon-ok" aria-hidden="true"></span>
-                    : '')}
+                {(props.category.selected ? <Glyphicon icon="ok"/> : '')}
             </div>
         </div>
     );
