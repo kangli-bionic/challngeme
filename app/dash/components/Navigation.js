@@ -2,27 +2,38 @@ import React from 'react';
 import { Link } from 'react-router';
 import cookie from 'react-cookie';
 import {constants} from '../../common/constants';
+import {Glyphicon} from '../../common/components/Glyphicon';
 
-//TODO: code app logout
 export function Header(props){
+    const onLogOut = () => {
+        cookie.remove(constants.cookies.NEW_USER, {path: '/'});
+        cookie.remove(constants.cookies.USER, {path: '/'});
+        cookie.remove(constants.cookies.USER_ID, {path: '/'});
+        props.router.push('/');
+    }
+
     return(
         <header className="main-header">
-            <a href="index2.html" className="logo">
+            <Link to="dash/" className="logo">
                 <span className="logo-mini"><b>C</b>ME</span>
                 <span className="logo-lg">{props.title}</span>
-            </a>
+            </Link>
             <nav className="navbar navbar-static-top">
                 <a href="#" className="sidebar-toggle" data-toggle="offcanvas" role="button">
                     <span className="sr-only">Toggle navigation</span>
                 </a>
                 <div className="navbar-custom-menu">
                     <ul className="nav navbar-nav">
-
-                        <li className="dropdown user user-menu">
-                            <a href="#" className="dropdown-toggle" data-toggle="dropdown">
-                                <img src="img/user2-160x160.jpg" className="user-image" alt="User Image"/>
-                                    <span className="hidden-xs">{cookie.load(constants.cookies.USER)}</span>
+                        <li className="dropdown user">
+                            <a href="#" className="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                                <Glyphicon icon="user" centerBlock=""/>
+                                <span className="hidden-xs">{cookie.load(constants.cookies.USER)}</span>
                             </a>
+                            <ul className="dropdown-menu">
+                                <li className="user-footer">
+                                    <button className="btn btn-link" onClick={onLogOut}>Sign out</button>
+                                </li>
+                            </ul>
                         </li>
                     </ul>
                 </div>
@@ -30,16 +41,15 @@ export function Header(props){
         </header>
     );
 }
-//TODO: add category and challenges list link
-//TODO: also link to profile
+
 //TODO: create profile component
-export function Navigation(props){
+export function Navigation(){
     return (
         <aside className="main-sidebar">
             <section className="sidebar">
                 <div className="user-panel">
                     <div className="pull-left image">
-                        <img src="img/user2-160x160.jpg" className="img-circle" alt="User Image"/>
+                        <Glyphicon icon="user" centerBlock=""/>
                     </div>
                     <div className="pull-left info">
                         <p>{cookie.load(constants.cookies.USER)}</p>

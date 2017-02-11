@@ -118,7 +118,7 @@ const login = (fulfill, reject, userId) => {
         fulfill({
             user: {
                 id: user.id,
-                name: user.fullName(),
+                name: user.email,
                 photo: user.photo,
                 newUser: false
             },

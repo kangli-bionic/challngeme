@@ -7,9 +7,10 @@ export const Challenge = (props) => {
 
     let challengeImage = null;
     let challengeAccepted = null;
+    let formContainer = null;
     let image = props.challenge.completed ? constants.images.CHALLENGE_COMPLETED : constants.images.CHALLENGE_ACCEPTED;
     let showCompleteChallengeForm = props.challenge.completed ? 'hide' : 'show';
-    let bonus = props.challenge.bonus ? <Glyphicon icon="ok"/> : <Glyphicon icon="remove"/>;
+    let bonus = props.challenge.bonus ? <Glyphicon centerBlock='' icon="ok"/> : <Glyphicon centerBlock='' icon="remove"/>;
 
     const showChallengeImage = (image) => {
         let $challengeImage = $(challengeImage);
@@ -25,6 +26,7 @@ export const Challenge = (props) => {
         let $challengeAccepted = $(challengeAccepted);
         $challengeAccepted.attr('src', constants.images.CHALLENGE_COMPLETED);
         $challengeAccepted.animateCss('flip');
+        $(formContainer).toggleClass('hide', () => {});
     }
 
     return (
@@ -42,9 +44,9 @@ export const Challenge = (props) => {
                     <div className="col-md-12 border-right">
                         <div className="description-block">
                             <h4 className="description-header">{props.challenge.description}</h4>
-                            <h4 className="description-text">Points: {props.challenge.points} {props.challenge.bonus ? '(x2)' : ''}</h4>
+                            <h4 className="description-text">Points: {props.challenge.points} {props.challenge.bonus ? '(x 2)' : ''}</h4>
                             <h4 className="description-text">Bonus: {bonus}</h4>
-                            <div className={showCompleteChallengeForm}>
+                            <div className={showCompleteChallengeForm} ref={(div) => {formContainer = div; }}>
                                 <CompleteChallengeForm
                                     onLoadedChallengeImage={showChallengeImage}
                                     challengeId={props.challenge.id}
@@ -53,7 +55,7 @@ export const Challenge = (props) => {
                         </div>
                         <div className="col-md-12" >
                             <img ref={(image) => { challengeImage = image; }} className="img-rounded center-block challenge-image"
-                                 src={ props.challenge.image ? `uploads/${props.challenge.image}` : 'no_image'} />
+                                 src={ props.challenge.image ? `uploads/${props.challenge.image}` : null} />
                         </div>
                     </div>
                 </div>

@@ -10,9 +10,6 @@ module.exports = (db) => {
         birthday: {type: 'date'},
         photo: {type: 'text'}
     },{
-        methods : {
-            fullName: () => (this.name + ' ' + this.lastName) || this.email
-        },
         validations: {
             email: orm.enforce.unique("Already exists an account with this email.")
         }

@@ -36,3 +36,11 @@
 .category .selected .glyphicon{
     margin-bottom: 5px;
 }
+
+#root{
+    background-color: #ecf0f5;
+}
+
+.skin-yellow .main-sidebar .sidebar .user-panel .image span{
+  color:#ffffff;
+}

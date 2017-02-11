@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { IndexRoute, Router, Route, hashHistory, withRouter} from 'react-router'
+import { IndexRoute, Router, Route, hashHistory} from 'react-router'
+import cookie from 'react-cookie';
 
 import {constants} from '../../common/constants';
 import {Navigation, Header} from './Navigation';
@@ -42,13 +43,12 @@ class App extends React.Component{
     render(){
         let notification = <Notification type={constants.notifications.DANGER} removeNotification={this.removeNotification}
                                          message={this.state.error}/>;
-        const UserFormRouter = withRouter(UserForm);
         return (
             <div className="home">
                 {this.error ? notification : ''}
                 <Navigation title={this.title} />
                 <Header title={this.title} subtitle={this.subtitle}>
-                    <UserFormRouter onError={this.onError} />
+                    <UserForm onError={this.onError} router={this.props.router}/>
                 </Header>
             </div>
         );
@@ -56,22 +56,30 @@ class App extends React.Component{
 
 }
 
-//TODO: allow access to login users only
-function isLoggedIn(nextState, replaceState){
-    console.log('asf');
+const auth = (nextState, replace) => {
+    if(!cookie.load(constants.cookies.USER_ID)){
+        replace('/');
+    }
+}
+
+const isLoggedIn = (nextState, replace) => {
+    if(cookie.load(constants.cookies.USER_ID)){
+        replace('/dash/');
+    }
 }
 
 //TODO: work with browserHistory
 ReactDOM.render(
     <Router history={hashHistory}>
-        <Route path="/" component={App} />
-        <Route path="dash" component={Dashboard} onEnter={isLoggedIn}>
+        <Route path="/" component={App} onEnter={isLoggedIn} />
+        <Route path="dash" component={Dashboard} onEnter={auth}>
             <IndexRoute component={CurrentChallenge}/>
             <Route path="category" component={CategoryForm}/>
             <Route path="challenge" component={ChallengesContainer}/>
             <Route path="challenge/:challengeId" component={SingleChallengeContainer} />
             <Route path="*" component={NotFound}/>
         </Route>
+        <Route path="*" component={NotFound}/>
     </Router>,
     document.getElementById('root')
 );

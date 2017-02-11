@@ -20,14 +20,14 @@ export function Category(props){
 
     return (
         <div className="col-lg-3 col-xs-6 col-md-4 category">
-            <div className={constants.backgrounds[Math.floor(Math.random() * (constants.backgrounds.length - 1))] + ' small-box '
-            + (props.category.selected ? 'selected' : '')}
+            <div className={`${constants.backgrounds[Math.floor(Math.random() * (constants.backgrounds.length - 1))]} small-box
+             ${(props.category.selected ? 'selected' : '')}`}
                  onClick={onClick}>
                 <div className="inner" >
                     <h3>{props.category.name}</h3>
                     <p>{props.category.description}</p>
                 </div>
-                {(props.category.selected ? <Glyphicon icon="ok"/> : '')}
+                {(props.category.selected ? <Glyphicon centerBlock='center-block' icon="ok"/> : '')}
             </div>
         </div>
     );
@@ -79,7 +79,6 @@ export class CategoryForm extends React.Component{
                 newUser: this.state.newUser
         })
             .done((data) => {
-                cookie.remove(constants.cookies.NEW_USER, {path: '/'});
                 cookie.save(constants.cookies.NEW_USER, false, {path: '/'});
                 this.setState({
                     newUser: data.newUser

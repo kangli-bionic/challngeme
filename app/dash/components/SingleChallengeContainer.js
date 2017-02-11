@@ -24,7 +24,6 @@ export class SingleChallengeContainer extends React.Component{
             challengeId:this.props.params.challengeId
         })
         .done((data) => {
-            console.log(data);
             this.setState({
                 challenge: data
             })
@@ -61,7 +60,6 @@ export class CurrentChallenge extends React.Component{
             userId: this.state.userId
         })
             .done((data) => {
-                console.log(data);
                 this.setState({
                     challenge: data
                 })

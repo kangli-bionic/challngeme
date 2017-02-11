@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router';
 
 export function NotFound(){
     return (
@@ -7,8 +8,11 @@ export function NotFound(){
                 <h2 className="headline text-yellow"> 404</h2>
 
                 <div className="error-content">
-                    <h3><i className="fa fa-warning text-yellow"></i> Oops! Page not found.</h3>
+                    <h3><i className="fa fa-warning text-yellow"></i>
+                        Oops! Page not found.
 
+                    </h3>
+                    <h4><Link to="/">Go to landing page.</Link> </h4>
                 </div>
             </div>
         </section>

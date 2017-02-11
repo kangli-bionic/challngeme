@@ -29,7 +29,7 @@ const routes = (app) => {
     app.get('/dash/getCategories', controllers.getCategories);
     app.get('/dash/getNextChallenge', controllers.getNextChallenge);
     app.post('/dash/completeChallenge', upload.single('file') ,controllers.completeChallenge);
-    app.get('/dash/saveCategory', controllers.saveCategory);
+    app.post('/dash/saveCategory', controllers.saveCategory);
     app.get('/dash/getChallenges', controllers.getUserCompletedChallenges);
     app.get('/dash/getUserChallengeByChallengeId', controllers.getUserChallengeByChallengeId)
 }

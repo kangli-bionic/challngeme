@@ -2,7 +2,9 @@ import React from 'react';
 
 export const Glyphicon = (props) => {
     return(
-        <span className={`center-block glyphicon glyphicon-${props.icon}`} aria-hidden="true"></span>
+        <span className={`${props.centerBlock} glyphicon glyphicon-${props.icon}`}
+              style={{textAlign: 'center'}}
+              aria-hidden="true"></span>
     );
 }
 

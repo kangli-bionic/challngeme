@@ -17,7 +17,6 @@ export class ChallengesContainer extends React.Component{
     componentDidMount(){
         $.get('/dash/getChallenges', {userId: this.state.userId})
             .done((data) => {
-                console.log(data);
                 this.setState({
                     challenges: data
                 });
