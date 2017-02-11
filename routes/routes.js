@@ -31,7 +31,8 @@ const routes = (app) => {
     app.post('/dash/completeChallenge', upload.single('file') ,controllers.completeChallenge);
     app.post('/dash/saveCategory', controllers.saveCategory);
     app.get('/dash/getChallenges', controllers.getUserCompletedChallenges);
-    app.get('/dash/getUserChallengeByChallengeId', controllers.getUserChallengeByChallengeId)
+    app.get('/dash/getUserChallengeByChallengeId', controllers.getUserChallengeByChallengeId);
+    app.get('/dash/getUserScore', controllers.getUserScore);
 }
 
 module.exports = routes;

@@ -159,7 +159,7 @@ const getCategories = (userId) => {
             IFNULL(uc.id, 0) selected 
         from category c
         left join user_categories uc on c.id = uc.categories_id 
-            and uc.user_id = ?`;
+            and uc.user_id = ?;`;
     return new Promise((fulfill, reject) => {
         db.driver.execQuery(query, [userId], (err, data) => {
             if(err) reject(err);
@@ -176,7 +176,7 @@ const getPossibleChallenges = (userId) => {
     where c.id not in
         ( select uch.challenges_id from user_challenges uch
         where uch.challenges_id = c.id
-        AND uch.user_id = ?) and uc.user_id = ?`;
+        AND uch.user_id = ?) and uc.user_id = ?;`;
     return new Promise((fulfill, reject) => {
         db.driver.execQuery(query, [userId, userId], (err, data) => {
             if(err) reject(err);
@@ -218,6 +218,29 @@ const getUserCompletedChallenges = (userId) => {
        }, reject);
     });
 }
+
+const getUserScore = (userId) => {
+    let query = `select sum(scores.scores) score
+            from
+            (select 
+                case when c.bonus = 1
+                then sum(c.points*2)
+                else sum(c.points) end
+                scores,
+                uc.user_id user_id
+            from user_challenges uc 
+            inner join challenge c on c.id = uc.challenges_id
+            where uc.completed = 1
+            group by c.bonus, uc.user_id
+            ) scores WHERE scores.user_id = ?`;
+    return new Promise((fulfill, reject) => {
+        db.driver.execQuery(query, [userId], (err, data) => {
+            if(err) reject(err);
+            fulfill(data[0]);
+        });
+    });
+
+}
 module.exports = {
     claimAccount: claimAccount,
     saveCategory: saveCategory,
@@ -225,6 +248,7 @@ module.exports = {
     getNextChallenge: getNextChallenge,
     getCategories: getCategories,
     getUserCompletedChallenges: getUserCompletedChallenges,
-    getUserChallengeByChallengeId: getUserChallengeByChallengeId
+    getUserChallengeByChallengeId: getUserChallengeByChallengeId,
+    getUserScore: getUserScore
 };
 

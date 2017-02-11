@@ -2,6 +2,7 @@ import React from 'react';
 import {constants} from '../../common/constants';
 import cookie from 'react-cookie';
 import {Challenge} from './Challenge';
+import {Score} from './Score';
 
 export class SingleChallengeContainer extends React.Component{
 
@@ -71,7 +72,12 @@ export class CurrentChallenge extends React.Component{
 
     render(){
         return(
-            <Challenge challenge={this.state.challenge}/>
+            <div>
+                <Score/>
+                <div className="col-md-12">
+                    <Challenge challenge={this.state.challenge}/>
+                </div>
+            </div>
         );
     }
 

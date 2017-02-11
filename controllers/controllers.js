@@ -69,6 +69,15 @@ const getUserChallengeByChallengeId = (req, res) => {
 
 }
 
+const getUserScore = (req, res) => {
+    let userId = req.query.userId;
+    model.getUserScore(userId).then((data) => {
+        fulfill(data, res);
+    }, (err) => {
+        reject(err, res);
+    });
+
+}
 
 const fulfill = (data, res) => {
     console.log('fulfill');
@@ -87,5 +96,6 @@ module.exports = {
     getNextChallenge: getNextChallenge,
     getCategories: getCategories,
     getUserCompletedChallenges: getUserCompletedChallenges,
-    getUserChallengeByChallengeId: getUserChallengeByChallengeId
+    getUserChallengeByChallengeId: getUserChallengeByChallengeId,
+    getUserScore: getUserScore
 }
