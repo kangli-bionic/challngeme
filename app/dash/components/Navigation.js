@@ -62,9 +62,6 @@ export function Navigation(){
                     <li className="header">
                         <Link to="/dash/category">Categories</Link>
                     </li>
-                    <li className="header">
-                        <Link to="/dash/profile">Profile</Link>
-                    </li>
                 </ul>
             </section>
         </aside>  

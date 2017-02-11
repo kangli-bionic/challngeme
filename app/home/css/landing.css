@@ -351,3 +351,7 @@ fieldset[disabled] .btn-xl.active {
 .home #contact .text-danger{
   color: #e74c3c;
 }
+
+.start{
+  width:100%;
+}

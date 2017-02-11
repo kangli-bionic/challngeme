@@ -10,7 +10,7 @@ export function Category(props){
         let category = {
             id: props.category.id
         };
-        $category.animateCss('rubberBand');
+        $category.animateCss('jello');
         $category.toggleClass('selected', (selected) => {
             $category.find('.glyphicon').toggleClass('hide', () => {});
             props.toggleCategory(category, selected);
@@ -26,8 +26,8 @@ export function Category(props){
                 <div className="inner" >
                     <h3>{props.category.name}</h3>
                     <p>{props.category.description}</p>
+                    {(props.category.selected ? <Glyphicon centerBlock='center-block' icon="ok"/> : '')}
                 </div>
-                {(props.category.selected ? <Glyphicon centerBlock='center-block' icon="ok"/> : '')}
             </div>
         </div>
     );
@@ -101,7 +101,7 @@ export class CategoryForm extends React.Component{
                     {categories}
                     <div style={{clear: 'both'}}></div>
                     <div className="col-md-12">
-                        <button type="submit" className="btn btn-lg btn-flat col-md-12 btn-default">{
+                        <button type="submit" className="btn btn-lg btn-flat start btn-success">{
                             (this.state.newUser == "true") ? 'Next' : 'Save'
                         }</button>
                     </div>

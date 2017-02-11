@@ -64,8 +64,8 @@ export class UserForm extends React.Component{
                                    className="form-control" placeholder="example"
                             style={ {display: !this.showPasswordField ? 'none' : 'initial'} }/>
                         </div>
+                        <button type="submit" className="btn btn-xl start">Start</button>
                     </div>
-                    <button type="submit" className="btn btn-xl">Start</button>
                 </div>
             </form>
         );
