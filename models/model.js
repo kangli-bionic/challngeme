@@ -7,20 +7,7 @@ let entity = entities(db);
 
 const getUser = Promise.denodeify(entity.User.get);
 
-const completeChallenge = (currentChallengeId, userId, file) => {
-    return new Promise((fulfill, reject) => {
-        markChallengeAsCompleted(currentChallengeId, userId, file).then((completedChallengeId) => {
-            getChallengesByUser(userId).then((challenges) => {
-                let completedChallenge = challenges.filter((challenge) => {
-                  return challenge.id == completedChallengeId;
-                });
-                fulfill(completedChallenge[0]);
-            }, reject);
-        }, reject);
-    });
-
-}
-
+//User
 const claimAccount = (email, pass) => {
     const findUser = Promise.denodeify(entity.User.find);
     return new Promise((fulfill, reject) => {
@@ -45,73 +32,6 @@ const claimAccount = (email, pass) => {
     });
 
 };
-
-const saveCategory = (userId, categories) => {
-    return new Promise((fulfill, reject) => {
-        getUser(userId).then((user) => {
-            user.categories = categories;
-            user.save();
-            fulfill({
-                newUser: false,
-                redirect: 'dash/'
-            });
-        }, reject);
-    });
-}
-
-const getNextChallenge = (userId) => {
-    return new Promise((fulfill, reject) => {
-        getPossibleChallenges(userId).then((challenges) => {
-            try{
-                getUserCurrentChallenge(userId).then((currentChallenge) => {
-                    if(currentChallenge.length > 0){
-                        fulfill(currentChallenge[0]);
-                    }else{
-                        let challengeId = challenges[Math.floor(Math.random() * (challenges.length - 1))].id;
-                        assignChallenge(challengeId, userId).then(fulfill, reject);
-                    }
-                }, reject);
-            }catch(ex){
-                reject(ex);
-            }
-        });
-    });
-}
-
-
-const assignChallenge = (challengeId, userId) => {
-    return new Promise((fulfill, reject) => {
-        entity.UserChallenges.create({challenges_id: challengeId, user_id: userId, current: 1}, (err, result) => {
-           if(err) reject(err);
-            getChallengesByUser(result.user_id).then((challenges) => {
-               let challenge = challenges.filter((challenge) =>{
-                   return challenge.id == result.challenges_id;
-               });
-                fulfill(challenge[0]);
-            }, reject);
-        });
-    });
-}
-
-const markChallengeAsCompleted = (challengeId, userId, file) => {
-    return new Promise((fulfill, reject) => {
-        entity.UserChallenges.find({challenges_id: challengeId, user_id: userId}, (err, current) => {
-            if(err) reject(err);
-            try{
-                let currentChallenge = current[0];
-                currentChallenge.current = 0;
-                currentChallenge.completed = 1;
-                currentChallenge.image = file;
-                currentChallenge.save((err, result) => {
-                    if(err) reject(err);
-                    fulfill(result.challenges_id);
-                });
-            }catch(ex){
-                reject(ex);
-            }
-        });
-    });
-}
 
 const login = (fulfill, reject, userId) => {
     getUser(userId).then((user) => {
@@ -142,13 +62,16 @@ const signup = (fulfill, reject, user) => {
     }, reject);
 }
 
-const getUserCurrentChallenge = (userId) => {
+//Category
+const saveCategory = (userId, categories) => {
     return new Promise((fulfill, reject) => {
-        getChallengesByUser(userId).then((challenges) => {
-            let currentChallenge = challenges.filter((challenge) => {
-                return challenge.current == 1;
+        getUser(userId).then((user) => {
+            user.categories = categories;
+            user.save();
+            fulfill({
+                newUser: false,
+                redirect: '/dash/'
             });
-            fulfill(currentChallenge);
         }, reject);
     });
 }
@@ -168,6 +91,88 @@ const getCategories = (userId) => {
     });
 }
 
+//Challenge
+const getNextChallenge = (userId) => {
+    return new Promise((fulfill, reject) => {
+        getPossibleChallenges(userId).then((challenges) => {
+            try{
+                getUserCurrentChallenge(userId).then((currentChallenge) => {
+                    if(currentChallenge.length > 0){
+                        fulfill(currentChallenge[0]);
+                    }else{
+                        let challengeId = challenges[Math.floor(Math.random() * (challenges.length - 1))].id;
+                        assignChallenge(challengeId, userId).then(fulfill, reject);
+                    }
+                }, reject);
+            }catch(ex){
+                reject(ex);
+            }
+        });
+    });
+}
+
+const completeChallenge = (currentChallengeId, userId, file) => {
+    return new Promise((fulfill, reject) => {
+        markChallengeAsCompleted(currentChallengeId, userId, file).then((completedChallengeId) => {
+            getChallengesByUser(userId).then((challenges) => {
+                let completedChallenge = challenges.filter((challenge) => {
+                  return challenge.id == completedChallengeId;
+                });
+                fulfill(completedChallenge[0]);
+            }, reject);
+        }, reject);
+    });
+
+}
+
+
+const assignChallenge = (challengeId, userId) => {
+    return new Promise((fulfill, reject) => {
+        entity.UserChallenges.create({challenges_id: challengeId, userId: userId, current: 1}, (err, result) => {
+           console.log(err);
+            if(err) reject(err);
+            getChallengesByUser(result.userId).then((challenges) => {
+               let challenge = challenges.filter((challenge) =>{
+                   return challenge.id == result.challenges_id;
+               });
+                fulfill(challenge[0]);
+            }, reject);
+        });
+    });
+}
+
+const markChallengeAsCompleted = (challengeId, userId, file) => {
+    return new Promise((fulfill, reject) => {
+        entity.UserChallenges.find({challenges_id: challengeId, user_id: userId}, (err, current) => {
+            if(err) reject(err);
+            try{
+                let currentChallenge = current[0];
+                currentChallenge.current = 0;
+                currentChallenge.completed = 1;
+                currentChallenge.image = file;
+                currentChallenge.save((err, result) => {
+                    if(err) reject(err);
+                    fulfill(result.challenges_id);
+                });
+            }catch(ex){
+                reject(ex);
+            }
+        });
+    });
+}
+
+
+const getUserCurrentChallenge = (userId) => {
+    return new Promise((fulfill, reject) => {
+        getChallengesByUser(userId).then((challenges) => {
+            let currentChallenge = challenges.filter((challenge) => {
+                return challenge.current == 1;
+            });
+            fulfill(currentChallenge);
+        }, reject);
+    });
+}
+
 const getPossibleChallenges = (userId) => {
     const query = `select 
         c.id
@@ -180,6 +185,7 @@ const getPossibleChallenges = (userId) => {
     return new Promise((fulfill, reject) => {
         db.driver.execQuery(query, [userId, userId], (err, data) => {
             if(err) reject(err);
+            if(data.length <= 0) { reject(new Error ('Congrats! You completed all challenges for now!'));}
             fulfill(data);
         });
     });
@@ -239,8 +245,24 @@ const getUserScore = (userId) => {
             fulfill(data[0]);
         });
     });
+}
+
+const challengeUser = (userId, challengedUser, challengeId) => {
+ return new Promise((fulfill, reject) => {
+    entity.User.find({email: challengedUser}, (err, user) => {
+        let id = user[0];
+        if(id){
+            //TODO: if user_challenge already has a challenge_user_id cant assigned to the challengedUser
+            //TODO: send email to challengeUser with challenge information
+            //TODO: update challengedUserId in user_challenges row
+            //TODO: check if the user has not been completed by challengedUser
+            //TODO: create user_challenge row for challengedUser, mark as current
+        }
+    });
+ });
 
 }
+
 module.exports = {
     claimAccount: claimAccount,
     saveCategory: saveCategory,

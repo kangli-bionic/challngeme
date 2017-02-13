@@ -1,5 +1,6 @@
 const multer  = require('multer');
 const controllers = require('../controllers/controllers');
+const path = require('path');
 
 let storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -33,6 +34,12 @@ const routes = (app) => {
     app.get('/dash/getChallenges', controllers.getUserCompletedChallenges);
     app.get('/dash/getUserChallengeByChallengeId', controllers.getUserChallengeByChallengeId);
     app.get('/dash/getUserScore', controllers.getUserScore);
+    // handle every other route with index.html, which will contain
+    // a script tag to your application's JavaScript file(s).
+    app.get('*', function (request, response){
+        console.log(path.resolve( './','app', 'index.html'));
+        response.sendFile(path.resolve( './','app', 'index.html'));
+    })
 }
 
 module.exports = routes;

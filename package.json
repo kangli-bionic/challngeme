@@ -48,6 +48,7 @@
     "mysql": "^2.12.0",
     "orm": "^3.2.3",
     "password-hash-and-salt": "^0.1.4",
+    "path": "^0.12.7",
     "promise": "^7.1.1",
     "react": "^15.4.2",
     "react-cookie": "^1.0.4",

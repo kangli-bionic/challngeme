@@ -14,7 +14,7 @@ export function Header(props){
 
     return(
         <header className="main-header">
-            <Link to="dash/" className="logo">
+            <Link to="/dash/" className="logo">
                 <span className="logo-mini"><b>C</b>ME</span>
                 <span className="logo-lg">{props.title}</span>
             </Link>

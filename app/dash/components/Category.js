@@ -7,13 +7,12 @@ export function Category(props){
 
     const onClick = (event) => {
         const $category = $(event.target).closest('.small-box');
-        let category = {
-            id: props.category.id
-        };
+        let categoryId = props.category.id;
+
         $category.animateCss('jello');
         $category.toggleClass('selected', (selected) => {
-            $category.find('.glyphicon').toggleClass('hide', () => {});
-            props.toggleCategory(category, selected);
+            $category.find('.selection-mark').toggleClass('hide', () => {});
+            props.toggleCategory(categoryId, selected);
         });
 
     }
@@ -26,7 +25,9 @@ export function Category(props){
                 <div className="inner" >
                     <h3>{props.category.name}</h3>
                     <p>{props.category.description}</p>
-                    {(props.category.selected ? <Glyphicon centerBlock='center-block' icon="ok"/> : '')}
+                    <div className={`selection-mark ${props.category.selected ? '' : 'hide'} `}>
+                        <Glyphicon centerBlock='center-block' icon="ok"/>
+                    </div>
                 </div>
             </div>
         </div>
@@ -51,8 +52,18 @@ export class CategoryForm extends React.Component{
         const that = this;
         $.get('/dash/getCategories', {userId: this.state.userId})
             .done((data) => {
-                that.setState({
-                     categories: data
+                that.setState(() => {
+                    that.selected = data.map((cat) => {
+                        if(cat.selected != 0){
+                            return cat.id;
+                        }else{
+                            return cat.selected;
+                        }
+                    });
+                    console.log(that.selected);
+                    return {
+                        categories: data
+                    }
                 });
             })
             .fail((err) => {
@@ -60,10 +71,11 @@ export class CategoryForm extends React.Component{
             });
     }
 
-    toggleCategory(category, selected){
-        this.selected.push(category);
-        this.selected = this.selected.filter((cat) => {
-            if(cat.id == category.id && !selected){
+    toggleCategory(categoryId, selected){
+
+        this.selected.push(categoryId);
+        this.selected = this.selected.filter((id) => {
+            if(id == categoryId && !selected){
                 return false;
             }else{
                 return true;
@@ -88,6 +100,7 @@ export class CategoryForm extends React.Component{
             .fail((err) => {
                 console.log(err);
             });
+        console.log(this.selected);
     }
 
     render(){
@@ -98,13 +111,13 @@ export class CategoryForm extends React.Component{
         return (
             <div className="row">
                 <form onSubmit={this.onSave}>
-                    {categories}
-                    <div style={{clear: 'both'}}></div>
                     <div className="col-md-12">
                         <button type="submit" className="btn btn-lg btn-flat start btn-success">{
                             (this.state.newUser == "true") ? 'Next' : 'Save'
                         }</button>
                     </div>
+                    <div style={{clear: 'both'}}></div>
+                    {categories}
                 </form>
             </div>
         )

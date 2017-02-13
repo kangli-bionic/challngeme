@@ -22,7 +22,8 @@ const getCategories = (req, res) => {
 
 const saveCategory = (req, res) => {
     let userId = req.body.userId;
-    model.saveCategory(userId).then((data) => {
+    let selected = req.body.selected;
+    model.saveCategory(userId, selected).then((data) => {
         fulfill(data, res);
     }, (err) => {
         reject(err, res);

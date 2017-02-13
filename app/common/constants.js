@@ -4,7 +4,6 @@ export const constants = {
         'bg-yellow',
         'bg-aqua',
         'bg-blue',
-        'bg-green',
         'bg-navy',
         'bg-teal',
         'bg-olive',

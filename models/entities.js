@@ -33,8 +33,10 @@ module.exports = (db) => {
         completed: {type: 'number'},
         current: {type: 'number'},
         challenges_id: {type: 'number'},
-        user_id: {type: 'number'},
-        image: {type: 'text'}
+        userId: {type: 'number', mapsTo: 'user_id'},
+        image: {type: 'text'},
+        challengedUserId: {type: 'number', mapsTo: 'challenged_user_id'},
+        declined: {type: 'number'}
     });
 
     User.hasMany('categories', Category, {}, { key: true });

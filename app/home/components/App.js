@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { IndexRoute, Router, Route, hashHistory} from 'react-router'
+import { IndexRoute, Router, Route, hashHistory, browserHistory} from 'react-router'
 import cookie from 'react-cookie';
 
 import {constants} from '../../common/constants';
@@ -68,9 +68,10 @@ const isLoggedIn = (nextState, replace) => {
     }
 }
 
+//TODO: section to see completed challenges by friends
 //TODO: work with browserHistory
 ReactDOM.render(
-    <Router history={hashHistory}>
+    <Router history={browserHistory}>
         <Route path="/" component={App} onEnter={isLoggedIn} />
         <Route path="dash" component={Dashboard} onEnter={auth}>
             <IndexRoute component={CurrentChallenge}/>

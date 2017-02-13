@@ -1,5 +1,6 @@
 import React from 'react';
 import {CompleteChallengeForm} from './CompleteChallengeForm';
+import {ChallengeUserForm} from './ChallengeUserForm';
 import {constants} from '../../common/constants';
 import {Glyphicon} from '../../common/components/Glyphicon';
 
@@ -29,37 +30,52 @@ export const Challenge = (props) => {
         $(formContainer).toggleClass('hide', () => {});
     }
 
+    //TODO: if challenge was complete by friend show it on corresponding section
     return (
         <div className="box box-widget widget-user-2 ">
-            <div className="widget-user-header bg-aqua">
-                <div className="widget-user-image">
-                    <img ref={(image) => { challengeAccepted = image; }} className="img-circle"
-                         src={image} />
-                </div>
-                <h3 className="widget-user-username">{props.challenge.category.name}</h3>
-                <h4 className="widget-user-desc">{props.challenge.category.description}</h4>
-            </div>
-            <div className="box-footer">
-                <div className="row">
-                    <div className="col-md-12 border-right">
-                        <div className="description-block">
-                            <h4 className="description-header">{props.challenge.description}</h4>
-                            <h4 className="description-text">Points: {props.challenge.points} {props.challenge.bonus ? '(x 2)' : ''}</h4>
-                            <h4 className="description-text">Bonus: {bonus}</h4>
-                            <div className={showCompleteChallengeForm} ref={(div) => {formContainer = div; }}>
-                                <CompleteChallengeForm
-                                    onLoadedChallengeImage={showChallengeImage}
-                                    challengeId={props.challenge.id}
-                                    onChallengeCompleted={showCompleteChallengeAnimation}/>
+            {props.challenge.category.name ?
+                <div>
+                    {props.hideCategory ?
+                            ''
+                        : <div className="widget-user-header bg-aqua">
+                            <div className="widget-user-image">
+                                <img ref={(image) => {
+                                    challengeAccepted = image;}}
+                                     className="img-circle"
+                                     src={image}/>
                             </div>
+                            <h3 className="widget-user-username">{props.challenge.category.name}</h3>
+                            <h4 className="widget-user-desc">{props.challenge.category.description}</h4>
                         </div>
-                        <div className="col-md-12" >
-                            <img ref={(image) => { challengeImage = image; }} className="img-rounded center-block challenge-image"
-                                 src={ props.challenge.image ? `uploads/${props.challenge.image}` : null} />
+                    }
+                    <div className="box-footer">
+                        <div className="row">
+                            <div className="col-md-12 border-right">
+                                <div className="description-block">
+                                    <h4 className="description-header">{props.challenge.description}</h4>
+                                    <h4 className="description-text">Points: {props.challenge.points} {props.challenge.bonus ? '(x 2)' : ''}</h4>
+                                    <h4 className="description-text">Bonus: {bonus}</h4>
+                                    <div className={showCompleteChallengeForm} ref={(div) => {formContainer = div; }}>
+                                        <CompleteChallengeForm
+                                            onLoadedChallengeImage={showChallengeImage}
+                                            challengeId={props.challenge.id}
+                                            onChallengeCompleted={showCompleteChallengeAnimation}/>
+                                    </div>
+                                    <ChallengeUserForm/>
+                                </div>
+                                <div className="col-md-12" >
+                                    <img ref={(image) => { challengeImage = image; }} className="img-rounded center-block challenge-image"
+                                         src={ props.challenge.image ? `uploads/${props.challenge.image}` : null} />
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+                :
+                <div className="widget-user-header bg-navy">
+                    <h3>Congrats! You've completed every challenge available for you, for now.</h3>
+                </div>
+            }
         </div>
     );
 }
