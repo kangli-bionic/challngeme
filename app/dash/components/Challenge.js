@@ -61,11 +61,10 @@ export const Challenge = (props) => {
                                             challengeId={props.challenge.id}
                                             onChallengeCompleted={showCompleteChallengeAnimation}/>
                                     </div>
-                                    <ChallengeUserForm/>
                                 </div>
                                 <div className="col-md-12" >
                                     <img ref={(image) => { challengeImage = image; }} className="img-rounded center-block challenge-image"
-                                         src={ props.challenge.image ? `uploads/${props.challenge.image}` : null} />
+                                         src={ props.challenge.image ? `/uploads/${props.challenge.image}` : null} />
                                 </div>
                             </div>
                         </div>

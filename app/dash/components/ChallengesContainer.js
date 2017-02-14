@@ -32,7 +32,7 @@ export class ChallengesContainer extends React.Component{
         let challenges = this.state.challenges.map((challenge) =>{
             return  (
                 <div className="col-md-4 col-xs-6 challenge" key={challenge.id}>
-                    <Link to={`/dash/challenge/${challenge.id}`}>
+                    <Link to={`/challenge/${challenge.id}`}>
                         <Challenge hideCategory challenge={challenge}></Challenge>
                     </Link>
                 </div>

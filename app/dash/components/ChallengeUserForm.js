@@ -22,17 +22,7 @@ export class ChallengeUserForm extends React.Component{
 
     challengeUser(event){
         event.preventDefault();
-        console.log('challenged');
-        // $.post('dash/challengeUser', {
-        //     userId: this.state.userId,
-        //     user: this.state.user
-        // })
-        //     .done((data) => {
-        //
-        //     })
-        //     .fail((err) => {
-        //
-        //     });
+
     }
 
     render(){
@@ -40,9 +30,9 @@ export class ChallengeUserForm extends React.Component{
             <form onSubmit={this.challengeUser}>
                 <p>Enter the email of a friend and challenge him too!</p>
                 <div className="input-group margin">
-                    <input type="text" className="form-control"/>
+                    <input type="email" className="form-control"/>
                     <div className="input-group-btn">
-                        <button type="submit" className="btn btn-danger">Go!</button>
+                        <button type="submit" className="btn btn-default bg-navy">Go!</button>
                     </div>
                 </div>
             </form>

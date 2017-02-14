@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { IndexRoute, Router, Route, hashHistory, browserHistory} from 'react-router'
+import {Router, Route, browserHistory} from 'react-router'
 import cookie from 'react-cookie';
 
 import {constants} from '../../common/constants';
@@ -58,13 +58,14 @@ class App extends React.Component{
 
 const auth = (nextState, replace) => {
     if(!cookie.load(constants.cookies.USER_ID)){
-        replace('/');
+        browserHistory.push('/');
     }
+
 }
 
 const isLoggedIn = (nextState, replace) => {
     if(cookie.load(constants.cookies.USER_ID)){
-        replace('/dash/');
+        browserHistory.push('/current');
     }
 }
 
@@ -73,14 +74,13 @@ const isLoggedIn = (nextState, replace) => {
 ReactDOM.render(
     <Router history={browserHistory}>
         <Route path="/" component={App} onEnter={isLoggedIn} />
-        <Route path="dash" component={Dashboard} onEnter={auth}>
-            <IndexRoute component={CurrentChallenge}/>
+        <Route component={Dashboard} onEnter={auth} >
+            <Route path="current" component={CurrentChallenge} />
             <Route path="category" component={CategoryForm}/>
             <Route path="challenge" component={ChallengesContainer}/>
             <Route path="challenge/:challengeId" component={SingleChallengeContainer} />
             <Route path="*" component={NotFound}/>
         </Route>
-        <Route path="*" component={NotFound}/>
     </Router>,
     document.getElementById('root')
 );

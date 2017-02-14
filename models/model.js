@@ -57,7 +57,7 @@ const signup = (fulfill, reject, user) => {
                 photo: userDb.photo,
                 newUser: true
             },
-            redirect: '/dash/category'
+            redirect: '/category'
         });
     }, reject);
 }
@@ -70,7 +70,7 @@ const saveCategory = (userId, categories) => {
             user.save();
             fulfill({
                 newUser: false,
-                redirect: '/dash/'
+                redirect: '/current'
             });
         }, reject);
     });

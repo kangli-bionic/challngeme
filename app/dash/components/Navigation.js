@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router';
+import { Link, browserHistory } from 'react-router';
 import cookie from 'react-cookie';
 import {constants} from '../../common/constants';
 import {Glyphicon} from '../../common/components/Glyphicon';
@@ -9,12 +9,12 @@ export function Header(props){
         cookie.remove(constants.cookies.NEW_USER, {path: '/'});
         cookie.remove(constants.cookies.USER, {path: '/'});
         cookie.remove(constants.cookies.USER_ID, {path: '/'});
-        props.router.push('/');
+        browserHistory.push('/');
     }
 
     return(
         <header className="main-header">
-            <Link to="/dash/" className="logo">
+            <Link to="/current" className="logo">
                 <span className="logo-mini"><b>C</b>ME</span>
                 <span className="logo-lg">{props.title}</span>
             </Link>
@@ -57,10 +57,10 @@ export function Navigation(){
                 </div>
                 <ul className="sidebar-menu">
                     <li className="header">
-                        <Link to="/dash/challenge">Challenges</Link>
+                        <Link to="/challenge">Challenges</Link>
                     </li>
                     <li className="header">
-                        <Link to="/dash/category">Categories</Link>
+                        <Link to="/category">Categories</Link>
                     </li>
                 </ul>
             </section>

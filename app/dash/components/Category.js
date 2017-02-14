@@ -1,4 +1,5 @@
 import React from 'react';
+import {browserHistory} from 'react-router';
 import {constants} from '../../common/constants';
 import {Glyphicon} from '../../common/components/Glyphicon';
 import cookie from 'react-cookie';
@@ -60,7 +61,6 @@ export class CategoryForm extends React.Component{
                             return cat.selected;
                         }
                     });
-                    console.log(that.selected);
                     return {
                         categories: data
                     }
@@ -95,12 +95,11 @@ export class CategoryForm extends React.Component{
                 this.setState({
                     newUser: data.newUser
                 });
-                this.props.router.push(data.redirect);
+                browserHistory.push(data.redirect);
             })
             .fail((err) => {
                 console.log(err);
             });
-        console.log(this.selected);
     }
 
     render(){
