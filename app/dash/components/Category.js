@@ -24,11 +24,10 @@ export function Category(props){
              ${(props.category.selected ? 'selected' : '')}`}
                  onClick={onClick}>
                 <div className="inner" >
-                    <h3>{props.category.name}
-                        <div className={`selection-mark ${props.category.selected ? '' : 'hide'} `}>
-                            <Glyphicon centerBlock="" icon="ok"/>
-                        </div>
-                    </h3>
+                    <h3>{props.category.name}</h3>
+                    <div className={`selection-mark ${props.category.selected ? '' : 'hide'} `}>
+                        <Glyphicon centerBlock="" icon="ok"/>
+                    </div>
                     <p>{props.category.description}</p>
                 </div>
             </div>
@@ -43,11 +42,14 @@ export class CategoryForm extends React.Component{
         this.state = {
             categories: [],
             newUser: cookie.load(constants.cookies.NEW_USER),
-            userId: cookie.load(constants.cookies.USER_ID)
+            userId: cookie.load(constants.cookies.USER_ID),
+            error: null
         }
         this.selected =[];
         this.toggleCategory = this.toggleCategory.bind(this);
         this.onSave = this.onSave.bind(this);
+        this.onError = this.onError.bind(this);
+        this.removeNotification = this.removeNotification.bind(this);
     }
 
     componentDidMount(){
@@ -87,7 +89,6 @@ export class CategoryForm extends React.Component{
     onSave(event){
         event.preventDefault();
         if(this.selected.length <= 0){
-            console.log('pick at least one');
             return;
         }
         $.post('/dash/saveCategory', {
@@ -103,17 +104,34 @@ export class CategoryForm extends React.Component{
                 browserHistory.push(data.redirect);
             })
             .fail((err) => {
-                console.log(err);
+                this.onError(err);
             });
+    }
+
+    onError(message){
+        this.error = true;
+        this.setState({
+            error: message
+        });
+    }
+
+    removeNotification(){
+        this.error = false;
+        this.setState({
+            error: ''
+        });
     }
 
     render(){
         const categories = this.state.categories.map((category) =>{
            return <Category toggleCategory={this.toggleCategory} key={category.id} category={category}/>
         });
+        let notification = <Notification type={constants.notifications.DANGER} removeNotification={this.removeNotification}
+                                         message={this.state.error}/>;
 
         return (
             <div className="row">
+                {this.error ? notification : ''}
                 <form onSubmit={this.onSave}>
                     <div className="col-md-12">
                         <button type="submit" className="btn btn-lg btn-flat start btn-success">{

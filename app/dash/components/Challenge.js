@@ -1,6 +1,5 @@
 import React from 'react';
 import {CompleteChallengeForm} from './CompleteChallengeForm';
-import {ChallengeUserForm} from './ChallengeUserForm';
 import {constants} from '../../common/constants';
 import {Glyphicon} from '../../common/components/Glyphicon';
 
@@ -23,11 +22,11 @@ export const Challenge = (props) => {
         }
     }
 
-    const showCompleteChallengeAnimation = () => {
+    const showCompleteChallengeAnimation = (challenge) => {
         let $challengeAccepted = $(challengeAccepted);
         $challengeAccepted.attr('src', constants.images.CHALLENGE_COMPLETED);
         $challengeAccepted.animateCss('flip');
-        $(formContainer).toggleClass('hide', () => {});
+        props.onChallengeComplete(challenge);
     }
 
     //TODO: if challenge was complete by friend show it on corresponding section
@@ -55,10 +54,10 @@ export const Challenge = (props) => {
                                     <h4 className="description-header">{props.challenge.description}</h4>
                                     <h4 className="description-text">Points: {props.challenge.points} {props.challenge.bonus ? '(x 2)' : ''}</h4>
                                     <h4 className="description-text">Bonus: {bonus}</h4>
-                                    <div className={showCompleteChallengeForm} ref={(div) => {formContainer = div; }}>
+                                    <div className={showCompleteChallengeForm} >
                                         <CompleteChallengeForm
                                             onLoadedChallengeImage={showChallengeImage}
-                                            challengeId={props.challenge.id}
+                                            challenge={props.challenge}
                                             onChallengeCompleted={showCompleteChallengeAnimation}/>
                                     </div>
                                 </div>
@@ -72,7 +71,7 @@ export const Challenge = (props) => {
                 </div>
                 :
                 <div className="widget-user-header bg-navy">
-                    <h3>Congrats! You've completed every challenge available for you, for now.</h3>
+                    <h3>It seems we don't have new challenges available for you, for now.</h3>
                 </div>
             }
         </div>

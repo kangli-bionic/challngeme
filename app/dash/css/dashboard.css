@@ -2,7 +2,8 @@
     cursor: pointer;
     border:none;
     border-radius: 5px;
-    padding:5px;
+    padding-bottom: 0px;
+    padding-top: 5px;
 }
 
 .content-wrapper{

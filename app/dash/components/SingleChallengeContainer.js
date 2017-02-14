@@ -53,6 +53,8 @@ export class CurrentChallenge extends React.Component{
                 }
             }
         }
+
+        this.onChallengeComplete = this.onChallengeComplete.bind(this);
     }
 
     componentDidMount(){
@@ -70,13 +72,20 @@ export class CurrentChallenge extends React.Component{
             });
     }
 
+    onChallengeComplete(data){
+        console.log(data);
+        this.setState({
+            challenge: data
+        })
+    }
+
     render(){
 
         //TODO: more than one current challenge
         return(
             <div>
                 <div className="col-md-12">
-                    <Challenge challenge={this.state.challenge}/>
+                    <Challenge onChallengeComplete={this.onChallengeComplete} challenge={this.state.challenge}/>
                 </div>
             </div>
         );

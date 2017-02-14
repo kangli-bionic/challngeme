@@ -44,7 +44,7 @@ export class CompleteChallengeForm extends React.Component{
         let formData = new FormData();
         formData.append('file', this.state.file);
         formData.append('userId', this.state.userId);
-        formData.append('currentChallengeId', this.props.challengeId);
+        formData.append('currentChallengeId', this.props.challenge.id);
 
         let $completeChallenge = $(this.completeChallenge);
         $completeChallenge.attr('disabled','disabled');
@@ -58,7 +58,8 @@ export class CompleteChallengeForm extends React.Component{
             contentType: false
         })
             .done(() => {
-                this.props.onChallengeCompleted();
+                this.props.challenge.completed = 1;
+                this.props.onChallengeCompleted(this.props.challenge);
             })
             .fail((err) => {
                 $completeChallenge.removeAttr('disabled','disabled');
