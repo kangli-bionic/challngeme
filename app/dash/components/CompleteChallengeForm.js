@@ -1,5 +1,6 @@
 import React from 'react';
 import {constants} from '../../common/constants';
+import {Glyphicon} from '../../common/components/Glyphicon';
 import cookie from 'react-cookie';
 
 export class CompleteChallengeForm extends React.Component{
@@ -69,8 +70,13 @@ export class CompleteChallengeForm extends React.Component{
         return (
             <form onSubmit={this.onChallengeCompleted} action="POST" encType="multipart/form-data">
                 <hr/>
-                <input type="file" name="file" className="center-block"
+                <input type="file" name="file" id="file" className="center-block hide"
+                       accept="image/jpg,image/jpeg,image/png"
                        value={this.state.input} onChange={this.onInputChange}/>
+                <label htmlFor="file" className="btn btn-flat bg-navy btn-lg">
+                    <Glyphicon icon="open-file" centerBlock=""/>
+                    Upload proof of a possible awesome memory
+                </label>
                 <hr/>
                 <button ref={(button) => { this.completeChallenge = button; }} type="submit"
                         disabled="disabled" className="btn btn-lg btn-success" >Challnge Completed</button>

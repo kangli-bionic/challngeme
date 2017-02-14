@@ -24,11 +24,12 @@ export function Category(props){
              ${(props.category.selected ? 'selected' : '')}`}
                  onClick={onClick}>
                 <div className="inner" >
-                    <h3>{props.category.name}</h3>
+                    <h3>{props.category.name}
+                        <div className={`selection-mark ${props.category.selected ? '' : 'hide'} `}>
+                            <Glyphicon centerBlock="" icon="ok"/>
+                        </div>
+                    </h3>
                     <p>{props.category.description}</p>
-                    <div className={`selection-mark ${props.category.selected ? '' : 'hide'} `}>
-                        <Glyphicon centerBlock='center-block' icon="ok"/>
-                    </div>
                 </div>
             </div>
         </div>
@@ -85,6 +86,10 @@ export class CategoryForm extends React.Component{
 
     onSave(event){
         event.preventDefault();
+        if(this.selected.length <= 0){
+            console.log('pick at least one');
+            return;
+        }
         $.post('/dash/saveCategory', {
                 selected: this.selected,
                 userId: this.state.userId,
