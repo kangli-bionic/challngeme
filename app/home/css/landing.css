@@ -105,7 +105,7 @@ fieldset[disabled] .btn-primary.active {
   /*background-color: #fed136;*/
   background-color: #367fa9;
   /*border-color: #fed136;*/
-  font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
   text-transform: uppercase;
   font-weight: 700;
   border-radius: 3px;
@@ -153,8 +153,9 @@ fieldset[disabled] .btn-xl.active {
   border-color: transparent;
 }
 .home .navbar-custom .navbar-brand {
-  color: white;
-  font-family: "Kaushan Script", "Helvetica Neue", Helvetica, Arial, cursive;
+  font-family: "Roboto", Helvetica, Arial, cursive;
+  font-weight: bold;
+  color: #fff;
 }
 
 .home .navbar-default .btn-link:hover, .navbar-default .btn-link:focus{
@@ -167,7 +168,7 @@ fieldset[disabled] .btn-xl.active {
 .home .navbar-custom .navbar-toggle {
   background-color: #fed136;
   border-color: #fed136;
-  font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
   text-transform: uppercase;
   color: white;
   font-size: 12px;
@@ -233,14 +234,14 @@ fieldset[disabled] .btn-xl.active {
   color:#ffffff;
 }
 .home header .intro-text .intro-lead-in {
-  font-family: "Droid Serif", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-style: italic;
   font-size: 22px;
   line-height: 22px;
   margin-bottom: 25px;
 }
 .home header .intro-text .intro-heading {
-  font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
   text-transform: uppercase;
   font-weight: 700;
   font-size: 50px;
@@ -253,14 +254,14 @@ fieldset[disabled] .btn-xl.active {
     padding-bottom: 200px;
   }
   .home header .intro-text .intro-lead-in {
-    font-family: "Droid Serif", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-style: italic;
     font-size: 40px;
     line-height: 40px;
     margin-bottom: 25px;
   }
   .home header .intro-text .intro-heading {
-    font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
     text-transform: uppercase;
     font-weight: 700;
     font-size: 75px;
@@ -326,7 +327,7 @@ fieldset[disabled] .btn-xl.active {
 }
 .home #sign-up ::-webkit-input-placeholder,
 .home #contact ::-webkit-input-placeholder{
-  font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
   text-transform: uppercase;
   font-weight: 700;
   /*color: #eeeeee;*/
@@ -334,7 +335,7 @@ fieldset[disabled] .btn-xl.active {
 .home #sign-up :-moz-placeholder,
 .home #contact :-moz-placeholder{
   /* Firefox 18- */
-  font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
   text-transform: uppercase;
   font-weight: 700;
   /*color: #eeeeee;*/
@@ -342,7 +343,7 @@ fieldset[disabled] .btn-xl.active {
 
 .home #sign-up :-ms-input-placeholder,
 .home #contact :-ms-input-placeholder{
-  font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
   text-transform: uppercase;
   font-weight: 700;
   /*color: #eeeeee;*/

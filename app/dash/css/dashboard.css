@@ -17,7 +17,7 @@
 }
 
 .challenge-image{
-    width: 200px;
+    margin: 0 auto;
 }
 
 .hide{
@@ -52,4 +52,39 @@
 
 .selected{
     position: relative;
+}
+
+.col-md-4.challenge .box-widget,
+.col-xs-6.challenge .box-widget{
+    min-height: 300px;
+    max-height: 300px;
+    overflow: hidden;
+    position: relative;
+}
+
+
+.category .small-box{
+    min-height: 110px;
+    max-height: 110px;
+}
+
+.logo-lg{
+    font-family: "Roboto", Helvetica, Arial, cursive;
+    font-weight: bold;
+    color: #fff;
+}
+
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+    font-family: 'Roboto', sans-serif;
+}
+
+.challenge-accepted{
+    margin:0 auto;
+    max-width: 40%;
+    height: auto;
+}
+.widget-user-2 .widget-user-username,
+.widget-user-2 .widget-user-desc {
+    text-align: center;
+    margin:0;
 }

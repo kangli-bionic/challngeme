@@ -73,7 +73,6 @@ export class CurrentChallenge extends React.Component{
     }
 
     onChallengeComplete(data){
-        console.log(data);
         this.setState({
             challenge: data
         })
@@ -85,7 +84,8 @@ export class CurrentChallenge extends React.Component{
         return(
             <div>
                 <div className="col-md-12">
-                    <Challenge onChallengeComplete={this.onChallengeComplete} challenge={this.state.challenge}/>
+                    <Challenge showLinkCurrentChallenge={true} onChallengeComplete={this.onChallengeComplete}
+                               challenge={this.state.challenge}/>
                 </div>
             </div>
         );
