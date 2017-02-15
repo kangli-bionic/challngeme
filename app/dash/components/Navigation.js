@@ -57,10 +57,13 @@ export function Navigation(){
                 </div>
                 <ul className="sidebar-menu">
                     <li className="header">
-                        <Link to="/challenge">Challenges</Link>
+                        <Link to="/current">Current Challenge</Link>
                     </li>
                     <li className="header">
-                        <Link to="/category">Categories</Link>
+                        <Link to="/challenges">Challenges</Link>
+                    </li>
+                    <li className="header">
+                        <Link to="/categories">Categories</Link>
                     </li>
                 </ul>
             </section>

@@ -42,7 +42,7 @@ const login = (fulfill, reject, userId) => {
                 photo: user.photo,
                 newUser: false
             },
-            redirect: '/dash'
+            redirect: '/current'
         });
     }, reject);
 }
@@ -57,7 +57,7 @@ const signup = (fulfill, reject, user) => {
                 photo: userDb.photo,
                 newUser: true
             },
-            redirect: '/category'
+            redirect: '/categories'
         });
     }, reject);
 }

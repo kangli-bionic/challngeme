@@ -76,8 +76,8 @@ ReactDOM.render(
         <Route path="/" component={App} onEnter={isLoggedIn} />
         <Route component={Dashboard} onEnter={auth} >
             <Route path="current" component={CurrentChallenge} />
-            <Route path="category" component={CategoryForm}/>
-            <Route path="challenge" component={ChallengesContainer}/>
+            <Route path="categories" component={CategoryForm}/>
+            <Route path="challenges" component={ChallengesContainer}/>
             <Route path="challenge/:challengeId" component={SingleChallengeContainer} />
             <Route path="*" component={NotFound}/>
         </Route>
