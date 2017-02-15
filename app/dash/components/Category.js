@@ -25,9 +25,9 @@ export function Category(props){
                  onClick={onClick}>
                 <div className="inner" >
                     <h3>{props.category.name}</h3>
-                    <div className={`selection-mark ${props.category.selected ? '' : 'hide'} `}>
-                        <Glyphicon centerBlock="" icon="ok"/>
-                    </div>
+                    <span className={`selection-mark ${props.category.selected ? '' : 'hide'} `}>
+                        <Glyphicon centerBlock="" icon="ok-circle"/>
+                    </span>
                     <p>{props.category.description}</p>
                 </div>
             </div>

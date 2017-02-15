@@ -42,3 +42,14 @@
 .custom-icon{
     margin-left:5px
 }
+
+.selection-mark{
+    position: absolute;
+    top: -1px;
+    right: 2px;
+    font-size: 36px;
+}
+
+.selected{
+    position: relative;
+}

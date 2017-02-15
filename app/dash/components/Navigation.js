@@ -31,6 +31,7 @@ export function Header(props){
                             </a>
                             <ul className="dropdown-menu">
                                 <li className="user-footer">
+                                    <Glyphicon icon="off" centerBlock=""/>
                                     <button className="btn btn-link" onClick={onLogOut}>Sign out</button>
                                 </li>
                             </ul>
