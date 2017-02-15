@@ -7,7 +7,6 @@ export const Challenge = (props) => {
 
     let challengeImage = null;
     let challengeAccepted = null;
-    let formContainer = null;
     let image = props.challenge.completed ? constants.images.CHALLENGE_COMPLETED : constants.images.CHALLENGE_ACCEPTED;
     let showCompleteChallengeForm = props.challenge.completed ? 'hide' : 'show';
     let bonus = props.challenge.bonus ? <Glyphicon centerBlock='' icon="ok"/> : <Glyphicon centerBlock='' icon="remove"/>;
@@ -56,6 +55,7 @@ export const Challenge = (props) => {
                                     <h4 className="description-text">Bonus: {bonus}</h4>
                                     <div className={showCompleteChallengeForm} >
                                         <CompleteChallengeForm
+                                            onError={props.onError}
                                             onLoadedChallengeImage={showChallengeImage}
                                             challenge={props.challenge}
                                             onChallengeCompleted={showCompleteChallengeAnimation}/>

@@ -42,18 +42,17 @@ export class CategoryForm extends React.Component{
         this.state = {
             categories: [],
             newUser: cookie.load(constants.cookies.NEW_USER),
-            userId: cookie.load(constants.cookies.USER_ID),
-            error: null
+            userId: cookie.load(constants.cookies.USER_ID)
         }
         this.selected =[];
         this.toggleCategory = this.toggleCategory.bind(this);
         this.onSave = this.onSave.bind(this);
-        this.onError = this.onError.bind(this);
-        this.removeNotification = this.removeNotification.bind(this);
+
     }
 
     componentDidMount(){
         const that = this;
+        this.update = true;
         $.get('/dash/getCategories', {userId: this.state.userId})
             .done((data) => {
                 that.setState(() => {
@@ -64,21 +63,27 @@ export class CategoryForm extends React.Component{
                             return cat.selected;
                         }
                     });
+
                     return {
                         categories: data
                     }
                 });
+
             })
-            .fail((err) => {
-                console.log(err);
+            .fail(() => {
+                this.props.onError(constants.error.GENERIC);
             });
+    }
+
+    shouldComponentUpdate(){
+        return this.update;
     }
 
     toggleCategory(categoryId, selected){
 
         this.selected.push(categoryId);
         this.selected = this.selected.filter((id) => {
-            if(id == categoryId && !selected){
+            if((id == categoryId && !selected) || id == 0){
                 return false;
             }else{
                 return true;
@@ -89,6 +94,7 @@ export class CategoryForm extends React.Component{
     onSave(event){
         event.preventDefault();
         if(this.selected.length <= 0){
+            this.props.onError(constants.error.CATEGORY);
             return;
         }
         $.post('/dash/saveCategory', {
@@ -103,35 +109,20 @@ export class CategoryForm extends React.Component{
                 });
                 browserHistory.push(data.redirect);
             })
-            .fail((err) => {
-                this.onError(err);
+            .fail(() => {
+                this.props.onError(constants.error.GENERIC);
             });
-    }
-
-    onError(message){
-        this.error = true;
-        this.setState({
-            error: message
-        });
-    }
-
-    removeNotification(){
-        this.error = false;
-        this.setState({
-            error: ''
-        });
     }
 
     render(){
         const categories = this.state.categories.map((category) =>{
            return <Category toggleCategory={this.toggleCategory} key={category.id} category={category}/>
         });
-        let notification = <Notification type={constants.notifications.DANGER} removeNotification={this.removeNotification}
-                                         message={this.state.error}/>;
+
+        this.update = false;
 
         return (
             <div className="row">
-                {this.error ? notification : ''}
                 <form onSubmit={this.onSave}>
                     <div className="col-md-12">
                         <button type="submit" className="btn btn-lg btn-flat start btn-success">{

@@ -11,18 +11,12 @@ export class ChallengeUserForm extends React.Component{
             user: ''
         }
         this.handleInput = this.handleInput.bind(this);
-        this.challengeUser = this.challengeUser.bind(this);
     }
 
     handleInput(event){
         this.setState({
             user: event.target.value
         })
-    }
-
-    challengeUser(event){
-        event.preventDefault();
-
     }
 
     render(){

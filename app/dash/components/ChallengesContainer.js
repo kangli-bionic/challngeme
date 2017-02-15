@@ -23,8 +23,8 @@ export class ChallengesContainer extends React.Component{
                     challenges: data
                 });
             })
-            .fail((err) => {
-                console.log(err);
+            .fail(() => {
+                this.props.onError(constants.error.GENERIC);
             });
     }
 
@@ -33,7 +33,7 @@ export class ChallengesContainer extends React.Component{
             return  (
                 <div className="col-md-4 col-xs-6 challenge" key={challenge.id}>
                     <Link to={`/challenge/${challenge.id}`}>
-                        <Challenge hideCategory challenge={challenge}></Challenge>
+                        <Challenge hideCategory challenge={challenge} onError={this.props.onError}></Challenge>
                     </Link>
                 </div>
             );

@@ -28,7 +28,8 @@ export const constants = {
         CHALLENGE_COMPLETED: '/dash/img/challenge-completed.jpg'
     },
     error:{
-        CATEGORY: 'Pick at least one category'
+        CATEGORY: 'Pick at least one category',
+        GENERIC: 'Sorry, something wrong has happened. Try again later.'
     }
 }
 

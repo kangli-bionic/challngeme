@@ -19,13 +19,15 @@ export class Notification extends React.Component{
     }
 
     remove(){
-       let $notification = $(this.refs.notification);
-        $notification.animateCss('bounceOutUp', () => {this.props.removeNotification()});
+       let $notification = $(this.notification);
+        $notification.animateCss('bounceOutUp', () => {
+            this.props.removeNotification();
+        });
     }
 
     render(){
         return(
-            <div onClick={this.remove} ref="notification" className={'callout notification callout-'+this.props.type} >
+            <div onClick={this.remove} ref={(div) => this.notification = div} className={'callout notification callout-'+this.props.type} >
                 <p>{this.props.message}</p>
             </div>
         )

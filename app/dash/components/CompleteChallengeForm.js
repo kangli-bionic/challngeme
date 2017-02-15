@@ -61,9 +61,9 @@ export class CompleteChallengeForm extends React.Component{
                 this.props.challenge.completed = 1;
                 this.props.onChallengeCompleted(this.props.challenge);
             })
-            .fail((err) => {
+            .fail(() => {
                 $completeChallenge.removeAttr('disabled','disabled');
-                console.log(err);
+                this.props.onError(constants.error.GENERIC);
             });
     }
 

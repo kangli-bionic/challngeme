@@ -20,7 +20,7 @@ export class Score extends React.Component {
                 });
             })
             .fail((err) => {
-                console.log(err);
+                this.props.onError(constants.error.GENERIC);
             });
     }
 
