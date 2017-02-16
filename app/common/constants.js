@@ -21,15 +21,17 @@ export const constants = {
         WARNING: 'warning'
     },
     api: {
-        ROOT_ENDPOINT: '/dash'
+        ROOT_ENDPOINT: '/dash',
+        SHORTEN_URL: 'https://www.googleapis.com/urlshortener/v1/url?key=AIzaSyAJJn3luAF_vyeEGuZTaegtFzRWlLoTIAY'
     },
     images:{
         CHALLENGE_ACCEPTED: '/dash/img/challenge-accepted.jpg',
         CHALLENGE_COMPLETED: '/dash/img/challenge-completed.jpg'
     },
     error:{
-        CATEGORY: 'Pick at least one category',
-        GENERIC: 'Sorry, something wrong has happened. Try again later.'
+        CATEGORY: 'Pick at least one category.',
+        GENERIC: 'Sorry, something wrong has happened. Try again later.',
+        NO_CHALLENGES: 'Sorry, still nothing.'
     }
 }
 

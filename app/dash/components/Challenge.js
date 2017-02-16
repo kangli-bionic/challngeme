@@ -14,10 +14,10 @@ export const Challenge = (props) => {
     const showChallengeImage = (image) => {
         let $challengeImage = $(challengeImage);
         if(image){
-            challengeImage.src = image;
-            $challengeImage.parent().css({display: 'initial'});
+            $challengeImage.find('img').attr('src', image);
+            $challengeImage.css({display: 'block'});
         }else{
-            $challengeImage.parent().css({display: 'none'});
+            $challengeImage.css({display: 'none'});
         }
     }
 
@@ -29,7 +29,10 @@ export const Challenge = (props) => {
     }
 
     const onSeeCurrentChallenge = () => {
-        window.location.reload()
+        if(challengeImage){
+            $(challengeImage).find('img').attr('src', null);
+        }
+        props.reload();
     }
 
     //TODO: if challenge was complete by friend show it on corresponding section
@@ -40,7 +43,6 @@ export const Challenge = (props) => {
                     {props.hideCategory ?
                             ''
                         : <div className="widget-user-header bg-aqua">
-
                             <h3 className="widget-user-username">{props.challenge.category.name}</h3>
                             <h4 className="widget-user-desc">{props.challenge.category.description}</h4>
                         </div>
@@ -62,22 +64,29 @@ export const Challenge = (props) => {
                                     <h4 className="description-header">{props.challenge.description}</h4>
                                     <h4 className="description-text">Points: {props.challenge.points} {props.challenge.bonus ? '(x 2)' : ''}</h4>
                                     <h4 className="description-text">Bonus: {bonus}</h4>
-                                        {showCompleteChallengeForm ?
-                                            <CompleteChallengeForm
-                                                onError={props.onError}
-                                                onLoadedChallengeImage={showChallengeImage}
-                                                challenge={props.challenge}
-                                                onChallengeCompleted={showCompleteChallengeAnimation}/>
-                                         :
-                                           props.showLinkCurrentChallenge ?
-                                               <button type="button" className="btn bg-yellow"
-                                                       onClick={onSeeCurrentChallenge}>See current challenge now</button>
-                                               : ''
-                                        }
-
+                                    { props.showTwitterShare ?
+                                        <div style={{textAlign: 'center'}} className="center-block" >
+                                            <a href={`https://twitter.com/share?text=Challenge completed, check it out!&url=${props.shareUrl}&hashtags=challngeme`}
+                                               className="fa fa-twitter btn bg-aqua share btn-lg"
+                                               data-show-count="false" >  Tweet</a>
+                                        </div> :''
+                                    }
+                                    { (props.showLinkCurrentChallenge && !showCompleteChallengeForm) ?
+                                        <button type="button" className="btn bg-yellow"
+                                                onClick={onSeeCurrentChallenge}>See next challenge now</button>
+                                        : ''
+                                    }
+                                    {showCompleteChallengeForm ?
+                                        <CompleteChallengeForm
+                                            onError={props.onError}
+                                            onLoadedChallengeImage={showChallengeImage}
+                                            challenge={props.challenge}
+                                            onChallengeCompleted={showCompleteChallengeAnimation}/>
+                                     : ''
+                                    }
                                 </div>
-                                <div className="challenge-image-container" >
-                                    <img ref={(image) => { challengeImage = image; }} className="img-rounded challenge-image img-responsive"
+                                <div className="challenge-image-container" ref={(image) => { challengeImage = image; }}>
+                                    <img className="img-rounded challenge-image img-responsive"
                                          src={ props.challenge.image ? `/uploads/${props.challenge.image}` : null} />
                                 </div>
                             </div>

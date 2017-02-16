@@ -24,7 +24,7 @@ export class ChallengesContainer extends React.Component{
                 });
             })
             .fail(() => {
-                this.props.onError(constants.error.GENERIC);
+                this.props.showNotification(constants.error.CATEGORY, constants.notifications.DANGER);
             });
     }
 
@@ -32,7 +32,7 @@ export class ChallengesContainer extends React.Component{
         let challenges = this.state.challenges.map((challenge) =>{
             return (
                 <div className="col-md-4 col-xs-6 challenge" key={challenge.id}>
-                    <Link to={`/challenge/${challenge.id}`} >
+                    <Link to={`/challenges/${challenge.id}`} >
                         <Challenge hideCategory challenge={challenge} onError={this.props.onError}></Challenge>
                     </Link>
                 </div>

@@ -10,38 +10,40 @@ export class Dashboard extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            error: ''
+            message: '',
+            notificationType: constants.notifications.DANGER
         };
-        this.onError = this.onError.bind(this);
+        this.showNotification = this.showNotification.bind(this);
         this.removeNotification = this.removeNotification.bind(this);
     }
 
-    onError(message){
-        this.error = true;
+    showNotification(message, notificationType){
+        this.notification = true;
         this.setState({
-            error: message
+            message: message,
+            notificationType: notificationType
         });
     }
 
     removeNotification(){
-        this.error = false;
+        this.notification = false;
         this.setState({
-            error: ''
+            message: ''
         });
     }
 
     render(){
-        const notification = <Notification type={constants.notifications.DANGER}
+        const notification = <Notification type={this.state.notificationType}
                                            removeNotification={this.removeNotification}
-                                           message={this.state.error}/>;
+                                           message={this.state.message}/>;
         return (
 
             <div className="wrapper skin-yellow">
                 <Header title="Challnge me!" />
                 <Navigation/>
-                {this.error ? notification : ''}
+                {this.notification ? notification : ''}
                 <div className="content-wrapper">
-                    {React.cloneElement(this.props.children, {onError: this.onError})}
+                    {React.cloneElement(this.props.children, {showNotification: this.showNotification})}
                 </div>
             </div>
         );

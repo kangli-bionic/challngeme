@@ -63,7 +63,7 @@ export class CompleteChallengeForm extends React.Component{
             })
             .fail(() => {
                 $completeChallenge.removeAttr('disabled','disabled');
-                this.props.onError(constants.error.GENERIC);
+                this.props.showNotification(constants.error.CATEGORY, constants.notifications.DANGER);
             });
     }
 

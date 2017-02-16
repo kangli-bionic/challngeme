@@ -71,7 +71,7 @@ export class CategoryForm extends React.Component{
 
             })
             .fail(() => {
-                this.props.onError(constants.error.GENERIC);
+                this.props.showNotification(constants.error.GENERIC, constants.notifications.DANGER);
             });
     }
 
@@ -94,7 +94,7 @@ export class CategoryForm extends React.Component{
     onSave(event){
         event.preventDefault();
         if(this.selected.length <= 0){
-            this.props.onError(constants.error.CATEGORY);
+            this.props.showNotification(constants.error.CATEGORY, constants.notifications.DANGER);
             return;
         }
         $.post('/dash/saveCategory', {
@@ -110,7 +110,7 @@ export class CategoryForm extends React.Component{
                 browserHistory.push(data.redirect);
             })
             .fail(() => {
-                this.props.onError(constants.error.GENERIC);
+                this.props.showNotification(constants.error.CATEGORY, constants.notifications.DANGER);
             });
     }
 

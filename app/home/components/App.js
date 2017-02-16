@@ -78,7 +78,7 @@ ReactDOM.render(
             <Route path="current" component={CurrentChallenge} />
             <Route path="categories" component={CategoryForm}/>
             <Route path="challenges" component={ChallengesContainer}/>
-            <Route path="challenge/:challengeId" component={SingleChallengeContainer} />
+            <Route path="challenges/:challengeId" component={SingleChallengeContainer} />
             <Route path="*" component={NotFound}/>
         </Route>
     </Router>,

@@ -18,9 +18,6 @@ export class Score extends React.Component {
                 this.setState({
                     score: data.score
                 });
-            })
-            .fail((err) => {
-                this.props.onError(constants.error.GENERIC);
             });
     }
 

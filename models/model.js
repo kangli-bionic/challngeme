@@ -99,6 +99,8 @@ const getNextChallenge = (userId) => {
                 getUserCurrentChallenge(userId).then((currentChallenge) => {
                     if(currentChallenge.length > 0){
                         fulfill(currentChallenge[0]);
+                    }else if(challenges.length <= 0){
+                        fulfill(null);
                     }else{
                         let challengeId = challenges[Math.floor(Math.random() * (challenges.length - 1))].id;
                         assignChallenge(challengeId, userId).then(fulfill, reject);
@@ -185,7 +187,6 @@ const getPossibleChallenges = (userId) => {
     return new Promise((fulfill, reject) => {
         db.driver.execQuery(query, [userId, userId], (err, data) => {
             if(err) reject(err);
-            if(data.length <= 0) { reject(new Error ('Congrats! You completed all challenges for now!'));}
             fulfill(data);
         });
     });
