@@ -192,10 +192,11 @@ const getPossibleChallenges = (userId) => {
     });
 }
 
-const getChallengesByUser = (userId) => {
+const getChallengesByUser = (userId, limit) => {
     return new Promise((fulfill, reject) => {
+        console.log(limit);
         getUser(userId).then((user) => {
-            user.getChallenges((err, challenges) => {
+            user.getChallenges().limit(limit).run((err, challenges) => {
                 if(err) reject(err);
                 fulfill(challenges);
             });
@@ -215,9 +216,9 @@ const getUserChallengeByChallengeId = (userId, challengeId) => {
     });
 }
 
-const getUserCompletedChallenges = (userId) => {
+const getUserCompletedChallenges = (userId, limit) => {
     return new Promise((fulfill, reject) => {
-       getChallengesByUser(userId).then((challenges) => {
+       getChallengesByUser(userId, limit).then((challenges) => {
            let completedChallenges = challenges.filter((challenge) => {
                return challenge.completed == 1;
            });

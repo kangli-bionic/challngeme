@@ -52,7 +52,8 @@ const completeChallenge = (req, res) => {
 
 const getUserCompletedChallenges = (req, res) => {
     let userId = req.query.userId;
-    model.getUserCompletedChallenges(userId).then((data) => {
+    let limit = req.query.limit;
+    model.getUserCompletedChallenges(userId, limit).then((data) => {
         fulfill(data, res);
     },(err) => {
         reject(err, res);

@@ -4,7 +4,6 @@ import {Navigation, Header} from './Navigation';
 import {Notification} from '../../common/components/Notification';
 import {constants} from '../../common/constants';
 
-
 export class Dashboard extends React.Component{
 
     constructor(props){

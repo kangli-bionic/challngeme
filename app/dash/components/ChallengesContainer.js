@@ -4,6 +4,7 @@ import {constants} from '../../common/constants';
 import cookie from 'react-cookie';
 import { Link } from 'react-router';
 import {Score} from './Score';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 
 export class ChallengesContainer extends React.Component{
@@ -12,15 +13,29 @@ export class ChallengesContainer extends React.Component{
         super(props);
         this.state = {
             userId: cookie.load(constants.cookies.USER_ID),
-            challenges: []
+            challenges: [],
+            limit: 20,
+            hasMore: true
         }
+
+        this.loadChallenges = this.loadChallenges.bind(this);
     }
 
     componentDidMount(){
-        $.get('/dash/getChallenges', {userId: this.state.userId})
+        this.loadChallenges();
+    }
+
+    loadChallenges(){
+        $.get('/dash/getChallenges', {
+            userId: this.state.userId,
+            limit: this.state.limit})
             .done((data) => {
-                this.setState({
-                    challenges: data
+                this.setState((prevState, props) => {
+                    return {
+                        hasMore: data.length != prevState.challenges.length,
+                        challenges: data,
+                        limit: prevState.limit + 10
+                    }
                 });
             })
             .fail(() => {
@@ -43,7 +58,14 @@ export class ChallengesContainer extends React.Component{
             <div>
                 <Score/>
                 <div style={{clear:'both'}}></div>
-                {challenges}
+                <InfiniteScroll
+                    next={this.loadChallenges}
+                    hasMore={this.state.hasMore}
+                    endMessage={<span style={{textAlign: 'center', clear: 'both'}}>Those are all your challenges.</span>}
+                    loader={<div className="loader" style={{textAlign: 'center', clear: 'both'}}>Loading ...</div>}>
+                    {challenges}
+                </InfiniteScroll>
+
             </div>
         )
     }

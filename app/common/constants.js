@@ -31,7 +31,7 @@ export const constants = {
     error:{
         CATEGORY: 'Pick at least one category.',
         GENERIC: 'Sorry, something wrong has happened. Try again later.',
-        NO_CHALLENGES: 'Sorry, still nothing.'
+        NO_CHALLENGES: 'Sorry, we got nothing.'
     }
 }
 
