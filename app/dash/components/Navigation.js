@@ -28,7 +28,7 @@ export function Header(props){
                     <ul className="nav navbar-nav">
                         <li className="dropdown user">
                             <a href="#" className="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-                                {photo ?
+                                {photo != 'null' ?
                                     <img src={photo} className="user-image img-circle" />
                                     :
                                     <Glyphicon icon="user" centerBlock=""/>
@@ -53,12 +53,13 @@ export function Header(props){
 export function Navigation(){
 
     let photo = cookie.load(constants.cookies.PHOTO);
+    console.log(photo);
     return (
         <aside className="main-sidebar">
             <section className="sidebar">
                 <div className="user-panel">
                     <div className="pull-left image">
-                    {photo ?
+                    {photo != 'null' ?
                         <img src={photo} className="img-circle" />
                         :
                         <Glyphicon icon="user" centerBlock=""/>
