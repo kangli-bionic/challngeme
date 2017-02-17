@@ -12,7 +12,8 @@ export const constants = {
     cookies: {
         USER: 'USER',
         NEW_USER: 'NEW_USER',
-        USER_ID: 'USER_ID'
+        USER_ID: 'USER_ID',
+        PHOTO: 'PHOTO'
     },
     notifications: {
         DANGER: 'danger',
@@ -32,6 +33,9 @@ export const constants = {
         CATEGORY: 'Pick at least one category.',
         GENERIC: 'Sorry, something wrong has happened. Try again later.',
         NO_CHALLENGES: 'Sorry, we got nothing.'
+    },
+    message:{
+        PROFILE: 'Profile saved successfully.'
     }
 }
 

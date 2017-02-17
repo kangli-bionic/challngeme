@@ -81,6 +81,32 @@ const getUserScore = (req, res) => {
 
 }
 
+const saveProfile = (req, res) => {
+    let userId = req.body.userId;
+    let user = {
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        photo: req.file ? req.file.filename : req.body.image
+    };
+    console.log(req.body.photo);
+    model.saveProfile(userId,user).then((data) => {
+        fulfill(data, res);
+    }, (err) => {
+        reject(err, res);
+    });
+
+}
+
+const getProfile= (req, res) => {
+    let userId = req.query.userId;
+    model.getProfile(userId).then((data) => {
+        fulfill(data, res);
+    }, (err) => {
+        reject(err, res);
+    });
+
+}
+
 const fulfill = (data, res) => {
     console.log('fulfill');
     res.json(data);
@@ -99,5 +125,7 @@ module.exports = {
     getCategories: getCategories,
     getUserCompletedChallenges: getUserCompletedChallenges,
     getUserChallengeByChallengeId: getUserChallengeByChallengeId,
-    getUserScore: getUserScore
+    getUserScore: getUserScore,
+    saveProfile: saveProfile,
+    getProfile: getProfile
 }

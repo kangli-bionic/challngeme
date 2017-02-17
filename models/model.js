@@ -38,7 +38,7 @@ const login = (fulfill, reject, userId) => {
         fulfill({
             user: {
                 id: user.id,
-                name: user.email,
+                name: user.name && user.lastName ? `${user.name} ${user.lastName}` : user.email,
                 photo: user.photo,
                 newUser: false
             },
@@ -53,13 +53,45 @@ const signup = (fulfill, reject, user) => {
         fulfill({
             user: {
                 id: userDb.id,
-                name: userDb.fullName(),
+                name: user.name && user.lastName ? `${user.name} ${user.lastName}` : user.email,
                 photo: userDb.photo,
                 newUser: true
             },
             redirect: '/categories'
         });
     }, reject);
+}
+
+const saveProfile = (userId, data) => {
+    return new Promise((fulfill, reject) => {
+       getUser(userId).then((user) => {
+           user.name = data.firstName;
+           user.lastName = data.lastName;
+           user.photo = data.photo;
+           user.save((err, result) => {
+               if(err) reject(err);
+               fulfill({
+                   name:result.name,
+                   lastName: result.lastName,
+                   photo: result.photo,
+                   email: user.email
+               });
+           });
+       }, reject);
+    });
+}
+
+const getProfile = (userId) => {
+    return new Promise((fulfill, reject) => {
+        getUser(userId).then((user) => {
+            fulfill({
+                name:user.name,
+                lastName: user.lastName,
+                photo: user.photo,
+                email: user.email
+            });
+        }, reject);
+    });
 }
 
 //Category
@@ -273,6 +305,8 @@ module.exports = {
     getCategories: getCategories,
     getUserCompletedChallenges: getUserCompletedChallenges,
     getUserChallengeByChallengeId: getUserChallengeByChallengeId,
-    getUserScore: getUserScore
+    getUserScore: getUserScore,
+    saveProfile: saveProfile,
+    getProfile: getProfile
 };
 

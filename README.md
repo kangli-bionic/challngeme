@@ -1,2 +1,2 @@
 # challngeme
-Be up to be challenged everyday !
+You better be up for the challenge !

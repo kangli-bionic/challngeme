@@ -34,6 +34,8 @@ const routes = (app) => {
     app.get('/dash/getChallenges', controllers.getUserCompletedChallenges);
     app.get('/dash/getUserChallengeByChallengeId', controllers.getUserChallengeByChallengeId);
     app.get('/dash/getUserScore', controllers.getUserScore);
+    app.get('/dash/getProfile', controllers.getProfile);
+    app.post('/dash/saveProfile',upload.single('photo'), controllers.saveProfile);
 
     app.get('*', function (request, response){
         response.sendFile(path.resolve( './','app', 'index.html'));

@@ -9,9 +9,11 @@ export function Header(props){
         cookie.remove(constants.cookies.NEW_USER, {path: '/'});
         cookie.remove(constants.cookies.USER, {path: '/'});
         cookie.remove(constants.cookies.USER_ID, {path: '/'});
+        cookie.remove(constants.cookies.PHOTO, {path: '/'});
         browserHistory.push('/');
     }
 
+    let photo = cookie.load(constants.cookies.PHOTO);
     return(
         <header className="main-header">
             <Link to="/current" className="logo">
@@ -26,12 +28,16 @@ export function Header(props){
                     <ul className="nav navbar-nav">
                         <li className="dropdown user">
                             <a href="#" className="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-                                <Glyphicon icon="user" centerBlock=""/>
+                                {photo ?
+                                    <img src={photo} className="user-image img-circle" />
+                                    :
+                                    <Glyphicon icon="user" centerBlock=""/>
+                                }
+
                                 <span className="hidden-xs">{cookie.load(constants.cookies.USER)}</span>
                             </a>
                             <ul className="dropdown-menu">
                                 <li className="user-footer">
-                                    <Glyphicon icon="off" centerBlock=""/>
                                     <button className="btn btn-link" onClick={onLogOut}>Sign out</button>
                                 </li>
                             </ul>
@@ -45,12 +51,18 @@ export function Header(props){
 
 //TODO: create profile component
 export function Navigation(){
+
+    let photo = cookie.load(constants.cookies.PHOTO);
     return (
         <aside className="main-sidebar">
             <section className="sidebar">
                 <div className="user-panel">
                     <div className="pull-left image">
+                    {photo ?
+                        <img src={photo} className="img-circle" />
+                        :
                         <Glyphicon icon="user" centerBlock=""/>
+                    }
                     </div>
                     <div className="pull-left info">
                         <p>{cookie.load(constants.cookies.USER)}</p>
@@ -65,6 +77,9 @@ export function Navigation(){
                     </li>
                     <li className="header">
                         <Link to="/categories">Categories</Link>
+                    </li>
+                    <li className="header">
+                        <Link to="/profiles">Profile</Link>
                     </li>
                 </ul>
             </section>

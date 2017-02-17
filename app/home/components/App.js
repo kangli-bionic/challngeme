@@ -12,6 +12,7 @@ import {Dashboard} from '../../dash/components/Dashboard';
 import {ChallengesContainer} from '../../dash/components/ChallengesContainer';
 import {SingleChallengeContainer, CurrentChallenge} from '../../dash/components/SingleChallengeContainer';
 import {CategoryForm} from '../../dash/components/Category';
+import {Profile} from '../../dash/components/Profile';
 
 class App extends React.Component{
 
@@ -77,6 +78,7 @@ ReactDOM.render(
         <Route component={Dashboard} onEnter={auth} >
             <Route path="current" component={CurrentChallenge} />
             <Route path="categories" component={CategoryForm}/>
+            <Route path="profiles" component={Profile}/>
             <Route path="challenges" component={ChallengesContainer}/>
             <Route path="challenges/:challengeId" component={SingleChallengeContainer} />
             <Route path="*" component={NotFound}/>

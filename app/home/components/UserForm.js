@@ -23,6 +23,7 @@ export class UserForm extends React.Component{
                 cookie.save(constants.cookies.USER, data.user.name, { path: '/' });
                 cookie.save(constants.cookies.NEW_USER, data.user.newUser, { path: '/' });
                 cookie.save(constants.cookies.USER_ID, data.user.id, { path: '/' });
+                cookie.save(constants.cookies.PHOTO, data.user.photo ? `/uploads/${data.user.photo}` : data.user.photo, { path: '/' });
                 this.props.router.push(data.redirect);
             })
             .fail((err)=>{
