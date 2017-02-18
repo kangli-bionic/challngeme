@@ -53,12 +53,14 @@ export class CurrentChallenge extends React.Component{
                 }
             },
             showTwitterShare: false,
-            shareUrl: ''
+            shareUrl: '',
+            loading: true
         }
 
         this.onChallengeComplete = this.onChallengeComplete.bind(this);
         this.reload = this.reload.bind(this);
         this.getNextChallenge = this.getNextChallenge.bind(this);
+        this.shareChallenge = this.shareChallenge.bind(this);
     }
 
     componentDidMount(){
@@ -77,7 +79,8 @@ export class CurrentChallenge extends React.Component{
                         challenge: {
                             category: {name: null}
                         },
-                        showTwitterShare: false
+                        showTwitterShare: false,
+                        loading: false
                     });
                     return;
                 }
@@ -93,14 +96,16 @@ export class CurrentChallenge extends React.Component{
                         this.setState({
                             challenge: data,
                             shareUrl: url.id,
-                            showTwitterShare: false
+                            showTwitterShare: false,
+                            loading: false
                         });
                     })
                     .fail(() => {
                         this.setState({
                             challenge: data,
                             shareUrl: baseUrl,
-                            showTwitterShare: false
+                            showTwitterShare: false,
+                            loading: false
                         });
                     });
 
@@ -113,13 +118,21 @@ export class CurrentChallenge extends React.Component{
     onChallengeComplete(data){
         this.setState({
             challenge: data,
-            showTwitterShare: true
+            showTwitterShare: true,
+            loading: false
         });
     }
 
     reload(){
         this.getNextChallenge(() =>  {
             this.props.showNotification(constants.error.NO_CHALLENGES, constants.notifications.INFO);
+        });
+    }
+
+    shareChallenge(){
+        $.post('/dash/shareChallenge',{
+            challengeId: this.state.challenge.id,
+            userId: this.state.userId
         });
     }
 
@@ -133,6 +146,8 @@ export class CurrentChallenge extends React.Component{
                                onChallengeComplete={this.onChallengeComplete}
                                shareUrl={this.state.shareUrl}
                                reload={this.reload}
+                               shareChallenge={this.shareChallenge}
+                               loading={this.state.loading}
                                showTwitterShare={this.state.showTwitterShare}
                                challenge={this.state.challenge}/>
                 </div>

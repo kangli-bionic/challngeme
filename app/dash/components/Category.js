@@ -19,7 +19,7 @@ export function Category(props){
     }
 
     return (
-        <div className="col-lg-3 col-xs-6 col-md-4 category">
+        <div className="col-lg-4 col-xs-6 col-md-4 category">
             <div className={`${constants.backgrounds[Math.floor(Math.random() * (constants.backgrounds.length - 1))]} small-box
              ${(props.category.selected ? 'selected' : '')}`}
                  onClick={onClick}>
@@ -93,6 +93,10 @@ export class CategoryForm extends React.Component{
 
     onSave(event){
         event.preventDefault();
+        console.log(this.selected);
+        this.selected = this.selected.filter((id) => {
+            return id != 0;
+        });
         if(this.selected.length <= 0){
             this.props.showNotification(constants.error.CATEGORY, constants.notifications.DANGER);
             return;

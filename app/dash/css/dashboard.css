@@ -1,3 +1,7 @@
+body{
+    background-color: #ecf0f5;
+}
+
 .category {
     cursor: pointer;
     border:none;
@@ -8,8 +12,7 @@
 
 .content-wrapper{
     position: relative;
-    padding: 15px 15px 0 15px;
-    height: 100vh;
+    padding: 15px 15px 15px 15px;
 }
 
 .widget-user .widget-user-header{
@@ -80,7 +83,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 
 .challenge-accepted{
     margin:0 auto;
-    max-width: 40%;
+    max-width: 30%;
     height: auto;
 }
 .widget-user-2 .widget-user-username,
@@ -103,4 +106,15 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     margin-right: 5px;
     max-width: 15px !important;
     height: auto;
+}
+
+.title{
+    text-align: center;
+    padding: 15px;
+    font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.title a{
+    color:#ffffff;
+    cursor: pointer;
 }

@@ -32,15 +32,16 @@ module.exports = (db) => {
         id: {type: 'serial', key: true},
         completed: {type: 'number'},
         current: {type: 'number'},
-        challenges_id: {type: 'number'},
+        challengeId: {type: 'number', mapsTo:'challenges_id'},
         userId: {type: 'number', mapsTo: 'user_id'},
         image: {type: 'text'},
+        shared: {type: 'number'},
         challengedUserId: {type: 'number', mapsTo: 'challenged_user_id'},
         declined: {type: 'number'}
     });
 
     User.hasMany('categories', Category, {}, { key: true });
-    User.hasMany('challenges', Challenge, {completed: Number, image: String, current: Number}, { key: true, autoFetch:true} );
+    User.hasMany('challenges', Challenge, {completed: Number, image: String, current: Number, shared:Number}, { key: true, autoFetch:true} );
     Challenge.hasOne('category', Category, {}, { autoFetch: true});
 
     return {

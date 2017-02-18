@@ -13,6 +13,7 @@ import {ChallengesContainer} from '../../dash/components/ChallengesContainer';
 import {SingleChallengeContainer, CurrentChallenge} from '../../dash/components/SingleChallengeContainer';
 import {CategoryForm} from '../../dash/components/Category';
 import {Profile} from '../../dash/components/Profile';
+import {PublicChallengeContainer} from '../../dash/components/PublicChallengeContainer';
 
 class App extends React.Component{
 
@@ -21,7 +22,7 @@ class App extends React.Component{
         this.state = {
             error: ''
         }
-        this.title = "Challnge me!";
+        this.title = "Challnge me";
         this.subtitle = "You better be up for the challenge!";
         this.onError = this.onError.bind(this);
         this.removeNotification = this.removeNotification.bind(this);
@@ -58,6 +59,8 @@ class App extends React.Component{
 }
 
 const auth = (nextState, replace) => {
+    console.log('auth');
+    console.log(nextState);
     if(!cookie.load(constants.cookies.USER_ID)){
         browserHistory.push('/');
     }
@@ -65,24 +68,28 @@ const auth = (nextState, replace) => {
 }
 
 const isLoggedIn = (nextState, replace) => {
+    console.log('isloggedin');
+    console.log(nextState);
+
     if(cookie.load(constants.cookies.USER_ID)){
         browserHistory.push('/current');
     }
 }
 
 //TODO: section to see completed challenges by friends
-//TODO: work with browserHistory
+//TODO: work with browserHistory onEnter={isLoggedIn} onEnter={auth}
 ReactDOM.render(
-    <Router history={browserHistory}>
-        <Route path="/" component={App} onEnter={isLoggedIn} />
-        <Route component={Dashboard} onEnter={auth} >
+    <Router history={browserHistory} onEnter={isLoggedIn}>
+        <Route path="/" component={App}  />
+        <Route component={Dashboard} onEnter={auth}>
             <Route path="current" component={CurrentChallenge} />
             <Route path="categories" component={CategoryForm}/>
             <Route path="profiles" component={Profile}/>
             <Route path="challenges" component={ChallengesContainer}/>
             <Route path="challenges/:challengeId" component={SingleChallengeContainer} />
-            <Route path="*" component={NotFound}/>
         </Route>
+        <Route path="profiles/:userId/challenges/:challengeId" component={PublicChallengeContainer} />
+        <Route path="*" component={NotFound}/>
     </Router>,
     document.getElementById('root')
 );

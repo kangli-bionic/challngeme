@@ -107,13 +107,31 @@ const getProfile= (req, res) => {
 
 }
 
+const getPublicProfile = (req, res) => {
+    let userId = req.query.userId;
+    let challengeId = req.query.challengeId;
+    model.getPublicProfile(userId, challengeId).then((data) => {
+        fulfill(data, res);
+    }, (err) => {
+        reject(err, res);
+    });
+}
+
+const shareChallenge = (req, res) => {
+    let userId = req.body.userId;
+    let challengeId = req.body.challengeId;
+    model.shareChallenge(userId, challengeId).then((data) => {
+        fulfill(data, res);
+    }, (err) => {
+        reject(err, res);
+    });
+}
+
 const fulfill = (data, res) => {
-    console.log('fulfill');
     res.json(data);
 }
 
 const reject = (err, res) => {
-    console.log('reject');
     res.status(500).send(err.message);
 }
 
@@ -127,5 +145,7 @@ module.exports = {
     getUserChallengeByChallengeId: getUserChallengeByChallengeId,
     getUserScore: getUserScore,
     saveProfile: saveProfile,
-    getProfile: getProfile
+    getProfile: getProfile,
+    getPublicProfile: getPublicProfile,
+    shareChallenge: shareChallenge
 }

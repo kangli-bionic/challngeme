@@ -19,7 +19,7 @@ const claimAccount = (email, pass) => {
                 if(user){
                     password(pass).verifyAgainst(user.password, (err, verified) => {
                         if (!verified || err){
-                            let message = !data.verified ? 'Wrong email/password' : err.message;
+                            let message = !verified ? 'Wrong email/password' : err.message;
                             reject(new Error(message));
                         }
                         login(fulfill, reject, user.id);
@@ -129,13 +129,13 @@ const getNextChallenge = (userId) => {
         getPossibleChallenges(userId).then((challenges) => {
             try{
                 getUserCurrentChallenge(userId).then((currentChallenge) => {
+                    let challenge = challenges[Math.floor(Math.random() * (challenges.length - 1))];
                     if(currentChallenge.length > 0){
                         fulfill(currentChallenge[0]);
                     }else if(challenges.length <= 0){
                         fulfill(null);
-                    }else{
-                        let challengeId = challenges[Math.floor(Math.random() * (challenges.length - 1))].id;
-                        assignChallenge(challengeId, userId).then(fulfill, reject);
+                    }else if (challenge){
+                        assignChallenge(challenge.id, userId).then(fulfill, reject);
                     }
                 }, reject);
             }catch(ex){
@@ -163,7 +163,6 @@ const completeChallenge = (currentChallengeId, userId, file) => {
 const assignChallenge = (challengeId, userId) => {
     return new Promise((fulfill, reject) => {
         entity.UserChallenges.create({challenges_id: challengeId, userId: userId, current: 1}, (err, result) => {
-           console.log(err);
             if(err) reject(err);
             getChallengesByUser(result.userId).then((challenges) => {
                let challenge = challenges.filter((challenge) =>{
@@ -177,7 +176,7 @@ const assignChallenge = (challengeId, userId) => {
 
 const markChallengeAsCompleted = (challengeId, userId, file) => {
     return new Promise((fulfill, reject) => {
-        entity.UserChallenges.find({challenges_id: challengeId, user_id: userId}, (err, current) => {
+        entity.UserChallenges.find({challengeId, userId}, (err, current) => {
             if(err) reject(err);
             try{
                 let currentChallenge = current[0];
@@ -186,7 +185,7 @@ const markChallengeAsCompleted = (challengeId, userId, file) => {
                 currentChallenge.image = file;
                 currentChallenge.save((err, result) => {
                     if(err) reject(err);
-                    fulfill(result.challenges_id);
+                    fulfill(result.challengeId);
                 });
             }catch(ex){
                 reject(ex);
@@ -226,7 +225,6 @@ const getPossibleChallenges = (userId) => {
 
 const getChallengesByUser = (userId, limit) => {
     return new Promise((fulfill, reject) => {
-        console.log(limit);
         getUser(userId).then((user) => {
             user.getChallenges().limit(limit).run((err, challenges) => {
                 if(err) reject(err);
@@ -281,6 +279,36 @@ const getUserScore = (userId) => {
     });
 }
 
+const getPublicProfile = (userId, challengeId) => {
+    return new Promise((fulfill, reject) => {
+        getChallengesByUser(userId).then((challenges) => {
+            let challenge = challenges.filter((challenge) => {
+                return challenge.id == challengeId && challenge.shared == 1;
+            });
+            fulfill(challenge[0]);
+        }, reject);
+    });
+}
+
+
+const shareChallenge = (userId, challengeId) => {
+    return new Promise((fulfill, reject) => {
+        entity.UserChallenges.find({challengeId, userId}, (err, challengeResult) => {
+            if(err) reject(err);
+            try{
+                let challenge = challengeResult[0];
+                challenge.shared = 1;
+                challenge.save((err, result) => {
+                    if(err) reject(err);
+                    fulfill(result.shared);
+                });
+            }catch(ex){
+                reject(ex);
+            }
+        });
+    });
+}
+
 const challengeUser = (userId, challengedUser, challengeId) => {
  return new Promise((fulfill, reject) => {
     entity.User.find({email: challengedUser}, (err, user) => {
@@ -307,6 +335,8 @@ module.exports = {
     getUserChallengeByChallengeId: getUserChallengeByChallengeId,
     getUserScore: getUserScore,
     saveProfile: saveProfile,
-    getProfile: getProfile
+    getProfile: getProfile,
+    getPublicProfile: getPublicProfile,
+    shareChallenge: shareChallenge
 };
 

@@ -12,7 +12,9 @@ export function NotFound(){
                         Oops! Page not found.
 
                     </h3>
-                    <h4><Link to="/">Go to landing page.</Link> </h4>
+                    <h4 style={{textAlign: 'center'}}>
+                        <Link to="/">Go to the Home Page.</Link>
+                    </h4>
                 </div>
             </div>
         </section>
