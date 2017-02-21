@@ -21,7 +21,7 @@ export function Header(props){
                 <span className="logo-lg">{props.title}</span>
             </Link>
             <nav className="navbar navbar-static-top">
-                <a href="#" className="sidebar-toggle" data-toggle="offcanvas" role="button">
+                <a href="#" className="sidebar-toggle glyphicon glyphicon-menu-hamburger" data-toggle="offcanvas" role="button">
                     <span className="sr-only">Toggle navigation</span>
                 </a>
                 <div className="navbar-custom-menu">
@@ -53,7 +53,7 @@ export function Header(props){
 export function Navigation(){
 
     let photo = cookie.load(constants.cookies.PHOTO);
-    console.log(photo);
+
     return (
         <aside className="main-sidebar">
             <section className="sidebar">
