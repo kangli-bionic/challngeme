@@ -162,11 +162,11 @@ const completeChallenge = (currentChallengeId, userId, file) => {
 
 const assignChallenge = (challengeId, userId) => {
     return new Promise((fulfill, reject) => {
-        entity.UserChallenges.create({challenges_id: challengeId, userId: userId, current: 1}, (err, result) => {
+        entity.UserChallenges.create({ challengeId, userId, current: 1}, (err, result) => {
             if(err) reject(err);
             getChallengesByUser(result.userId).then((challenges) => {
                let challenge = challenges.filter((challenge) =>{
-                   return challenge.id == result.challenges_id;
+                   return challenge.id == result.challengeId;
                });
                 fulfill(challenge[0]);
             }, reject);
