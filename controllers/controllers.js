@@ -88,7 +88,7 @@ const saveProfile = (req, res) => {
         lastName: req.body.lastName,
         photo: req.file ? req.file.filename : req.body.image
     };
-    console.log(req.body.photo);
+
     model.saveProfile(userId,user).then((data) => {
         fulfill(data, res);
     }, (err) => {

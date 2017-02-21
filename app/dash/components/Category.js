@@ -93,7 +93,7 @@ export class CategoryForm extends React.Component{
 
     onSave(event){
         event.preventDefault();
-        console.log(this.selected);
+
         this.selected = this.selected.filter((id) => {
             return id != 0;
         });

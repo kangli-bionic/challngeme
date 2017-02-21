@@ -59,8 +59,6 @@ class App extends React.Component{
 }
 
 const auth = (nextState, replace) => {
-    console.log('auth');
-    console.log(nextState);
     if(!cookie.load(constants.cookies.USER_ID)){
         browserHistory.push('/');
     }
@@ -68,9 +66,6 @@ const auth = (nextState, replace) => {
 }
 
 const isLoggedIn = (nextState, replace) => {
-    console.log('isloggedin');
-    console.log(nextState);
-
     if(cookie.load(constants.cookies.USER_ID)){
         browserHistory.push('/current');
     }
