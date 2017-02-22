@@ -2,7 +2,7 @@ const Promise = require('promise');
 const password = require('password-hash-and-salt');
 const db = require('../config/db');
 const entities = require('./entities');
-
+const fs = require('fs');
 let entity = entities(db);
 
 const getUser = Promise.denodeify(entity.User.get);
@@ -67,7 +67,12 @@ const saveProfile = (userId, data) => {
        getUser(userId).then((user) => {
            user.name = data.firstName;
            user.lastName = data.lastName;
-           user.photo = data.photo;
+           if(user.photo){
+               fs.unlink(`/uploads/${user.photo}`);
+           }
+           if(data.photo){
+               user.photo = data.photo;
+           }
            user.save((err, result) => {
                if(err) reject(err);
                fulfill({
@@ -290,6 +295,21 @@ const getPublicProfile = (userId, challengeId) => {
     });
 }
 
+const removePhoto = (userId) => {
+    return new Promise((fulfill, reject) => {
+        getUser(userId).then((user) => {
+            user.photo = null;
+            user.save((err, result) => {
+                if(user.photo){
+                    fs.unlink(`/uploads/${user.photo}`);
+                }
+                fulfill({
+                    photo: result.photo
+                });
+            });
+        }, reject);
+    });
+}
 
 const shareChallenge = (userId, challengeId) => {
     return new Promise((fulfill, reject) => {
@@ -337,6 +357,7 @@ module.exports = {
     saveProfile: saveProfile,
     getProfile: getProfile,
     getPublicProfile: getPublicProfile,
-    shareChallenge: shareChallenge
+    shareChallenge: shareChallenge,
+    removePhoto: removePhoto
 };
 

@@ -38,6 +38,7 @@ const routes = (app) => {
     app.post('/dash/saveProfile',upload.single('photo'), controllers.saveProfile);
     app.get('/dash/getPublicChallenge', controllers.getPublicProfile);
     app.post('/dash/shareChallenge', controllers.shareChallenge);
+    app.post('/dash/removePhoto', controllers.removePhoto);
 
     app.get('*', function (request, response){
         response.sendFile(path.resolve( './','app', 'index.html'));

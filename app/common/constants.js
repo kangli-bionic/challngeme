@@ -35,7 +35,8 @@ export const constants = {
         NO_CHALLENGES: 'Sorry, we got nothing.'
     },
     message:{
-        PROFILE: 'Profile saved successfully.'
+        PROFILE: 'Profile successfully saved.',
+        PHOTO_REMOVED: 'Photo successfully removed.'
     }
 }
 

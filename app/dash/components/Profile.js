@@ -13,25 +13,28 @@ export class Profile extends React.Component{
             photo: '',
             firstName: '',
             lastName: '',
-            email: '',
-            image:''
+            email: ''
         }
 
         this.onSubmit = this.onSubmit.bind(this);
         this.onInputChange = this.onInputChange.bind(this);
         this.onInputFileChange = this.onInputFileChange.bind(this);
+        this.removePhoto = this.removePhoto.bind(this);
     }
 
     componentDidMount(){
         $.get('/dash/getProfile',{userId: this.state.userId})
             .done((data) => {
-                this.setState({
-                    file: data.photo ? 'uploads/'+ data.photo : '',
+                let profile = {
                     firstName: data.name || '',
                     lastName: data.lastName || '',
-                    email: data.email,
-                    image: data.photo
-                });
+                    email: data.email
+                }
+
+                if(data.photo){
+                    profile.file = data.photo ? 'uploads/'+ data.photo : '';
+                }
+                this.setState(profile);
             })
             .fail(() => {
                 this.props.showNotification(constants.error.GENERIC, constants.notifications.DANGER);
@@ -45,7 +48,6 @@ export class Profile extends React.Component{
         formData.append('userId', this.state.userId);
         formData.append('firstName', this.state.firstName);
         formData.append('lastName', this.state.lastName);
-        formData.append('image', this.state.image);
 
         $.ajax({
             url: '/dash/saveProfile',
@@ -62,8 +64,7 @@ export class Profile extends React.Component{
                     file: data.photo ? 'uploads/'+ data.photo : '',
                     firstName: data.name || '',
                     lastName: data.lastName || '',
-                    email: data.email,
-                    image: data.photo
+                    email: data.email
                 });
                 this.props.showNotification(constants.message.PROFILE, constants.notifications.SUCCESS);
             })
@@ -95,8 +96,24 @@ export class Profile extends React.Component{
         try{
             reader.readAsDataURL(selectedFile);
         }catch(ex){
-            profile.image.src = null;
+
         }
+    }
+
+    removePhoto(){
+        $.post('/dash/removePhoto', {
+            userId: this.state.userId
+        })
+            .done((data) => {
+                cookie.save(constants.cookies.PHOTO, null);
+                this.props.showNotification(constants.message.PHOTO_REMOVED, constants.notifications.SUCCESS);
+                this.setState({
+                    file: data.photo
+                });
+            })
+            .fail(() => {
+                this.props.showNotification(constants.error.GENERIC, constants.notifications.DANGER);
+            });
     }
 
     render(){
@@ -108,11 +125,16 @@ export class Profile extends React.Component{
                             {this.state.file ?
                                 <div className="profile-photo">
                                     <img src={this.state.file} className="center-block img-responsive"
+                                         style={{ cursor:'pointer'}}
                                          ref={(image) => {this.image = image}}/>
+                                    <div>
+                                        <button type="button" className="btn btn-danger btn-xs center-block"
+                                                onClick={this.removePhoto}>Remove photo</button>
+                                    </div>
                                 </div>
                                 :
                                 <div>
-                                    <div style={{fontSize: '100px'}}>
+                                    <div style={{fontSize: '100px', cursor:'pointer'}}>
                                         <Glyphicon centerBlock="center-block" icon="user"
                                                    title="Upload a photo"/>
                                     </div>

@@ -60,9 +60,9 @@ export class UserForm extends React.Component{
                     <div className="col-md-12">
                         <div className="form-group">
                             <input onChange={this.onInputChange} value={this.state.email}
-                                   type="email" className="form-control" placeholder="example@example.com" id="email"  />
+                                   type="email" className="form-control" placeholder="hello@email.com" id="email"  />
                             <input ref="password" type="password" onChange={this.onPasswordChange} value={this.state.password}
-                                   className="form-control" placeholder="example"
+                                   className="form-control" placeholder="password"
                             style={ {display: !this.showPasswordField ? 'none' : 'initial'} }/>
                         </div>
                         <button type="submit" className="btn btn-xl start">Start</button>

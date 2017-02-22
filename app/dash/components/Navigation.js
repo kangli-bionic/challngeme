@@ -28,7 +28,7 @@ export function Header(props){
                     <ul className="nav navbar-nav">
                         <li className="dropdown user">
                             <a href="#" className="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-                                {photo != 'null' ?
+                                {photo &&  photo != 'null' ?
                                     <img src={photo} className="user-image img-circle" />
                                     :
                                     <Glyphicon icon="user" centerBlock=""/>
@@ -59,7 +59,7 @@ export function Navigation(){
             <section className="sidebar">
                 <div className="user-panel">
                     <div className="pull-left image">
-                    {photo != 'null' ?
+                    {photo && photo != 'null' ?
                         <img src={photo} className="img-circle" />
                         :
                         <Glyphicon icon="user" centerBlock=""/>

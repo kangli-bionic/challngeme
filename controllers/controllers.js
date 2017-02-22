@@ -86,7 +86,7 @@ const saveProfile = (req, res) => {
     let user = {
         firstName: req.body.firstName,
         lastName: req.body.lastName,
-        photo: req.file ? req.file.filename : req.body.image
+        photo: req.file ? req.file.filename : null
     };
 
     model.saveProfile(userId,user).then((data) => {
@@ -127,6 +127,15 @@ const shareChallenge = (req, res) => {
     });
 }
 
+const removePhoto = (req, res) => {
+    let userId = req.body.userId;
+    model.removePhoto(userId).then((data) => {
+        fulfill(data, res);
+    }, (err) => {
+        reject(err, res);
+    });
+}
+
 const fulfill = (data, res) => {
     res.json(data);
 }
@@ -147,5 +156,6 @@ module.exports = {
     saveProfile: saveProfile,
     getProfile: getProfile,
     getPublicProfile: getPublicProfile,
-    shareChallenge: shareChallenge
+    shareChallenge: shareChallenge,
+    removePhoto: removePhoto
 }
