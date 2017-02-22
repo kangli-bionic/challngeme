@@ -72,10 +72,9 @@ const isLoggedIn = (nextState, replace) => {
 }
 
 //TODO: section to see completed challenges by friends
-//TODO: work with browserHistory onEnter={isLoggedIn} onEnter={auth}
 ReactDOM.render(
-    <Router history={browserHistory} onEnter={isLoggedIn}>
-        <Route path="/" component={App}  />
+    <Router history={browserHistory} >
+        <Route path="/" component={App} onEnter={isLoggedIn} />
         <Route component={Dashboard} onEnter={auth}>
             <Route path="current" component={CurrentChallenge} />
             <Route path="categories" component={CategoryForm}/>
