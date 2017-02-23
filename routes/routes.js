@@ -14,6 +14,7 @@ let storage = multer.diskStorage({
 });
 
 const fileFilter =(req, file, cb) => {
+    console.log(file);
     let originalname = file.originalname;
     let extension = originalname.substring(originalname.lastIndexOf('.'), originalname.length);
     if(extension == ".jpg" || extension == ".jpeg" || extension == ".png"){
@@ -23,7 +24,7 @@ const fileFilter =(req, file, cb) => {
     }
 };
 
-let upload = multer({ storage: storage, limits:{fileSize: 700000 }, fileFilter: fileFilter });
+let upload = multer({ storage: storage, limits:{fileSize: 20971520 }, fileFilter: fileFilter });
 
 const routes = (app) => {
     app.post('/claimAccount', controllers.claimAccount);
