@@ -72,9 +72,9 @@ export class CompleteChallengeForm extends React.Component{
             <form onSubmit={this.onChallengeCompleted} action="POST" encType="multipart/form-data">
                 <hr/>
                 <input type="file" name="file" id="file" className="center-block hide"
-                       accept="image/jpg,image/jpeg,image/png"
+                       accept="image/*"
                        value={this.state.input} onChange={this.onInputChange}/>
-                <label htmlFor="file" className="btn btn-flat bg-navy btn-lg">
+                <label htmlFor="file" className="btn btn-flat bg-navy btn-lg col-md-12">
                     <Glyphicon icon="open-file" centerBlock=""/>
                     Upload proof of a possible awesome memory
                 </label>
