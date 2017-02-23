@@ -74,11 +74,11 @@ export class CompleteChallengeForm extends React.Component{
                 <input type="file" name="file" id="file" className="center-block hide"
                        accept="image/*"
                        value={this.state.input} onChange={this.onInputChange}/>
-                <label htmlFor="file" className="btn btn-flat bg-navy btn-lg col-md-12">
+                <label htmlFor="file" className="bg-navy btn-lg">
                     <Glyphicon icon="open-file" centerBlock=""/>
-                    <div className="col-md-12">
+                    <p>
                         Upload proof of a possible awesome memory
-                    </div>
+                    </p>
                 </label>
                 <hr/>
                 <button ref={(button) => { this.completeChallenge = button; }} type="submit"
