@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router';
 import {CompleteChallengeForm} from './CompleteChallengeForm';
 import {constants} from '../../common/constants';
 import {Glyphicon} from '../../common/components/Glyphicon';
@@ -86,6 +87,7 @@ export const Challenge = (props) => {
                                             }
                                             {showCompleteChallengeForm ?
                                                 <CompleteChallengeForm
+                                                    showNotification={props.showNotification}
                                                     onError={props.onError}
                                                     onLoadedChallengeImage={showChallengeImage}
                                                     challenge={props.challenge}
@@ -105,22 +107,27 @@ export const Challenge = (props) => {
                         </div>
                         :
                         <div className="widget-user-header bg-navy center-block">
-                            <h3>It seems we don't have new challenges available for you.</h3>
+                            <h3>It seems we don't have new challenges available for you
                             <button type="button" className="btn bg-yellow "
                                     onClick={onSeeCurrentChallenge}>Check now
                             </button>
+                             <span> or </span>
+                            <Link to="/categories" className="btn bg-yellow">
+                                Pick a new category
+                            </Link>
+                            </h3>
                         </div>
                 }
                 </div>
                 :
                 <div className="col-md-12">
                     <blockquote>
-                        Loading challenge...
+                        <p>Loading challenge...</p>
+                        <div className="progress">
+                            <div className="progress-bar progress-bar-primary progress-bar-striped"
+                                 role="progressbar" aria-valuenow="100" aria-valuemin="100" aria-valuemax="100" style={{width: '100%'}}></div>
+                        </div>
                     </blockquote>
-                    <div className="progress">
-                        <div className="progress-bar progress-bar-primary progress-bar-striped"
-                             role="progressbar" aria-valuenow="100" aria-valuemin="100" aria-valuemax="100" style={{width: '100%'}}></div>
-                    </div>
                 </div>
             }
 

@@ -61,9 +61,9 @@ export class CompleteChallengeForm extends React.Component{
                 this.props.challenge.completed = 1;
                 this.props.onChallengeCompleted(this.props.challenge);
             })
-            .fail(() => {
+            .fail((err) => {
                 $completeChallenge.removeAttr('disabled','disabled');
-                this.props.showNotification(constants.error.CATEGORY, constants.notifications.DANGER);
+                this.props.showNotification(err.responseText, constants.notifications.DANGER);
             });
     }
 
@@ -73,8 +73,9 @@ export class CompleteChallengeForm extends React.Component{
                 <hr/>
                 <input type="file" name="file" id="file" className="center-block hide"
                        accept="image/*"
-                       value={this.state.input} onChange={this.onInputChange}/>
-                <label htmlFor="file" className="bg-navy btn-lg">
+                       value={this.state.input}
+                       onChange={this.onInputChange}/>
+                <label htmlFor="file" className="bg-navy btn-lg complete-challenge-input-label">
                     <Glyphicon icon="open-file" centerBlock=""/>
                     <p>
                         Upload proof of a possible awesome memory

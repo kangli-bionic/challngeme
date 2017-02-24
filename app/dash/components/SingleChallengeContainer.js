@@ -146,6 +146,7 @@ export class CurrentChallenge extends React.Component{
                                onChallengeComplete={this.onChallengeComplete}
                                shareUrl={this.state.shareUrl}
                                reload={this.reload}
+                               showNotification={this.props.showNotification}
                                shareChallenge={this.shareChallenge}
                                loading={this.state.loading}
                                showTwitterShare={this.state.showTwitterShare}

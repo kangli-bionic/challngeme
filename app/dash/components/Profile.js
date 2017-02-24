@@ -68,8 +68,8 @@ export class Profile extends React.Component{
                 });
                 this.props.showNotification(constants.message.PROFILE, constants.notifications.SUCCESS);
             })
-            .fail(() => {
-                this.props.showNotification(constants.error.GENERIC, constants.notifications.DANGER);
+            .fail((err) => {
+                this.props.showNotification(err.message, constants.notifications.DANGER);
             });
     }
 
@@ -120,57 +120,60 @@ export class Profile extends React.Component{
         return(
             <form role="form" method="POST" onSubmit={this.onSubmit}>
                 <div className="box-body">
-                    <div className="col-md-6">
-                        <label htmlFor="photo">
-                            {this.state.file ?
-                                <div className="profile-photo">
-                                    <img src={this.state.file} className="center-block img-responsive"
-                                         style={{ cursor:'pointer'}}
-                                         ref={(image) => {this.image = image}}/>
-                                    <div>
-                                        <button type="button" className="btn btn-danger btn-xs center-block"
-                                                onClick={this.removePhoto}>Remove photo</button>
-                                    </div>
-                                </div>
-                                :
+                    <div className="profile-photo profile-photo col-xs-offset-4 col-xs-8 col-md-offset-0 col-lg-offset-0 col-md-4 col-lg-4">
+                        {this.state.file ?
+                            <label htmlFor="photo">
+                                <img src={this.state.file} className="center-block img-responsive"
+                                     style={{ cursor:'pointer'}}
+                                     ref={(image) => {this.image = image}}/>
                                 <div>
-                                    <div style={{fontSize: '100px', cursor:'pointer'}}>
-                                        <Glyphicon centerBlock="center-block" icon="user"
-                                                   title="Upload a photo"/>
-                                    </div>
-                                    <p>Upload a photo</p>
+                                    <button type="button" className="btn btn-danger btn-xs center-block"
+                                            onClick={this.removePhoto}>Remove photo</button>
                                 </div>
-                            }
-
-                        </label>
-
+                            </label>
+                            :
+                            <label htmlFor="photo">
+                                <div style={{fontSize: '100px', cursor:'pointer'}}>
+                                    <Glyphicon centerBlock="center-block" icon="user"
+                                               title="Upload a photo"/>
+                                </div>
+                                <p>Upload a photo</p>
+                            </label>
+                        }
                     </div>
                     <div style={{clear:'both'}}></div>
-                    <div className="form-group">
+                    <div className="form-group col-md-6">
                         <label htmlFor="firstName">First Name</label>
-                        <input type="text" className="form-control col-md-6" id="firstName" name="firstName"
+                        <input type="text" className="form-control" id="firstName" name="firstName"
                                placeholder="Enter your first name"
                                onChange={this.onInputChange}
                                value={this.state.firstName}/>
                     </div>
-                    <div className="form-group">
+                    <div style={{clear:'both'}}></div>
+
+                    <div className="form-group col-md-6">
                         <label htmlFor="lastName">Last Name</label>
-                        <input type="text" className="form-control col-md-6" id="lastName" name="lastName"
+                        <input type="text" className="form-control" id="lastName" name="lastName"
                                placeholder="Enter your last name"
                                onChange={this.onInputChange}
                                value={this.state.lastName}/>
                     </div>
-                    <div className="form-group">
+                    <div style={{clear:'both'}}></div>
+
+                    <div className="form-group col-md-6">
                         <label>Email Address</label>
-                        <input type="email" disabled="disabled" className="form-control col-md-6" id="email"  name="email"
+                        <input type="email" disabled="disabled" className="form-control" id="email"  name="email"
                                onChange={this.onInputChange}
                                value={this.state.email}/>
                     </div>
+                    <div style={{clear:'both'}}></div>
+
                     <input type="file" name="photo" id="photo" className="center-block hide"
-                           accept="image/jpg,image/jpeg,image/png"
+                           accept="image/*"
                            value={this.state.photo}
                            onChange={this.onInputFileChange}/>
-                    <button type="submit" className="btn btn-success btn-lg">Save</button>
+                    <button type="submit"  style={{marginLeft:'15px'}}
+                            className="btn btn-success btn-lg">Save</button>
                 </div>
             </form>
         );

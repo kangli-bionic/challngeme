@@ -96,11 +96,6 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     margin-bottom: 3px;
 }
 
-.profile-photo{
-    width:200px;
-    cursor: pointer;
-}
-
 .user-image{
     width: 100%;
     margin-right: 5px;
@@ -123,4 +118,9 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 .main-sidebar .sidebar{
     height: auto;
     min-height: 700px;
+}
+
+.complete-challenge-input-label,
+.profile-photo{
+    cursor:pointer;
 }

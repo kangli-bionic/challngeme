@@ -1,4 +1,26 @@
 const model = require('../models/model');
+const multer  = require('multer');
+
+let storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'uploads/')
+    },
+    filename: (req, file, cb) => {
+        let originalname = file.originalname;
+        let extension = originalname.substring(originalname.lastIndexOf('.'), originalname.length);
+        cb(null, originalname + '-' + Date.now() + extension);
+    }
+});
+
+const fileFilter =(req, file, cb) => {
+    if(file.mimetype.toLowerCase().includes('image/'.toLowerCase())){
+        cb(null, true);
+    }else{
+        cb(new Error('Please upload an image file'));
+    }
+};
+
+let upload = multer({ storage: storage, limits:{fileSize: 20971520 }, fileFilter: fileFilter });
 
 const claimAccount = (req, res) => {
     let email = req.body.email;
@@ -40,13 +62,19 @@ const getNextChallenge = (req, res) => {
 }
 
 const completeChallenge = (req, res) => {
-    let userId = req.body.userId;
-    let currentChallengeId = req.body.currentChallengeId;
-    let file = req.file.filename;
-    model.completeChallenge(currentChallengeId, userId, file).then((data) => {
-        fulfill(data, res);
-    }, (err) => {
-        reject(err, res);
+    upload.single('file')(req, res, function (err) {
+        if (err) {
+            reject(err, res);
+        }else{
+            let userId = req.body.userId;
+            let currentChallengeId = req.body.currentChallengeId;
+            let file = req.file.filename;
+            model.completeChallenge(currentChallengeId, userId, file).then((data) => {
+                fulfill(data, res);
+            }, (err) => {
+                reject(err, res);
+            });
+        }
     });
 }
 
@@ -82,19 +110,23 @@ const getUserScore = (req, res) => {
 }
 
 const saveProfile = (req, res) => {
-    let userId = req.body.userId;
-    let user = {
-        firstName: req.body.firstName,
-        lastName: req.body.lastName,
-        photo: req.file ? req.file.filename : null
-    };
-    console.log(req.file);
-    model.saveProfile(userId,user).then((data) => {
-        fulfill(data, res);
-    }, (err) => {
-        reject(err, res);
+    upload.single('photo')(req, res, function (err) {
+        if (err) {
+            reject(err, res);
+        }else{
+            let userId = req.body.userId;
+            let user = {
+                firstName: req.body.firstName,
+                lastName: req.body.lastName,
+                photo: req.file ? req.file.filename : null
+            };
+            model.saveProfile(userId,user).then((data) => {
+                fulfill(data, res);
+            }, (err) => {
+                reject(err, res);
+            });
+        }
     });
-
 }
 
 const getProfile= (req, res) => {
@@ -141,7 +173,8 @@ const fulfill = (data, res) => {
 }
 
 const reject = (err, res) => {
-    res.status(500).send(err.message);
+    console.log(err.message);
+    res.status(500).send(err.message || 'Sorry, something wrong has happened. Try again later.');
 }
 
 module.exports = {
