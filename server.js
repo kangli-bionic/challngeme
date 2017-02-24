@@ -11,6 +11,9 @@ app.use('/uploads',express.static('uploads'));
 app.use('/dist',express.static(path.resolve(__dirname,'app/dist')));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
+routes(app);
+
 app.use(function (err, req, res, next) {
     console.log('middleware');
     console.log(err);
@@ -18,7 +21,6 @@ app.use(function (err, req, res, next) {
     res.status(500).send(err.message);
     next(err.message);
 });
-routes(app);
 
 app.listen(port);
 
