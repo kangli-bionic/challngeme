@@ -11,7 +11,12 @@ app.use('/uploads',express.static('uploads'));
 app.use('/dist',express.static(path.resolve(__dirname,'app/dist')));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-
+app.use(function (err, req, res, next) {
+    console.log(err);
+    console.log(err.message);
+       res.status(500).send(err.message);
+       next(err.message);
+});
 routes(app);
 
 app.listen(port);
