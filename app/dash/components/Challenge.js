@@ -107,7 +107,7 @@ export const Challenge = (props) => {
                         </div>
                         :
                         <div className="widget-user-header bg-navy center-block">
-                            <h3>It seems we don't have new challenges available for you
+                            <h3>It seems we don't have new challenges available for <span> you </span>
                             <button type="button" className="btn bg-yellow "
                                     onClick={onSeeCurrentChallenge}>Check now
                             </button>
