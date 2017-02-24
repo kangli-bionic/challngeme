@@ -1,8 +1,4 @@
-/*!
- * Start Bootstrap - Agency v3.3.7+1 (http://startbootstrap.com/template-overviews/agency)
- * Copyright 2013-2016 Start Bootstrap
- * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap/blob/gh-pages/LICENSE)
- */
+
 .home {
   overflow-x: hidden;
   font-family: "Roboto Slab", "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -328,7 +324,6 @@ fieldset[disabled] .btn-xl.active {
 .home #sign-up ::-webkit-input-placeholder,
 .home #contact ::-webkit-input-placeholder{
   font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  text-transform: uppercase;
   font-weight: 700;
   /*color: #eeeeee;*/
 }
@@ -336,7 +331,6 @@ fieldset[disabled] .btn-xl.active {
 .home #contact :-moz-placeholder{
   /* Firefox 18- */
   font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  text-transform: uppercase;
   font-weight: 700;
   /*color: #eeeeee;*/
 }
@@ -344,7 +338,6 @@ fieldset[disabled] .btn-xl.active {
 .home #sign-up :-ms-input-placeholder,
 .home #contact :-ms-input-placeholder{
   font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  text-transform: uppercase;
   font-weight: 700;
   /*color: #eeeeee;*/
 }

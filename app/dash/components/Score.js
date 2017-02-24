@@ -1,5 +1,6 @@
 import React from 'react';
 import {constants} from '../../common/constants';
+import {Glyphicon} from '../../common/components/Glyphicon';
 import cookie from 'react-cookie';
 
 export class Score extends React.Component {
@@ -25,7 +26,7 @@ export class Score extends React.Component {
         return(
             <div className="col-md-6">
                 <div className="info-box bg-green">
-                    <span className="info-box-icon"><i className="fa fa-thumbs-o-up"></i></span>
+                    <span className="info-box-icon"><Glyphicon icon="stats"/></span>
                     <div className="info-box-content">
                         <span className="info-box-text">Score</span>
                         <div className="progress">

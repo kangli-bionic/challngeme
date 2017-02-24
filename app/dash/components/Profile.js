@@ -119,28 +119,31 @@ export class Profile extends React.Component{
     render(){
         return(
             <form role="form" method="POST" onSubmit={this.onSubmit}>
-                <div className="box-body">
-                    <div className="profile-photo profile-photo col-xs-offset-4 col-xs-8 col-md-offset-0 col-lg-offset-0 col-md-4 col-lg-4">
-                        {this.state.file ?
-                            <label htmlFor="photo">
-                                <img src={this.state.file} className="center-block img-responsive"
-                                     style={{ cursor:'pointer'}}
-                                     ref={(image) => {this.image = image}}/>
-                                <div>
-                                    <button type="button" className="btn btn-danger btn-xs center-block"
-                                            onClick={this.removePhoto}>Remove photo</button>
-                                </div>
-                            </label>
-                            :
-                            <label htmlFor="photo">
-                                <div style={{fontSize: '100px', cursor:'pointer'}}>
-                                    <Glyphicon centerBlock="center-block" icon="user"
-                                               title="Upload a photo"/>
-                                </div>
-                                <p>Upload a photo</p>
-                            </label>
-                        }
+                <div className="box-body profile">
+                    <div className="col-xs-12 col-md-offset-0 col-lg-offset-0 col-md-4 col-lg-4">
+                        <div className="profile-photo">
+                            {this.state.file ?
+                                <label htmlFor="photo">
+                                    <img src={this.state.file} className="center-block img-responsive"
+                                         style={{ cursor:'pointer'}}
+                                         ref={(image) => {this.image = image}}/>
+                                    <div>
+                                        <button type="button" className="btn btn-danger btn-xs center-block"
+                                                onClick={this.removePhoto}>Remove photo</button>
+                                    </div>
+                                </label>
+                                :
+                                <label htmlFor="photo">
+                                    <div style={{fontSize: '100px', cursor:'pointer'}}>
+                                        <Glyphicon centerBlock="center-block" icon="user"
+                                                   title="Upload a photo"/>
+                                    </div>
+                                    <p>Upload a photo</p>
+                                </label>
+                            }
+                        </div>
                     </div>
+
                     <div style={{clear:'both'}}></div>
                     <div className="form-group col-md-6">
                         <label htmlFor="firstName">First Name</label>

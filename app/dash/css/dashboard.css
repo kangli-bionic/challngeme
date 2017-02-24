@@ -124,3 +124,13 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 .profile-photo{
     cursor:pointer;
 }
+
+.profile-photo{
+    width: 200px;
+}
+@media (max-width: 768px) {
+    .profile .col-xs-12 .profile-photo {
+        text-align: center;
+        margin: 0 auto;
+    }
+}
