@@ -46,7 +46,7 @@ export class ChallengesContainer extends React.Component{
     render(){
         let challenges = this.state.challenges.map((challenge) =>{
             return (
-                <div className="col-md-4 col-xs-6 challenge" key={challenge.id}>
+                <div className="col-md-4 col-xs-12 challenge" key={challenge.id}>
                     <Link to={`/challenges/${challenge.id}`} >
                         <Challenge hideCategory challenge={challenge} onError={this.props.onError}></Challenge>
                     </Link>
