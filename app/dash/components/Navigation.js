@@ -29,7 +29,9 @@ export function Header(props){
                         <li className="dropdown user">
                             <a href="#" className="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
                                 {photo &&  photo != 'null' ?
-                                    <img src={photo} className="user-image img-circle" />
+                                    <div style={{width: '13px'}}>
+                                        <img src={photo} className="img-rounded img-responsive" />
+                                    </div>
                                     :
                                     <Glyphicon icon="user" centerBlock=""/>
                                 }
@@ -58,9 +60,9 @@ export function Navigation(){
         <aside className="main-sidebar">
             <section className="sidebar">
                 <div className="user-panel">
-                    <div className="pull-left image">
+                    <div className="pull-left image" style={{width:'50px'}}>
                     {photo && photo != 'null' ?
-                        <img src={photo} className="img-circle" />
+                        <img src={photo} className="img-rounded img-responsive" />
                         :
                         <Glyphicon icon="user" centerBlock=""/>
                     }

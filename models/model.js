@@ -6,11 +6,17 @@ const fs = require('fs');
 let entity = entities(db);
 
 const getUser = Promise.denodeify(entity.User.get);
-
+const emailRegEx = new RegExp(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$/);
 //User
 const claimAccount = (email, pass) => {
     const findUser = Promise.denodeify(entity.User.find);
     return new Promise((fulfill, reject) => {
+        if(!emailRegEx.test(email)){
+            reject(new Error('Type a valid email address please'));
+        }
+        if(!pass){
+            reject(new Error('Type your password please'));
+        }
         findUser({email: email}).then((users) => {
             password(pass).hash((error, hash) => {
                 if(error) reject(error);

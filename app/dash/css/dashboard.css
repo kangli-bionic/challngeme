@@ -96,13 +96,6 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     margin-bottom: 3px;
 }
 
-.user-image{
-    width: 100%;
-    margin-right: 5px;
-    max-width: 15px !important;
-    height: auto;
-}
-
 .title{
     text-align: center;
     padding: 15px;
