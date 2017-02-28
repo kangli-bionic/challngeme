@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack --watch --config webpack.config.js",
+    "build:prod": "webpack -p --watch",
     "start-dev": "webpack-dev-server  --content-base app/ --hot --inline",
     "start": "webpack -p && node server",
     "test": "echo \"Error: no test specified\" && exit 1"

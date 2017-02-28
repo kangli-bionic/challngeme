@@ -34,13 +34,14 @@ export class CompleteChallengeForm extends React.Component{
         try{
             reader.readAsDataURL(selectedFile);
         }catch(ex){
-            completeChallengeForm.props.onLoadedChallengeImage();
+            completeChallengeForm.props.onLoadedChallengeImage(constants.images.EMPTY_IMG_SRC);
             $completeChallenge.attr('disabled','disabled');
         }
     }
 
     onChallengeCompleted(event){
         event.preventDefault();
+        $(this.backLoading).css('display', 'block');
         let formData = new FormData();
         formData.append('file', this.state.file);
         formData.append('userId', this.state.userId);
@@ -58,10 +59,12 @@ export class CompleteChallengeForm extends React.Component{
             contentType: false
         })
             .done(() => {
+                $(this.backLoading).animateCss('fadeOut');
                 this.props.challenge.completed = 1;
                 this.props.onChallengeCompleted(this.props.challenge);
             })
             .fail((err) => {
+                $(this.backLoading).animateCss('fadeOut');
                 $completeChallenge.removeAttr('disabled','disabled');
                 this.props.showNotification(err.responseText, constants.notifications.DANGER);
             });
@@ -70,6 +73,11 @@ export class CompleteChallengeForm extends React.Component{
     render(){
         return (
             <form onSubmit={this.onChallengeCompleted} action="POST" encType="multipart/form-data">
+                <div className="backloading" ref={(div) => {this.backLoading = div}} style={{display:'none'}}>
+                    <div className="center-block">
+                        <img src={constants.images.LOADING} alt="Uploading..."/>
+                    </div>
+                </div>
                 <hr/>
                 <input type="file" name="file" id="file" className="center-block hide"
                        accept="image/*"

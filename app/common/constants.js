@@ -27,7 +27,9 @@ export const constants = {
     },
     images:{
         CHALLENGE_ACCEPTED: '/dash/img/challenge-accepted.jpg',
-        CHALLENGE_COMPLETED: '/dash/img/challenge-completed.jpg'
+        CHALLENGE_COMPLETED: '/dash/img/challenge-completed.jpg',
+        LOADING: '/dash/img/load.gif',
+        EMPTY_IMG_SRC: 'data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs%3D'
     },
     error:{
         CATEGORY: 'Pick at least one category.',

@@ -31,7 +31,7 @@ export const Challenge = (props) => {
 
     const onSeeCurrentChallenge = () => {
         if(challengeImage){
-            $(challengeImage).find('img').attr('src', null);
+            $(challengeImage).find('img').attr('src', constants.images.EMPTY_IMG_SRC);
         }
         props.reload();
     }
@@ -98,8 +98,11 @@ export const Challenge = (props) => {
                                         <div className="challenge-image-container" ref={(image) => {
                                             challengeImage = image;
                                         }}>
+                                            <div>
+                                                {props.challenge.image || constants.images.EMPTY_IMG_SRC}
+                                            </div>
                                             <img className="img-rounded challenge-image img-responsive"
-                                                 src={ props.challenge.image ? `/uploads/${props.challenge.image}` : null}/>
+                                                 src={ props.challenge.image ? `/uploads/${props.challenge.image}` : constants.images.EMPTY_IMG_SRC}/>
                                         </div>
                                     </div>
                                 </div>
