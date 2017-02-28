@@ -20,6 +20,7 @@ export class UserForm extends React.Component{
         event.preventDefault();
         $.post('/claimAccount', {email: this.state.email, pass: this.state.password})
             .done((data) => {
+                $(this.formGroup).find('input').removeClass('input-error');
                 cookie.save(constants.cookies.USER, data.user.name, { path: '/' });
                 cookie.save(constants.cookies.NEW_USER, data.user.newUser, { path: '/' });
                 cookie.save(constants.cookies.USER_ID, data.user.id, { path: '/' });
@@ -27,6 +28,7 @@ export class UserForm extends React.Component{
                 this.props.router.push(data.redirect);
             })
             .fail((err)=>{
+                $(this.formGroup).find('input').addClass('input-error');
                 this.props.onError(err.responseText);
             });
     }
@@ -58,11 +60,11 @@ export class UserForm extends React.Component{
             <form id="sign-up" onSubmit={this.onStart} method="POST">
                 <div className="row">
                     <div className="col-md-12">
-                        <div className="form-group">
-                            <input onChange={this.onInputChange} value={this.state.email}
+                        <div className="form-group" ref={(formGroup) => {this.formGroup = formGroup;}}>
+                            <input onChange={this.onInputChange} value={this.state.email} maxLength="60"
                                    type="email" className="form-control" placeholder="hello@email.com" id="email"  />
                             <input ref="password" type="password" onChange={this.onPasswordChange} value={this.state.password}
-                                   className="form-control" placeholder="password"
+                                   className="form-control" placeholder="password" maxLength="60"
                             style={ {display: !this.showPasswordField ? 'none' : 'initial'} }/>
                         </div>
                         <button type="submit" className="btn btn-xl start">Start</button>
