@@ -8,6 +8,7 @@ export const Challenge = (props) => {
 
     let challengeImage = null;
     let challengeAccepted = null;
+    let backLoading = null;
     let image = props.challenge.completed ? constants.images.CHALLENGE_COMPLETED : constants.images.CHALLENGE_ACCEPTED;
     let showCompleteChallengeForm = props.challenge.completed == null || 0 ? true : false;
     let bonus = props.challenge.bonus ? <Glyphicon centerBlock='' icon="ok"/> : <Glyphicon centerBlock='' icon="remove"/>;
@@ -26,23 +27,40 @@ export const Challenge = (props) => {
         let $challengeAccepted = $(challengeAccepted);
         $challengeAccepted.attr('src', constants.images.CHALLENGE_COMPLETED);
         $challengeAccepted.animateCss('flip');
+        removeBackLoading();
         props.onChallengeComplete(challenge);
+
     }
 
     const onSeeCurrentChallenge = () => {
+        showBackLoading();
         if(challengeImage){
             $(challengeImage).find('img').attr('src', constants.images.EMPTY_IMG_SRC);
         }
         props.reload();
+        removeBackLoading();
     }
 
     const onShared = () => {
         props.shareChallenge(props.challenge);
     }
 
+    const showBackLoading = () => {
+        $(backLoading).css('display', 'block');
+    }
+
+    const removeBackLoading = () => {
+        $(backLoading).css('display', 'none');
+    }
+
     //TODO: if challenge was complete by friend show it on corresponding section
     return (
         <div className="box box-widget widget-user-2 ">
+            <div className="backloading" ref={(div) => {backLoading = div}} style={{display:'none'}}>
+                <div className="center-block">
+                    <img src={constants.images.LOADING} alt="Uploading..."/>
+                </div>
+            </div>
             {!props.loading ?
                 <div>
                     {props.challenge.category.name ?
@@ -89,6 +107,8 @@ export const Challenge = (props) => {
                                                 <CompleteChallengeForm
                                                     showNotification={props.showNotification}
                                                     onError={props.onError}
+                                                    showBackLoading={showBackLoading}
+                                                    removeBackLoading={removeBackLoading}
                                                     onLoadedChallengeImage={showChallengeImage}
                                                     challenge={props.challenge}
                                                     onChallengeCompleted={showCompleteChallengeAnimation}/>
@@ -99,6 +119,7 @@ export const Challenge = (props) => {
                                             challengeImage = image;
                                         }}>
                                             <img className="img-rounded challenge-image img-responsive"
+                                                 style={{background: `url(${props.challenge.image ? `/uploads/${props.challenge.image}` : null}`}}
                                                  src={ props.challenge.image ? `/uploads/${props.challenge.image}` : constants.images.EMPTY_IMG_SRC}/>
                                         </div>
                                     </div>

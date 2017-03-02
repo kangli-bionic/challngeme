@@ -14,7 +14,8 @@ export class SingleChallengeContainer extends React.Component{
                     name:'',
                     description: ''
                 }
-            }
+            },
+            loading: true
         }
     }
 
@@ -25,7 +26,8 @@ export class SingleChallengeContainer extends React.Component{
         })
         .done((data) => {
             this.setState({
-                challenge: data
+                challenge: data,
+                loading: false
             })
         })
         .fail(() => {
@@ -35,7 +37,8 @@ export class SingleChallengeContainer extends React.Component{
 
     render(){
         return(
-            <Challenge challenge={this.state.challenge}/>
+            <Challenge challenge={this.state.challenge}
+                       loading={this.state.loading}/>
         );
     }
 }
@@ -127,6 +130,7 @@ export class CurrentChallenge extends React.Component{
         this.getNextChallenge(() =>  {
             this.props.showNotification(constants.error.NO_CHALLENGES, constants.notifications.INFO);
         });
+
     }
 
     shareChallenge(){
