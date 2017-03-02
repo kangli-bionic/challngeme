@@ -98,9 +98,6 @@ export const Challenge = (props) => {
                                         <div className="challenge-image-container" ref={(image) => {
                                             challengeImage = image;
                                         }}>
-                                            <div>
-                                                {props.challenge.image || constants.images.EMPTY_IMG_SRC}
-                                            </div>
                                             <img className="img-rounded challenge-image img-responsive"
                                                  src={ props.challenge.image ? `/uploads/${props.challenge.image}` : constants.images.EMPTY_IMG_SRC}/>
                                         </div>
