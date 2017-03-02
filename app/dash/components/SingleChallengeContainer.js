@@ -64,6 +64,7 @@ export class CurrentChallenge extends React.Component{
         this.reload = this.reload.bind(this);
         this.getNextChallenge = this.getNextChallenge.bind(this);
         this.shareChallenge = this.shareChallenge.bind(this);
+        this.showLoadingChallenge = this.showLoadingChallenge.bind(this);
     }
 
     componentDidMount(){
@@ -71,7 +72,7 @@ export class CurrentChallenge extends React.Component{
         this.getNextChallenge(() => {});
     }
 
-    getNextChallenge(callback){
+    getNextChallenge(callback, onData){
         $.get('/dash/getNextChallenge', {
             userId: this.state.userId
         })
@@ -96,19 +97,25 @@ export class CurrentChallenge extends React.Component{
                     contentType: 'application/json'
                 })
                     .done((url) => {
-                        this.setState({
-                            challenge: data,
-                            shareUrl: url.id,
-                            showTwitterShare: false,
-                            loading: false
+                        this.setState(() => {
+                            if(onData) {onData();}
+                            return {
+                                challenge: data,
+                                shareUrl: url.id,
+                                showTwitterShare: false,
+                                loading: false
+                            };
                         });
                     })
                     .fail(() => {
-                        this.setState({
-                            challenge: data,
-                            shareUrl: baseUrl,
-                            showTwitterShare: false,
-                            loading: false
+                        this.setState(() => {
+                            if(onData) {onData();}
+                            return {
+                                challenge: data,
+                                shareUrl: baseUrl,
+                                showTwitterShare: false,
+                                loading: false
+                           }
                         });
                     });
 
@@ -126,11 +133,16 @@ export class CurrentChallenge extends React.Component{
         });
     }
 
-    reload(){
+    reload(cb){
         this.getNextChallenge(() =>  {
             this.props.showNotification(constants.error.NO_CHALLENGES, constants.notifications.INFO);
-        });
+        }, cb);
 
+    }
+    showLoadingChallenge(){
+        this.setState({
+            loading: true
+        });
     }
 
     shareChallenge(){
@@ -150,6 +162,7 @@ export class CurrentChallenge extends React.Component{
                                onChallengeComplete={this.onChallengeComplete}
                                shareUrl={this.state.shareUrl}
                                reload={this.reload}
+                               showLoadingChallenge={this.showLoadingChallenge}
                                showNotification={this.props.showNotification}
                                shareChallenge={this.shareChallenge}
                                loading={this.state.loading}

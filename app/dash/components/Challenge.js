@@ -33,12 +33,11 @@ export const Challenge = (props) => {
     }
 
     const onSeeCurrentChallenge = () => {
-        showBackLoading();
+        props.showLoadingChallenge();
         if(challengeImage){
             $(challengeImage).find('img').attr('src', constants.images.EMPTY_IMG_SRC);
         }
         props.reload();
-        removeBackLoading();
     }
 
     const onShared = () => {
