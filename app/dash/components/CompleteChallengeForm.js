@@ -59,12 +59,16 @@ export class CompleteChallengeForm extends React.Component{
             contentType: false
         })
             .done(() => {
-                $(this.backLoading).animateCss('fadeOut');
+                $(this.backLoading).animateCss('fadeOut', () => {
+                    $(this.backLoading).css('display', 'none');
+                });
                 this.props.challenge.completed = 1;
                 this.props.onChallengeCompleted(this.props.challenge);
             })
             .fail((err) => {
-                $(this.backLoading).animateCss('fadeOut');
+                $(this.backLoading).animateCss('fadeOut', () => {
+                    $(this.backLoading).css('display', 'none');
+                });
                 $completeChallenge.removeAttr('disabled','disabled');
                 this.props.showNotification(err.responseText, constants.notifications.DANGER);
             });
