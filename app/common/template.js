@@ -1,15 +1,3 @@
-/*! AdminLTE app.js
- * ================
- * Main JS application file for AdminLTE v2. This file
- * should be included in all pages. It controls some layout
- * options and implements exclusive AdminLTE plugins.
- *
- * @Author  Almsaeed Studio
- * @Support <http://www.almsaeedstudio.com>
- * @Email   <abdullah@almsaeedstudio.com>
- * @version 2.3.8
- * @license MIT <http://opensource.org/licenses/MIT>
- */
 
 //Make sure jQuery has been loaded before app.js
 if (typeof jQuery === "undefined") {
@@ -56,7 +44,7 @@ $.AdminLTE.options = {
   //BoxRefresh Plugin
   enableBoxRefresh: true,
   //Bootstrap.js tooltip
-  enableBSToppltip: true,
+  enableBSToppltip: false,
   BSTooltipSelector: "[data-toggle='tooltip']",
   //Enable Fast Click. Fastclick.js creates a more
   //native touch experience with touch devices. If you
@@ -242,74 +230,7 @@ function _init() {
    *        $.AdminLTE.layout.fix()
    *        $.AdminLTE.layout.fixSidebar()
    */
-  $.AdminLTE.layout = {
-    activate: function () {
-      var _this = this;
-      _this.fix();
-      _this.fixSidebar();
-      $('body, html, .wrapper').css('height', 'auto');
-      $(window, ".wrapper").resize(function () {
-        _this.fix();
-        _this.fixSidebar();
-      });
-    },
-    fix: function () {
-      // Remove overflow from .wrapper if layout-boxed exists
-      $(".layout-boxed > .wrapper").css('overflow', 'hidden');
-      //Get window height and the wrapper height
-      var footer_height = $('.main-footer').outerHeight() || 0;
-      var neg = $('.main-header').outerHeight() + footer_height;
-      var window_height = $(window).height();
-      var sidebar_height = $(".sidebar").height() || 0;
-      //Set the min-height of the content and sidebar based on the
-      //the height of the document.
-      if ($("body").hasClass("fixed")) {
-        $(".content-wrapper, .right-side").css('min-height', window_height - footer_height);
-      } else {
-        var postSetWidth;
-        if (window_height >= sidebar_height) {
-          $(".content-wrapper, .right-side").css('min-height', window_height - neg);
-          postSetWidth = window_height - neg;
-        } else {
-          $(".content-wrapper, .right-side").css('min-height', sidebar_height);
-          postSetWidth = sidebar_height;
-        }
-
-        //Fix for the control sidebar height
-        var controlSidebar = $($.AdminLTE.options.controlSidebarOptions.selector);
-        if (typeof controlSidebar !== "undefined") {
-          if (controlSidebar.height() > postSetWidth)
-            $(".content-wrapper, .right-side").css('min-height', controlSidebar.height());
-        }
-
-      }
-    },
-    fixSidebar: function () {
-      //Make sure the body tag has the .fixed class
-      if (!$("body").hasClass("fixed")) {
-        if (typeof $.fn.slimScroll != 'undefined') {
-          $(".sidebar").slimScroll({destroy: true}).height("auto");
-        }
-        return;
-      } else if (typeof $.fn.slimScroll == 'undefined' && window.console) {
-        window.console.error("Error: the fixed layout requires the slimscroll plugin!");
-      }
-      //Enable slimscroll for fixed layout
-      if ($.AdminLTE.options.sidebarSlimScroll) {
-        if (typeof $.fn.slimScroll != 'undefined') {
-          //Destroy if it exists
-          $(".sidebar").slimScroll({destroy: true}).height("auto");
-          //Add slimscroll
-          $(".sidebar").slimScroll({
-            height: ($(window).height() - $(".main-header").height()) + "px",
-            color: "rgba(0,0,0,0.2)",
-            size: "3px"
-          });
-        }
-      }
-    }
-  };
-
+    fixLayout();
   /* PushMenu()
    * ==========
    * Adds the push menu functionality to the sidebar.
@@ -600,173 +521,81 @@ function _init() {
       box.slideUp(this.animationSpeed);
     }
   };
+
 }
 
-/* ------------------
- * - Custom Plugins -
- * ------------------
- * All custom plugins are defined below.
- */
+const fixLayout = () => {
+    $.AdminLTE.layout = {
+        activate: function () {
+            var _this = this;
+            _this.fix();
+            _this.fixSidebar();
+            $('body, html, .wrapper').css('height', 'auto');
+            $(window, ".wrapper").resize(function () {
+                _this.fix();
+                _this.fixSidebar();
+            });
+        },
+        fix: function () {
+            // Remove overflow from .wrapper if layout-boxed exists
+            $(".layout-boxed > .wrapper").css('overflow', 'hidden');
+            //Get window height and the wrapper height
+            var footer_height = $('.main-footer').outerHeight() || 0;
+            var neg = $('.main-header').outerHeight() + footer_height;
+            var window_height = $(window).height();
+            var sidebar_height = $(".sidebar").height() || 0;
+            //Set the min-height of the content and sidebar based on the
+            //the height of the document.
+            if ($("body").hasClass("fixed")) {
+                $(".content-wrapper, .right-side").css('min-height', window_height - footer_height);
+            } else {
+                var postSetWidth;
+                if (window_height >= sidebar_height) {
+                    $(".content-wrapper, .right-side").css('min-height', window_height - neg);
+                    postSetWidth = window_height - neg;
+                } else {
+                    $(".content-wrapper, .right-side").css('min-height', sidebar_height);
+                    postSetWidth = sidebar_height;
+                }
 
-/*
- * BOX REFRESH BUTTON
- * ------------------
- * This is a custom plugin to use with the component BOX. It allows you to add
- * a refresh button to the box. It converts the box's state to a loading state.
- *
- * @type plugin
- * @usage $("#box-widget").boxRefresh( options );
- */
-(function ($) {
+                //Fix for the control sidebar height
+                var controlSidebar = $($.AdminLTE.options.controlSidebarOptions.selector);
+                if (typeof controlSidebar !== "undefined") {
+                    if (controlSidebar.height() > postSetWidth)
+                        $(".content-wrapper, .right-side").css('min-height', controlSidebar.height());
+                }
 
-  "use strict";
-
-  $.fn.boxRefresh = function (options) {
-
-    // Render options
-    var settings = $.extend({
-      //Refresh button selector
-      trigger: ".refresh-btn",
-      //File source to be loaded (e.g: ajax/src.php)
-      source: "",
-      //Callbacks
-      onLoadStart: function (box) {
-        return box;
-      }, //Right after the button has been clicked
-      onLoadDone: function (box) {
-        return box;
-      } //When the source has been loaded
-
-    }, options);
-
-    //The overlay
-    var overlay = $('<div class="overlay"><div class="fa fa-refresh fa-spin"></div></div>');
-
-    return this.each(function () {
-      //if a source is specified
-      if (settings.source === "") {
-        if (window.console) {
-          window.console.log("Please specify a source first - boxRefresh()");
+            }
+        },
+        fixSidebar: function () {
+            //Make sure the body tag has the .fixed class
+            if (!$("body").hasClass("fixed")) {
+                if (typeof $.fn.slimScroll != 'undefined') {
+                    $(".sidebar").slimScroll({destroy: true}).height("auto");
+                }
+                return;
+            } else if (typeof $.fn.slimScroll == 'undefined' && window.console) {
+                window.console.error("Error: the fixed layout requires the slimscroll plugin!");
+            }
+            //Enable slimscroll for fixed layout
+            if ($.AdminLTE.options.sidebarSlimScroll) {
+                if (typeof $.fn.slimScroll != 'undefined') {
+                    //Destroy if it exists
+                    $(".sidebar").slimScroll({destroy: true}).height("auto");
+                    //Add slimscroll
+                    $(".sidebar").slimScroll({
+                        height: ($(window).height() - $(".main-header").height()) + "px",
+                        color: "rgba(0,0,0,0.2)",
+                        size: "3px"
+                    });
+                }
+            }
         }
-        return;
-      }
-      //the box
-      var box = $(this);
-      //the button
-      var rBtn = box.find(settings.trigger).first();
+    };
+}
 
-      //On trigger click
-      rBtn.on('click', function (e) {
-        e.preventDefault();
-        //Add loading overlay
-        start(box);
+fixLayout();
 
-        //Perform ajax call
-        box.find(".box-body").load(settings.source, function () {
-          done(box);
-        });
-      });
-    });
-
-    function start(box) {
-      //Add overlay and loading img
-      box.append(overlay);
-
-      settings.onLoadStart.call(box);
-    }
-
-    function done(box) {
-      //Remove overlay and loading img
-      box.find(overlay).remove();
-
-      settings.onLoadDone.call(box);
-    }
-
-  };
-
-})(jQuery);
-
-/*
- * EXPLICIT BOX CONTROLS
- * -----------------------
- * This is a custom plugin to use with the component BOX. It allows you to activate
- * a box inserted in the DOM after the app.js was loaded, toggle and remove box.
- *
- * @type plugin
- * @usage $("#box-widget").activateBox();
- * @usage $("#box-widget").toggleBox();
- * @usage $("#box-widget").removeBox();
- */
-(function ($) {
-
-  'use strict';
-
-  $.fn.activateBox = function () {
-    $.AdminLTE.boxWidget.activate(this);
-  };
-
-  $.fn.toggleBox = function () {
-    var button = $($.AdminLTE.boxWidget.selectors.collapse, this);
-    $.AdminLTE.boxWidget.collapse(button);
-  };
-
-  $.fn.removeBox = function () {
-    var button = $($.AdminLTE.boxWidget.selectors.remove, this);
-    $.AdminLTE.boxWidget.remove(button);
-  };
-
-})(jQuery);
-
-/*
- * TODO LIST CUSTOM PLUGIN
- * -----------------------
- * This plugin depends on iCheck plugin for checkbox and radio inputs
- *
- * @type plugin
- * @usage $("#todo-widget").todolist( options );
- */
-(function ($) {
-
-  'use strict';
-
-  $.fn.todolist = function (options) {
-    // Render options
-    var settings = $.extend({
-      //When the user checks the input
-      onCheck: function (ele) {
-        return ele;
-      },
-      //When the user unchecks the input
-      onUncheck: function (ele) {
-        return ele;
-      }
-    }, options);
-
-    return this.each(function () {
-
-      if (typeof $.fn.iCheck != 'undefined') {
-        $('input', this).on('ifChecked', function () {
-          var ele = $(this).parents("li").first();
-          ele.toggleClass("done");
-          settings.onCheck.call(ele);
-        });
-
-        $('input', this).on('ifUnchecked', function () {
-          var ele = $(this).parents("li").first();
-          ele.toggleClass("done");
-          settings.onUncheck.call(ele);
-        });
-      } else {
-        $('input', this).on('change', function () {
-          var ele = $(this).parents("li").first();
-          ele.toggleClass("done");
-          if ($('input', ele).is(":checked")) {
-            settings.onCheck.call(ele);
-          } else {
-            settings.onUncheck.call(ele);
-          }
-        });
-      }
-    });
-  };
-}(jQuery));
+module.exports= {
+   AdminLTE: $.AdminLTE.layout
+}

@@ -116,10 +116,16 @@ export const Challenge = (props) => {
                                         </div>
                                         <div className="challenge-image-container" ref={(image) => {
                                             challengeImage = image;
-                                        }}>
-                                            <img className="img-rounded challenge-image img-responsive"
-                                                 style={{background: `url(${props.challenge.image ? `/uploads/${props.challenge.image}` : null}`}}
-                                                 src={ props.challenge.image ? `/uploads/${props.challenge.image}` : constants.images.EMPTY_IMG_SRC}/>
+                                        }} >
+
+                                            {props.useDivBackground ?
+                                                <div className="img-rounded challenge-image img-responsive"
+                                                    style={{backgroundImage: `url(${props.challenge.image ? `./uploads/${props.challenge.image}` : constants.images.EMPTY_IMG_SRC}`}}>
+                                                </div>
+                                                :
+                                                <img className="img-rounded challenge-image img-responsive"
+                                                     src={ props.challenge.image ? `/uploads/${props.challenge.image}` : constants.images.EMPTY_IMG_SRC}/>
+                                            }
                                         </div>
                                     </div>
                                 </div>

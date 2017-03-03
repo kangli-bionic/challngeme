@@ -1,6 +1,6 @@
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
 var Webpack = require('webpack');
-
+//'script-loader!'+__dirname +'/node_modules/bootstrap/dist/js/bootstrap.js',
 module.exports = {
     entry: {
         home: __dirname +'/app/home/index.js',
@@ -8,11 +8,13 @@ module.exports = {
         common:[
             __dirname+'/node_modules/bootstrap/dist/css/bootstrap.css',
             __dirname + '/node_modules/animate.css/animate.css',
-            'script-loader!'+__dirname +'/node_modules/bootstrap/dist/js/bootstrap.js',
+            'script-loader!'+__dirname +'/node_modules/bootstrap/js/dropdown.js',
             __dirname + '/app/common/constants.js',
             __dirname + '/app/common/utils.js'
         ],
-        template: __dirname +'/app/common/css/template.css',
+        template:[__dirname +'/app/common/css/template.css',
+            __dirname + '/app/common/template.js'
+        ],
         vendor: ['react', 'react-dom', 'react-cookie'],
         dash: __dirname + '/app/dash/index.js'
     },

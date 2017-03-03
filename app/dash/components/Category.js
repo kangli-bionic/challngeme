@@ -3,6 +3,7 @@ import {browserHistory} from 'react-router';
 import {constants} from '../../common/constants';
 import {Glyphicon} from '../../common/components/Glyphicon';
 import cookie from 'react-cookie';
+import {AdminLTE} from '../../common/template';
 
 export function Category(props){
 
@@ -53,6 +54,7 @@ export class CategoryForm extends React.Component{
     componentDidMount(){
         const that = this;
         this.update = true;
+        AdminLTE.activate();
         $.get('/dash/getCategories', {userId: this.state.userId})
             .done((data) => {
                 that.setState(() => {

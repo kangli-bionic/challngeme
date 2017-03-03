@@ -1,6 +1,7 @@
 import React from 'react';
 
 import {Navigation, Header} from './Navigation';
+import {Footer} from './Footer';
 import {Notification} from '../../common/components/Notification';
 import {constants} from '../../common/constants';
 
@@ -44,6 +45,7 @@ export class Dashboard extends React.Component{
                 <div className="content-wrapper">
                     {React.cloneElement(this.props.children, {showNotification: this.showNotification})}
                 </div>
+                <Footer/>
             </div>
         );
     }

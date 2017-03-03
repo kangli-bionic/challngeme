@@ -2,6 +2,7 @@ import React from 'react';
 import {Challenge} from './Challenge';
 import {constants} from '../../common/constants';
 import cookie from 'react-cookie';
+import {AdminLTE} from '../../common/template';
 import { Link } from 'react-router';
 import {Score} from './Score';
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -14,7 +15,7 @@ export class ChallengesContainer extends React.Component{
         this.state = {
             userId: cookie.load(constants.cookies.USER_ID),
             challenges: [],
-            limit: 20,
+            limit: 10,
             hasMore: true
         }
 
@@ -22,6 +23,7 @@ export class ChallengesContainer extends React.Component{
     }
 
     componentDidMount(){
+        AdminLTE.activate();
         this.loadChallenges();
     }
 
@@ -48,7 +50,9 @@ export class ChallengesContainer extends React.Component{
             return (
                 <div className="col-md-4 col-xs-12 challenge" key={challenge.id}>
                     <Link to={`/challenges/${challenge.id}`} >
-                        <Challenge hideCategory challenge={challenge} onError={this.props.onError}></Challenge>
+                        <Challenge hideCategory challenge={challenge}
+                                   onError={this.props.onError}
+                                   useDivBackground={true}></Challenge>
                     </Link>
                 </div>
             );
@@ -61,7 +65,7 @@ export class ChallengesContainer extends React.Component{
                 <InfiniteScroll
                     next={this.loadChallenges}
                     hasMore={this.state.hasMore}
-                    endMessage={<span style={{textAlign: 'center', clear: 'both'}}>Those are all your challenges.</span>}
+                    endMessage={<span style={{textAlign: 'center', clear: 'both'}}>END.</span>}
                     loader={<div className="loader" style={{textAlign: 'center', clear: 'both'}}>Loading ...</div>}>
                     {challenges}
                 </InfiniteScroll>

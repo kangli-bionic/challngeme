@@ -23,7 +23,8 @@ export const constants = {
     },
     api: {
         ROOT_ENDPOINT: '/dash',
-        SHORTEN_URL: 'https://www.googleapis.com/urlshortener/v1/url?key=AIzaSyAJJn3luAF_vyeEGuZTaegtFzRWlLoTIAY'
+        SHORTEN_URL: 'https://www.googleapis.com/urlshortener/v1/url?key=AIzaSyAJJn3luAF_vyeEGuZTaegtFzRWlLoTIAY',
+        DOMAIN: 'http://challnge.me'
     },
     images:{
         CHALLENGE_ACCEPTED: '/dash/img/challenge-accepted.jpg',

@@ -2,6 +2,7 @@ import React from 'react';
 import {constants} from '../../common/constants';
 import {Glyphicon} from '../../common/components/Glyphicon';
 import cookie from 'react-cookie';
+import {AdminLTE} from '../../common/template';
 
 export class Profile extends React.Component{
 
@@ -23,6 +24,7 @@ export class Profile extends React.Component{
     }
 
     componentDidMount(){
+        AdminLTE.activate();
         $.get('/dash/getProfile',{userId: this.state.userId})
             .done((data) => {
                 let profile = {
