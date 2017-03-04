@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {Navigation, Header} from './Navigation';
+import { Header} from './Navigation';
 import {Footer} from './Footer';
 import {Notification} from '../../common/components/Notification';
 import {constants} from '../../common/constants';
