@@ -31,14 +31,14 @@ export function Header(props){
                         <li className="dropdown user">
                             <a href="#" className="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
                                 {photo &&  photo != 'null' ?
-                                    <div className="img-rounded img-responsive profile-photo-icon"
+                                    <span className="img-rounded img-responsive profile-photo-icon"
                                          style={{backgroundImage:`url('.${photo}')`}}>
-                                    </div>
+                                    </span>
                                     :
                                     <Glyphicon icon="user" centerBlock=""/>
                                 }
-
                                 <span className="hidden-xs">{cookie.load(constants.cookies.USER)}</span>
+
                             </a>
                             <ul className="dropdown-menu" >
                                 <li>
@@ -49,8 +49,9 @@ export function Header(props){
                                 </li>
                                 <li role="separator" className="divider"></li>
                                 <li>
-                                    <a href="#" onClick={onLogOut}>                                    <Glyphicon icon="off"/>
-                                         Sign out</a>
+                                    <a href="#" onClick={onLogOut}>
+                                        <Glyphicon icon="off"/>
+                                          Sign out</a>
                                 </li>
                             </ul>
                         </li>

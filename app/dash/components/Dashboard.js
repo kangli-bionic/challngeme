@@ -46,7 +46,6 @@ export class Dashboard extends React.Component{
                         {React.cloneElement(this.props.children, {showNotification: this.showNotification})}
                     </div>
                 </div>
-                <Footer/>
             </div>
         );
     }

@@ -176,4 +176,13 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     background-position: center center;
     width: 30px;
     height: 22.5px;
+    float: left;
+    margin-right: 10px;
+    margin-top: -2px;
+}
+
+.main-header .logo,
+.skin-yellow .main-header
+.navbar .nav > li > a{
+    height: 53px !important;
 }
