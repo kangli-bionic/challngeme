@@ -38,12 +38,13 @@ export class Dashboard extends React.Component{
                                            message={this.state.message}/>;
         return (
 
-            <div className="wrapper skin-yellow">
-                <Header title="Challnge me!" />
-                <Navigation/>
-                {this.notification ? notification : ''}
-                <div className="content-wrapper">
-                    {React.cloneElement(this.props.children, {showNotification: this.showNotification})}
+            <div>
+                <div className="wrapper skin-yellow">
+                    <Header title="Challnge me!" />
+                    {this.notification ? notification : ''}
+                    <div className="container" style={{paddingTop:'15px'}}>
+                        {React.cloneElement(this.props.children, {showNotification: this.showNotification})}
+                    </div>
                 </div>
                 <Footer/>
             </div>

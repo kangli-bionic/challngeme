@@ -3,9 +3,11 @@ import { Link, browserHistory } from 'react-router';
 import cookie from 'react-cookie';
 import {constants} from '../../common/constants';
 import {Glyphicon} from '../../common/components/Glyphicon';
+import {Score} from './Score';
 
 export function Header(props){
-    const onLogOut = () => {
+    const onLogOut = (event) => {
+        event.preventDefault();
         cookie.remove(constants.cookies.NEW_USER, {path: '/'});
         cookie.remove(constants.cookies.USER, {path: '/'});
         cookie.remove(constants.cookies.USER_ID, {path: '/'});
@@ -21,16 +23,16 @@ export function Header(props){
                 <span className="logo-lg">{props.title}</span>
             </Link>
             <nav className="navbar navbar-static-top">
-                <a href="#" className="sidebar-toggle glyphicon glyphicon-menu-hamburger" data-toggle="offcanvas" role="button">
-                    <span className="sr-only">Toggle navigation</span>
-                </a>
                 <div className="navbar-custom-menu">
                     <ul className="nav navbar-nav">
+                        <li>
+                            <Score/>
+                        </li>
                         <li className="dropdown user">
                             <a href="#" className="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
                                 {photo &&  photo != 'null' ?
-                                    <div style={{width: '13px'}}>
-                                        <img src={photo} className="img-rounded img-responsive" />
+                                    <div className="img-rounded img-responsive profile-photo-icon"
+                                         style={{backgroundImage:`url('.${photo}')`}}>
                                     </div>
                                     :
                                     <Glyphicon icon="user" centerBlock=""/>
@@ -38,9 +40,17 @@ export function Header(props){
 
                                 <span className="hidden-xs">{cookie.load(constants.cookies.USER)}</span>
                             </a>
-                            <ul className="dropdown-menu">
-                                <li className="user-footer">
-                                    <button className="btn btn-link" onClick={onLogOut}>Sign out</button>
+                            <ul className="dropdown-menu" >
+                                <li>
+                                    <Link to="/categories">Categories</Link>
+                                </li>
+                                <li>
+                                    <Link to="/profiles">Profile</Link>
+                                </li>
+                                <li role="separator" className="divider"></li>
+                                <li>
+                                    <a href="#" onClick={onLogOut}>                                    <Glyphicon icon="off"/>
+                                         Sign out</a>
                                 </li>
                             </ul>
                         </li>

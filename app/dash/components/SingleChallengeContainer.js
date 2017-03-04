@@ -1,6 +1,5 @@
 import React from 'react';
 import {constants} from '../../common/constants';
-import {AdminLTE} from '../../common/template';
 import cookie from 'react-cookie';
 import {Challenge} from './Challenge';
 
@@ -21,7 +20,6 @@ export class SingleChallengeContainer extends React.Component{
     }
 
     componentDidMount(){
-        AdminLTE.activate();
         $.get('/dash/getUserChallengeByChallengeId', {
             userId: this.state.userId,
             challengeId:this.props.params.challengeId
@@ -38,6 +36,7 @@ export class SingleChallengeContainer extends React.Component{
     }
 
     render(){
+
         return(
             <Challenge challenge={this.state.challenge}
                        loading={this.state.loading}/>
@@ -70,7 +69,6 @@ export class CurrentChallenge extends React.Component{
     }
 
     componentDidMount(){
-        AdminLTE.activate();
         //TODO: get all current challenges
         this.getNextChallenge(() => {});
     }

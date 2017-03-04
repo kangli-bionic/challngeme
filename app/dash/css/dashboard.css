@@ -1,4 +1,4 @@
-body{
+body, .wrapper, .content-wrapper{
     background-color: #ecf0f5;
 }
 
@@ -61,8 +61,8 @@ body{
 
 .col-md-4.challenge .box-widget,
 .col-xs-6.challenge .box-widget{
-    min-height: 300px;
-    max-height: 300px;
+    min-height: 350px;
+    max-height: 350px;
     overflow: hidden;
     position: relative;
 }
@@ -84,8 +84,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 }
 
 .challenge-accepted{
-    margin:0 auto;
-    max-width: 30%;
+    max-width: 100px;
     height: auto;
 }
 .widget-user-2 .widget-user-username,
@@ -117,16 +116,18 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 .profile-photo{
     width: 200px;
 }
+.challenge.many .challenge-image{
+    width: 200px;
+    height: 160px;
+    background-position: center center;
+    background-size: cover;
+    clear: both;
+}
+
 @media (max-width: 768px) {
     .profile .col-xs-12 .profile-photo {
         text-align: center;
         margin: 0 auto;
-    }
-    .col-xs-12 .challenge-image{
-        width: 200px;
-        height: 160px;
-        background-position: center center;
-        background-size: cover;
     }
 }
 
@@ -154,4 +155,25 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 
 #sign-up input{
     border-radius: 5px;
+}
+
+.skin-yellow .main-header
+.navbar .dropdown-menu li a,
+.skin-yellow .main-header
+.navbar .dropdown-menu li a:hover{
+    color: #444 !important;
+}
+
+.skin-yellow .main-header
+.navbar .dropdown-menu li a:hover{
+    background: #ecf0f5 !important;
+}
+.dropdown-menu > .divider {
+    background-color: #eee !important;
+}
+.profile-photo-icon{
+    background-size: cover;
+    background-position: center center;
+    width: 30px;
+    height: 22.5px;
 }

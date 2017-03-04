@@ -593,9 +593,3 @@ const fixLayout = () => {
         }
     };
 }
-
-fixLayout();
-
-module.exports= {
-   AdminLTE: $.AdminLTE.layout
-}

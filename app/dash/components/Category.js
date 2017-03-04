@@ -3,7 +3,6 @@ import {browserHistory} from 'react-router';
 import {constants} from '../../common/constants';
 import {Glyphicon} from '../../common/components/Glyphicon';
 import cookie from 'react-cookie';
-import {AdminLTE} from '../../common/template';
 
 export function Category(props){
 
@@ -54,7 +53,6 @@ export class CategoryForm extends React.Component{
     componentDidMount(){
         const that = this;
         this.update = true;
-        AdminLTE.activate();
         $.get('/dash/getCategories', {userId: this.state.userId})
             .done((data) => {
                 that.setState(() => {
@@ -130,13 +128,15 @@ export class CategoryForm extends React.Component{
         return (
             <div className="row">
                 <form onSubmit={this.onSave}>
-                    <div className="col-md-12">
-                        <button type="submit" className="btn btn-lg btn-flat start btn-success">{
-                            (this.state.newUser == "true") ? 'Next' : 'Save'
-                        }</button>
-                    </div>
-                    <div style={{clear: 'both'}}></div>
                     {categories}
+                    <div style={{clear: 'both'}}></div>
+                    <div className="col-md-12">
+                        <div className="pull-right" style={{marginBottom:'15px'}}>
+                            <button type="submit" className="btn btn-lg btn-flat start btn-success">{
+                                (this.state.newUser == "true") ? 'Next' : 'Save'
+                            }</button>
+                        </div>
+                    </div>
                 </form>
             </div>
         )

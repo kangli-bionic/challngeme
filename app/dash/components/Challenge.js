@@ -74,59 +74,72 @@ export const Challenge = (props) => {
                             <div className="box-footer">
                                 <div className="row">
                                     <div className="col-md-12 border-right">
-                                        <div className="description-block">
-                                            {props.hideCategory ?
+
+                                            {props.hideCategory?
                                                 ''
                                                 :
-                                                <img ref={(image) => {
-                                                    challengeAccepted = image;
-                                                }}
-                                                     className="challenge-accepted"
-                                                     src={image}/>
-
+                                                <div className="col-md-3 col-xs-3 col-lg-2">
+                                                    <img ref={(image) => {
+                                                        challengeAccepted = image;
+                                                    }}
+                                                         className="challenge-accepted pull-right"
+                                                         src={image}/>
+                                                </div>
                                             }
 
-                                            <h4 className="description-header">{props.challenge.description}</h4>
-                                            <h4 className="description-text">
-                                                Points: {props.challenge.points} {props.challenge.bonus ? '(x 2)' : ''}</h4>
-                                            <h4 className="description-text">Bonus: {bonus}</h4>
-                                            { props.showTwitterShare ?
-                                                <div style={{textAlign: 'center'}} className="center-block">
-                                                    <a href={`https://twitter.com/share?text=Challenge completed, check it out!&url=${props.shareUrl}&hashtags=challngeme`}
-                                                       className="fa fa-twitter btn bg-aqua share btn-lg" target="_blank"
-                                                       data-show-count="false" onClick={onShared}> Tweet</a>
+                                        <div className="col-md-9 col-xs-9 col-lg-10">
+                                            {!props.challengeOnBottom ?
+                                                <div>
+                                                    <h4>{props.challenge.description}</h4>
+                                                    <h4>
+                                                        Points: {props.challenge.points} {props.challenge.bonus ? '(x 2)' : ''}</h4>
+                                                    <h4>Bonus: {bonus}</h4>
                                                 </div> : ''
                                             }
-                                            { (props.showLinkCurrentChallenge && !showCompleteChallengeForm) ?
-                                                <button type="button" className="btn bg-yellow"
-                                                        onClick={onSeeCurrentChallenge}>See next challenge now</button>
-                                                : ''
-                                            }
-                                            {showCompleteChallengeForm ?
-                                                <CompleteChallengeForm
-                                                    showNotification={props.showNotification}
-                                                    onError={props.onError}
-                                                    showBackLoading={showBackLoading}
-                                                    removeBackLoading={removeBackLoading}
-                                                    onLoadedChallengeImage={showChallengeImage}
-                                                    challenge={props.challenge}
-                                                    onChallengeCompleted={showCompleteChallengeAnimation}/>
-                                                : ''
-                                            }
+                                            <div>
+                                                { props.showTwitterShare ?
+                                                    <span>
+                                                        <a href={`https://twitter.com/share?text=Challenge completed, check it out!&url=${props.shareUrl}&hashtags=challngeme`}
+                                                           className="fa fa-twitter btn bg-aqua share btn-lg" target="_blank"
+                                                           data-show-count="false" onClick={onShared}> Tweet</a>
+                                                    </span> : ''}
+                                                { (props.showLinkCurrentChallenge && !showCompleteChallengeForm) ?
+                                                    <button type="button" className="btn bg-yellow"
+                                                            onClick={onSeeCurrentChallenge}>See next challenge now</button>
+                                                    : '' }
+                                            </div>
                                         </div>
+                                        {showCompleteChallengeForm ?
+                                            <CompleteChallengeForm
+                                                showNotification={props.showNotification}
+                                                onError={props.onError}
+                                                showBackLoading={showBackLoading}
+                                                removeBackLoading={removeBackLoading}
+                                                onLoadedChallengeImage={showChallengeImage}
+                                                challenge={props.challenge}
+                                                onChallengeCompleted={showCompleteChallengeAnimation}/>
+                                            : ''
+                                        }
                                         <div className="challenge-image-container" ref={(image) => {
                                             challengeImage = image;
                                         }} >
-
                                             {props.useDivBackground ?
                                                 <div className="img-rounded challenge-image img-responsive"
-                                                    style={{backgroundImage: `url(${props.challenge.image ? `./uploads/${props.challenge.image}` : constants.images.EMPTY_IMG_SRC}`}}>
+                                                     style={{backgroundImage: `url(${props.challenge.image ? `./uploads/${props.challenge.image}` : constants.images.EMPTY_IMG_SRC}`}}>
                                                 </div>
                                                 :
                                                 <img className="img-rounded challenge-image img-responsive"
                                                      src={ props.challenge.image ? `/uploads/${props.challenge.image}` : constants.images.EMPTY_IMG_SRC}/>
                                             }
                                         </div>
+                                        {props.challengeOnBottom ?
+                                            <div>
+                                                <h4>{props.challenge.description}</h4>
+                                                <h4>
+                                                    Points: {props.challenge.points} {props.challenge.bonus ? '(x 2)' : ''}</h4>
+                                                <h4>Bonus: {bonus}</h4>
+                                            </div> : ''
+                                        }
                                     </div>
                                 </div>
                             </div>

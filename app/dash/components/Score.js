@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router';
 import {constants} from '../../common/constants';
 import {Glyphicon} from '../../common/components/Glyphicon';
 import cookie from 'react-cookie';
@@ -8,7 +9,7 @@ export class Score extends React.Component {
     constructor(props){
         super(props);
         this.state ={
-            score: 0,
+            score: '0',
             userId: cookie.load(constants.cookies.USER_ID)
         };
     }
@@ -24,18 +25,10 @@ export class Score extends React.Component {
 
     render(){
         return(
-            <div className="col-md-6">
-                <div className="info-box bg-green">
-                    <span className="info-box-icon"><Glyphicon icon="stats"/></span>
-                    <div className="info-box-content">
-                        <span className="info-box-text">Score</span>
-                        <div className="progress">
-                            <div className="progress-bar" style={{width: '100%'}}></div>
-                        </div>
-                        <span style={{fontWeight: 'bold', fontSize: '36px'}}>{this.state.score}</span>
-                    </div>
-                </div>
-            </div>
+            <Link to="/challenges" className="btn" title="Click to see your completed challenges"><Glyphicon icon="stats"/> | Score&nbsp;
+                  <span className="badge">{this.state.score}</span>
+            </Link>
+
         );
     }
 }
