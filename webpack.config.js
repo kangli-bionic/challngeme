@@ -9,6 +9,7 @@ module.exports = {
             __dirname+'/node_modules/bootstrap/dist/css/bootstrap.css',
             __dirname + '/node_modules/animate.css/animate.css',
             'script-loader!'+__dirname +'/node_modules/bootstrap/js/dropdown.js',
+            'script-loader!'+__dirname +'/node_modules/bootstrap/js/tooltip.js',
             __dirname + '/app/common/constants.js',
             __dirname + '/app/common/utils.js'
         ],

@@ -25,7 +25,9 @@ export class Score extends React.Component {
 
     render(){
         return(
-            <Link to="/challenges" className="btn" title="Click to see your completed challenges"><Glyphicon icon="stats"/> | Score&nbsp;
+            <Link to="/challenges" className="btn"
+                  data-toggle="tooltip" data-placement="bottom"
+                  title="Click to see your completed challenges"><Glyphicon icon="stats"/> | Score&nbsp;
                   <span className="badge">{this.state.score}</span>
             </Link>
 
