@@ -103,8 +103,10 @@ export const Challenge = (props) => {
                                                            className="fa fa-twitter btn bg-aqua share btn-lg" target="_blank"
                                                            data-show-count="false" onClick={onShared}> Tweet</a>
                                                     </span> : ''}
+                                            </div>
+                                            <div>
                                                 { (props.showLinkCurrentChallenge && !showCompleteChallengeForm) ?
-                                                    <button type="button" className="btn bg-yellow"
+                                                    <button type="button" className="btn bg-yellow" style={{marginBottom:'15px'}}
                                                             onClick={onSeeCurrentChallenge}>See next challenge now</button>
                                                     : '' }
                                             </div>

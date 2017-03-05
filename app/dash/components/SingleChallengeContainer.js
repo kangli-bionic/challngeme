@@ -127,6 +127,7 @@ export class CurrentChallenge extends React.Component{
     }
 
     onChallengeComplete(data){
+        this.props.getScore();
         this.setState({
             challenge: data,
             showTwitterShare: true,

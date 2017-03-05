@@ -26,7 +26,7 @@ export function Header(props){
                 <div className="navbar-custom-menu">
                     <ul className="nav navbar-nav">
                         <li>
-                            <Score/>
+                            <Score score={props.score || '0'}/>
                         </li>
                         <li className="dropdown user">
                             <a href="#" className="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">

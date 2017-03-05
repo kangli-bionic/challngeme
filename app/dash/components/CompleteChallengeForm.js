@@ -72,20 +72,20 @@ export class CompleteChallengeForm extends React.Component{
 
     render(){
         return (
-            <form onSubmit={this.onChallengeCompleted} action="POST" encType="multipart/form-data">
+            <form onSubmit={this.onChallengeCompleted} action="POST" encType="multipart/form-data" className="text-center">
                 <hr/>
                 <input type="file" name="file" id="file" className="center-block hide"
                        accept="image/*"
                        value={this.state.input}
                        onChange={this.onInputChange}/>
-                <label htmlFor="file" className="bg-navy btn-lg complete-challenge-input-label">
+                <label htmlFor="file" className="bg-navy btn-lg complete-challenge-input-label text-center">
                     <Glyphicon icon="open-file" centerBlock=""/>
                     <p>
                         Upload proof of a possible awesome memory
                     </p>
                 </label>
                 <hr/>
-                <button ref={(button) => { this.completeChallenge = button; }} type="submit"
+                <button ref={(button) => { this.completeChallenge = button; }} type="submit" style={{marginBottom:'15px'}}
                         disabled="disabled" className="btn btn-lg btn-success" >Challnge Completed</button>
             </form>
         );
