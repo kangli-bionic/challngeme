@@ -42,7 +42,7 @@ export class PublicChallengeContainer extends React.Component {
             <div className="content-wrapper public-challenge">
                 <div className="col-md-12" >
                     <h1 className="title bg-yellow">
-                        <Link to="/">Challnge me</Link>
+                        <Link to="/">Challnge me!</Link>
                     </h1>
                     {this.state.challenge ?
                         <Challenge loading={this.state.loading}
