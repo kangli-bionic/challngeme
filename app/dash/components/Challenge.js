@@ -78,7 +78,7 @@ export const Challenge = (props) => {
                                             {props.hideCategory?
                                                 ''
                                                 :
-                                                <div className="col-md-3 col-xs-3 col-lg-2">
+                                                <div className="col-md-3 col-xs-3 col-lg-2" style={{overflow: 'hidden'}}>
                                                     <img ref={(image) => {
                                                         challengeAccepted = image;
                                                     }}
