@@ -128,8 +128,9 @@ hr{
     -moz-background-size: cover;
     -o-background-size: cover;
     background-position: center center;
-    background-size: cover;
+    background-size: contain;
     clear: both;
+    background-repeat: no-repeat;
 }
 .many .challenge-accepted {
     max-width: 100px;
@@ -214,15 +215,6 @@ hr{
 .challenge.raw .detail{
     font-weight: bold;
     font-size: 12px;
-    font-style: italic;
-}
-.challenge.raw .desc2{
-    font-weight: bold;
-    font-size: 20px;
-}
-.challenge.raw .detail2{
-    font-weight: bold;
-    font-size: 10px;
     font-style: italic;
 }
 .many>h1{
