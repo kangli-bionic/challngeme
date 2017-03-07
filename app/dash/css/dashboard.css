@@ -231,6 +231,6 @@ hr{
 }
 @media screen and (max-device-width: 1024px){
     .challenge.many .challenge-image{
-        background-attachment: scroll;
+        background-position: scroll;
     }
 }
