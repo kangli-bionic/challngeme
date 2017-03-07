@@ -35,6 +35,7 @@ export class CompleteChallengeForm extends React.Component{
         try{
             reader.readAsDataURL(selectedFile);
         }catch(ex){
+            this.props.removeBackLoading();
             completeChallengeForm.props.onLoadedChallengeImage(constants.images.EMPTY_IMG_SRC);
             $completeChallenge.attr('disabled','disabled');
         }

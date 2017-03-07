@@ -130,7 +130,6 @@ hr{
     background-position: center center;
     background-size: cover;
     clear: both;
-    background-repeat: no-repeat;
 }
 .many .challenge-accepted {
     max-width: 100px;
@@ -153,9 +152,6 @@ hr{
     .main-header .logo, .main-header .navbar{
         width: 100%;
         margin:0;
-    }
-    .challenge.many .challenge-image{
-        background-size:contain;
     }
 }
 .backloading{
