@@ -60,8 +60,8 @@ hr{
 }
 .col-md-4.challenge .box-widget,
 .col-xs-6.challenge .box-widget{
-    min-height: 330px;
-    max-height: 330px;
+    min-height: 315px;
+    max-height: 315px;
     overflow: hidden;
     position: relative;
 }
@@ -213,9 +213,18 @@ hr{
     font-size: 12px;
     font-style: italic;
 }
+.challenge.raw .desc2{
+    font-weight: bold;
+    font-size: 20px;
+}
+.challenge.raw .detail2{
+    font-weight: bold;
+    font-size: 10px;
+    font-style: italic;
+}
 .many>h1{
     font-weight: bold;
-    font-size: 48px;
+    font-size: 38px;
 }
 .tooltip-inner{
     font-family: 'Muli', cursiva;

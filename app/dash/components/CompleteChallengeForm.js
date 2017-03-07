@@ -84,7 +84,7 @@ export class CompleteChallengeForm extends React.Component{
                     </p>
                 </label>
                 <hr/>
-                <button ref={(button) => { this.completeChallenge = button; }} type="submit" style={{marginBottom:'15px'}}
+                <button ref={(button) => { this.completeChallenge = button; }} type="submit"
                         disabled="disabled" className="btn btn-lg btn-success" >Challnge Completed</button>
             </form>
         );
