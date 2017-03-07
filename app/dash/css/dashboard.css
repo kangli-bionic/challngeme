@@ -124,6 +124,9 @@ hr{
 .challenge.many .challenge-image{
     width: 200px;
     height: 160px;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
     background-position: center center;
     background-size: cover;
     clear: both;
@@ -230,19 +233,7 @@ hr{
     font-family: 'Muli', cursiva;
 }
 @media screen and (max-device-width: 1024px){
-    .challenge.many .challenge-image:before{
-        content: "";
-        display: block;
-        position: fixed;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        z-index: -10;
-        background-positions: center center;
-        -webkit-background-size: cover;
-        -moz-background-size: cover;
-        -o-background-size: cover;
-        background-size: cover;
+    .challenge.many .challenge-image{
+        background-size:contain;
     }
 }
