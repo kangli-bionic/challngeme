@@ -58,11 +58,11 @@ export class ChallengesContainer extends React.Component{
         return (
             <div>
                 <div style={{overflow:'auto'}}>
-                    <div className="col-md-3 col-xs-3 col-lg-2">
+                    <div className="col-md-3 col-xs-3 col-lg-2 many">
                         <img className="challenge-accepted pull-right"
                              src={constants.images.CHALLENGE_COMPLETED}/>
                     </div>
-                    <div className="col-md-9 col-xs-9 col-lg-10">
+                    <div className="col-md-9 col-xs-9 col-lg-10 many">
                         <h1>Completed Challenges</h1>
                     </div>
                 </div>

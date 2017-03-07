@@ -1,7 +1,17 @@
 body, .wrapper, .content-wrapper{
     background-color: #ecf0f5;
+    font-family: 'Muli', sans-serif;
 }
-
+hr{
+    margin-top:15px;
+    margin-bottom: 15px;
+}
+.main-header .logo{
+    width: 300px;
+}
+.main-header .navbar{
+    margin-left: 300px;
+}
 .category {
     cursor: pointer;
     border:none;
@@ -9,82 +19,67 @@ body, .wrapper, .content-wrapper{
     padding-bottom: 0px;
     padding-top: 5px;
 }
-
 .content-wrapper{
     position: relative;
     padding: 15px 15px 15px 15px;
 }
-
 .widget-user .widget-user-header{
     height: 80px;
 }
-
 .challenge-image{
     margin: 0 auto;
     max-width: 100%;
     height: auto;
 }
-
 .hide{
     display: none;
 }
 .show{
     display: initial;
 }
-
 .challenge{
     padding:5px !important;
 }
-
 #root{
     background-color: #ecf0f5;
 }
-
 .skin-yellow .main-sidebar .sidebar .user-panel .image span{
   color:#ffffff;
 }
-
 .custom-icon{
     margin-left:5px
 }
-
 .selection-mark{
     position: absolute;
     top: -1px;
     right: 2px;
     font-size: 36px;
 }
-
 .selected{
     position: relative;
 }
-
 .col-md-4.challenge .box-widget,
 .col-xs-6.challenge .box-widget{
-    min-height: 350px;
-    max-height: 350px;
+    min-height: 330px;
+    max-height: 330px;
     overflow: hidden;
     position: relative;
 }
-
-
 .category .small-box{
     min-height: 110px;
     max-height: 110px;
 }
-
 .logo-lg{
-    font-family: "Roboto", Helvetica, Arial, cursive;
+    font-family: "Atma",  cursive;
     font-weight: bold;
     color: #fff;
+    font-size:40px;
 }
-
-h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
-    font-family: 'Roboto', sans-serif;
+.text-light{
+    font-weight:lighter !important;
 }
-
 .challenge-accepted{
-    max-width: 100px;
+    max-width: 130px;
     height: auto;
 }
 .widget-user-2 .widget-user-username,
@@ -92,27 +87,37 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     text-align: center;
     margin:0;
 }
-
+.widget-user-username{
+    font-size: 20px !important;
+    font-weight:bold !important;
+}
+.widget-user-desc{
+    font-size: 10px;
+    font-weight: lighter;
+    font-style: italic;
+}
 .share{
     margin-bottom: 3px;
 }
-
 .title{
     text-align: center;
     padding: 15px;
-    font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
-}
+    font-family: "Atma",  cursive;}
 
 .title a{
     color:#ffffff;
     cursor: pointer;
 }
-
 .complete-challenge-input-label,
 .profile-photo{
     cursor:pointer;
 }
 
+.complete-challenge-input-label{
+    font-weight: bold;
+    font-size: 16px;
+    margin-top: 15px;
+}
 .profile-photo{
     width: 200px;
 }
@@ -123,14 +128,29 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     background-size: cover;
     clear: both;
 }
-
+.many .challenge-accepted {
+    max-width: 100px;
+    margin-top: 10px;
+}
 @media (max-width: 768px) {
     .profile .col-xs-12 .profile-photo {
         text-align: center;
         margin: 0 auto;
     }
+    .challenge-accepted{
+        max-width: 80px;
+    }
+    .many .challenge-accepted {
+        max-width: 114px;
+        margin-top: 15px;
+        padding-right: 0px;
+        margin-right: -25px;
+    }
+    .main-header .logo, .main-header .navbar{
+        width: 100%;
+        margin:0;
+    }
 }
-
 .backloading{
     width: 100%;
     height: 100%;
@@ -142,7 +162,6 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     text-align: center;
     background-color: rgba(0,0,0,0.7);
 }
-
 .backloading > div{
     height:100%;
     min-height: 100%;
@@ -152,18 +171,15 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 .input-error{
     border: 1px solid #dd4b39;
 }
-
 #sign-up input{
     border-radius: 5px;
 }
-
 .skin-yellow .main-header
 .navbar .dropdown-menu li a,
 .skin-yellow .main-header
 .navbar .dropdown-menu li a:hover{
     color: #444 !important;
 }
-
 .skin-yellow .main-header
 .navbar .dropdown-menu li a:hover{
     background: #ecf0f5 !important;
@@ -180,9 +196,27 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     margin-right: 10px;
     margin-top: -2px;
 }
-
 .main-header .logo,
 .skin-yellow .main-header
 .navbar .nav > li > a{
     height: 53px !important;
+}
+.challenge.raw{
+    padding:0px !important;
+}
+.challenge.raw .desc{
+    font-weight: bold;
+    font-size: 24px;
+}
+.challenge.raw .detail{
+    font-weight: bold;
+    font-size: 12px;
+    font-style: italic;
+}
+.many>h1{
+    font-weight: bold;
+    font-size: 48px;
+}
+.tooltip-inner{
+    font-family: 'Muli', cursiva;
 }

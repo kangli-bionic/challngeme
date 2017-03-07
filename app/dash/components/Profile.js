@@ -119,9 +119,9 @@ export class Profile extends React.Component{
     render(){
         return(
             <form role="form" method="POST" onSubmit={this.onSubmit}>
-                <div className="box-body profile">
+                <div className="box-body profile col-xs-12 col-md-6">
                     <div className="col-xs-12 col-md-offset-0 col-lg-offset-0 col-md-4 col-lg-4">
-                        <div className="profile-photo">
+                        <div className="profile-photo" style={{padding:'0px'}}>
                             {this.state.file ?
                                 <label htmlFor="photo">
                                     <img src={this.state.file} className="center-block img-responsive"
@@ -145,7 +145,7 @@ export class Profile extends React.Component{
                     </div>
 
                     <div style={{clear:'both'}}></div>
-                    <div className="form-group col-md-6">
+                    <div className="form-group col-md-12">
                         <label htmlFor="firstName">First Name</label>
                         <input type="text" className="form-control" id="firstName" name="firstName"
                                placeholder="Enter your first name"
@@ -154,7 +154,7 @@ export class Profile extends React.Component{
                     </div>
                     <div style={{clear:'both'}}></div>
 
-                    <div className="form-group col-md-6">
+                    <div className="form-group col-md-12">
                         <label htmlFor="lastName">Last Name</label>
                         <input type="text" className="form-control" id="lastName" name="lastName"
                                placeholder="Enter your last name"
@@ -163,7 +163,7 @@ export class Profile extends React.Component{
                     </div>
                     <div style={{clear:'both'}}></div>
 
-                    <div className="form-group col-md-6">
+                    <div className="form-group col-md-12">
                         <label>Email Address</label>
                         <input type="email" disabled="disabled" className="form-control" id="email"  name="email"
                                onChange={this.onInputChange}
@@ -175,8 +175,10 @@ export class Profile extends React.Component{
                            accept="image/*"
                            value={this.state.photo}
                            onChange={this.onInputFileChange}/>
-                    <button type="submit"  style={{marginLeft:'15px'}}
-                            className="btn btn-success btn-lg">Save</button>
+                    <div className="col-md-12">
+                        <button type="submit"  style={{marginLeft:'15px'}}
+                                className="btn btn-success btn-lg pull-right">Save</button>
+                    </div>
                 </div>
             </form>
         );

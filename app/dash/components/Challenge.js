@@ -54,7 +54,7 @@ export const Challenge = (props) => {
 
     //TODO: if challenge was complete by friend show it on corresponding section
     return (
-        <div className="box box-widget widget-user-2 ">
+        <div className="box box-widget widget-user-2 challenge raw">
             <div className="backloading" ref={(div) => {backLoading = div}} style={{display:'none'}}>
                 <div className="center-block">
                     <img src={constants.images.LOADING} alt="Uploading..."/>
@@ -66,19 +66,19 @@ export const Challenge = (props) => {
                         <div>
                             {props.hideCategory ?
                                 ''
-                                : <div className="widget-user-header bg-aqua">
-                                <h3 className="widget-user-username">{props.challenge.category.name}</h3>
-                                <h4 className="widget-user-desc">{props.challenge.category.description}</h4>
-                            </div>
+                                :
+                                <div className="widget-user-header bg-aqua">
+                                    <p className="widget-user-username">{props.challenge.category.name}</p>
+                                    <p className="widget-user-desc">"{props.challenge.category.description}"</p>
+                                </div>
                             }
-                            <div className="box-footer">
+                            <div className="box-body">
                                 <div className="row">
                                     <div className="col-md-12 border-right">
-
                                             {props.hideCategory?
                                                 ''
                                                 :
-                                                <div className="col-md-3 col-xs-3 col-lg-2" style={{overflow: 'hidden'}}>
+                                                <div className="col-md-3 col-xs-3 col-lg-2" style={{overflow: 'hidden', paddingRight:'0px'}}>
                                                     <img ref={(image) => {
                                                         challengeAccepted = image;
                                                     }}
@@ -90,27 +90,27 @@ export const Challenge = (props) => {
                                         <div className="col-md-9 col-xs-9 col-lg-10">
                                             {!props.challengeOnBottom ?
                                                 <div>
-                                                    <h4>{props.challenge.description}</h4>
-                                                    <h4>
-                                                        Points: {props.challenge.points} {props.challenge.bonus ? '(x 2)' : ''}</h4>
-                                                    <h4>Bonus: {bonus}</h4>
+                                                    <div className="desc">{props.challenge.description}</div>
+                                                    <span className="detail">Points: {props.challenge.points} {props.challenge.bonus ? `(x 2)` : ''}, </span>
+                                                    <span className="detail">Bonus: {bonus}</span>
                                                 </div> : ''
                                             }
                                             <div>
                                                 { props.showTwitterShare ?
                                                     <span>
                                                         <a href={`https://twitter.com/share?text=Challenge completed, check it out!&url=${props.shareUrl}&hashtags=challngeme`}
-                                                           className="fa fa-twitter btn bg-aqua share btn-lg" target="_blank"
+                                                           className="fa fa-twitter btn bg-aqua share btn-sm" target="_blank"
                                                            data-show-count="false" onClick={onShared}> Tweet</a>
                                                     </span> : ''}
                                             </div>
                                             <div>
                                                 { (props.showLinkCurrentChallenge && !showCompleteChallengeForm) ?
-                                                    <button type="button" className="btn bg-yellow" style={{marginBottom:'15px'}}
+                                                    <button type="button" className="btn btn-sm bg-yellow" style={{marginBottom:'15px'}}
                                                             onClick={onSeeCurrentChallenge}>See next challenge now</button>
                                                     : '' }
                                             </div>
                                         </div>
+                                        <div style={{clear:'both'}}></div>
                                         {showCompleteChallengeForm ?
                                             <CompleteChallengeForm
                                                 showNotification={props.showNotification}
@@ -136,10 +136,9 @@ export const Challenge = (props) => {
                                         </div>
                                         {props.challengeOnBottom ?
                                             <div>
-                                                <h4>{props.challenge.description}</h4>
-                                                <h4>
-                                                    Points: {props.challenge.points} {props.challenge.bonus ? '(x 2)' : ''}</h4>
-                                                <h4>Bonus: {bonus}</h4>
+                                                <div className="desc">{props.challenge.description}</div>
+                                                <span className="detail">Points: {props.challenge.points} {props.challenge.bonus ? `(x 2)` : ''}, </span>
+                                                <span className="detail">Bonus: {bonus}</span>
                                             </div> : ''
                                         }
                                     </div>
