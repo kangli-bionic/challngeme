@@ -127,7 +127,7 @@ export const Challenge = (props) => {
                                         }} >
                                             {props.useDivBackground ?
                                                 <div className="img-rounded challenge-image img-responsive"
-                                                     style={{backgroundImage: `url(${props.challenge.image ? `./uploads/${props.challenge.image}` : constants.images.EMPTY_IMG_SRC})`}}>
+                                                     style={{backgroundImage: `url('${props.challenge.image ? `./uploads/${props.challenge.image}` : constants.images.EMPTY_IMG_SRC}')`}}>
                                                 </div>
                                                 :
                                                 <img className="img-rounded challenge-image img-responsive" style={{marginTop:'15px'}}
