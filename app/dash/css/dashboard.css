@@ -231,7 +231,6 @@ hr{
 }
 @media screen and (max-device-width: 1024px){
     .challenge.many .challenge-image{
-        background-attachment: fixed;
         position: fixed; z-index:-1;
     }
 }
