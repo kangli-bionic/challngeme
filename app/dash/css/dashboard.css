@@ -127,6 +127,7 @@ hr{
     background-position: center center;
     background-size: cover;
     clear: both;
+    background-attachment: fixed;
 }
 .many .challenge-accepted {
     max-width: 100px;
@@ -190,6 +191,7 @@ hr{
 .profile-photo-icon{
     background-size: cover;
     background-position: center center;
+    background-attachment: fixed;
     width: 30px;
     height: 22.5px;
     float: left;
