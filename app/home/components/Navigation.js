@@ -19,7 +19,7 @@ export function Header(props){
                 <div className="intro-text">
                     <div className="col-md-7">
                         <div className="intro-heading">{props.title}</div>
-                        <div className="intro-lead-in">{props.subtitle}</div>
+                        <div className="intro-lead-in">"{props.subtitle}"</div>
                     </div>
                     <div className="col-md-5">
                         {props.children}

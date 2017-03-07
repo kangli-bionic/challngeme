@@ -22,7 +22,7 @@ class App extends React.Component{
         this.state = {
             error: ''
         }
-        this.title = "Challnge me";
+        this.title = "Challnge me!";
         this.subtitle = "You better be up for the challenge!";
         this.onError = this.onError.bind(this);
         this.removeNotification = this.removeNotification.bind(this);
