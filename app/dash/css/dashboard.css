@@ -131,6 +131,7 @@ hr{
     background-size: contain;
     clear: both;
     background-repeat: no-repeat;
+    @media only screen and (min-width : 992px)  {background-attachment: fixed;}
 }
 .many .challenge-accepted {
     max-width: 100px;
@@ -224,3 +225,6 @@ hr{
 .tooltip-inner{
     font-family: 'Muli', cursiva;
 }
+
+
+
