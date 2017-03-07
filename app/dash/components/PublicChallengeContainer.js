@@ -39,7 +39,7 @@ export class PublicChallengeContainer extends React.Component {
 
     render(){
         return(
-            <div className="content-wrapper public-challenge">
+            <div className="container public-challenge">
                 <div className="col-md-12" >
                     <h1 className="title bg-yellow">
                         <Link to="/">Challnge me!</Link>
