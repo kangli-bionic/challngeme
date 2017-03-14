@@ -1,5 +1,6 @@
 const model = require('../models/model');
 const multer  = require('multer');
+const Cryptr = require('cryptr');
 
 let storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -141,7 +142,9 @@ const getProfile= (req, res) => {
 
 const getPublicProfile = (req, res) => {
     let userId = req.query.userId;
-    let challengeId = req.query.challengeId;
+    const crypt = new Cryptr('thesecret');
+    let challengeId = crypt.decrypt(req.query.challengeId);;
+
     model.getPublicProfile(userId, challengeId).then((data) => {
         fulfill(data, res);
     }, (err) => {

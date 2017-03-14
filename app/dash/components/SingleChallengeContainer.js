@@ -2,6 +2,7 @@ import React from 'react';
 import {constants} from '../../common/constants';
 import cookie from 'react-cookie';
 import {Challenge} from './Challenge';
+import Cryptr from 'cryptr';
 
 export class SingleChallengeContainer extends React.Component{
 
@@ -89,7 +90,10 @@ export class CurrentChallenge extends React.Component{
                     });
                     return;
                 }
-                let baseUrl = `http://${document.domain}/profiles/${this.state.userId}/challenges/${data.id}`;
+                let cryptr = new Cryptr('thesecret');
+                const id = cryptr.encrypt(data.id);
+                console.log(id);
+                let baseUrl = `http://${document.domain}/profiles/${this.state.userId}/challenges/${id}`;
 
                 $.ajax({
                     method:'POST',

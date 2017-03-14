@@ -19,6 +19,7 @@ export class PublicChallengeContainer extends React.Component {
     }
 
     componentDidMount() {
+
        $.get('/dash/getPublicChallenge', {
            userId: this.props.params.userId,
            challengeId: this.props.params.challengeId
