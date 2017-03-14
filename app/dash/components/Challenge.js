@@ -127,18 +127,18 @@ export const Challenge = (props) => {
                                         }} >
                                             {props.useDivBackground ?
                                                 <div className="img-rounded challenge-image img-responsive"
-                                                     style={{backgroundImage: `url(${props.challenge.image ? `./uploads/${props.challenge.image}` : constants.images.EMPTY_IMG_SRC}`}}>
+                                                     style={{backgroundImage: `url('${props.challenge.image ? `./uploads/${props.challenge.image}` : constants.images.EMPTY_IMG_SRC}')`}}>
                                                 </div>
                                                 :
-                                                <img className="img-rounded challenge-image img-responsive" style={{marginTop:'15px'}}
+                                                <img className="img-rounded challenge-image img-responsive"
                                                      src={ props.challenge.image ? `/uploads/${props.challenge.image}` : constants.images.EMPTY_IMG_SRC}/>
                                             }
                                         </div>
                                         {props.challengeOnBottom ?
                                             <div>
-                                                <div className="desc2">{props.challenge.description}</div>
-                                                <span className="detail2">Points: {props.challenge.points} {props.challenge.bonus ? `(x 2)` : ''}, </span>
-                                                <span className="detail2">Bonus: {bonus}</span>
+                                                <div className="desc">{props.challenge.description}</div>
+                                                <span className="detail">Points: {props.challenge.points} {props.challenge.bonus ? `(x 2)` : ''}, </span>
+                                                <span className="detail">Bonus: {bonus}</span>
                                             </div> : ''
                                         }
                                     </div>

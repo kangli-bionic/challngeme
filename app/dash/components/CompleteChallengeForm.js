@@ -35,6 +35,7 @@ export class CompleteChallengeForm extends React.Component{
         try{
             reader.readAsDataURL(selectedFile);
         }catch(ex){
+            this.props.removeBackLoading();
             completeChallengeForm.props.onLoadedChallengeImage(constants.images.EMPTY_IMG_SRC);
             $completeChallenge.attr('disabled','disabled');
         }
@@ -84,7 +85,7 @@ export class CompleteChallengeForm extends React.Component{
                     </p>
                 </label>
                 <hr/>
-                <button ref={(button) => { this.completeChallenge = button; }} type="submit"
+                <button ref={(button) => { this.completeChallenge = button; }} type="submit" style={{marginBottom:'15px'}}
                         disabled="disabled" className="btn btn-lg btn-success" >Challnge Completed</button>
             </form>
         );
