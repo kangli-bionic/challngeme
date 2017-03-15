@@ -133,7 +133,7 @@ hr{
     -moz-background-size: cover;
     -o-background-size: cover;
     background-position: center center;
-    background-size: contain;
+    background-size: cover;
     clear: both;
     background-repeat: no-repeat;
 }
