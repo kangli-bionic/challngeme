@@ -229,8 +229,8 @@ hr{
 .tooltip-inner{
     font-family: 'Muli', cursiva;
 }
-@media only screen and (min-width : 992px) and (-webkit-min-device-pixel-ratio: 2) {
+@media (min-width : 992px) and (-webkit-min-device-pixel-ratio: 2) {
     .challenge.many .challenge-image{
-        background-attachment: fixed;
+        background-attachment: scroll;
     }
 }
